@@ -4,12 +4,20 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climber extends SubsystemBase {
   private static Climber instance = null;
+  private Solenoid breakSolenoid;
   /** Creates a new climber. */
-  private Climber() {}
+  private Climber() {
+
+    breakSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
+    toggleBreak(true);
+  }
+
   
   /** Returns the singleton climber. */
   public static Climber getInstance() {
@@ -17,6 +25,19 @@ public class Climber extends SubsystemBase {
       instance = new Climber(); 
     }
     return instance;
+  }
+
+  public void toggleBreak(){
+    toggleBreak(!isBreakOn());
+  }
+
+  public void toggleBreak(boolean activateBreak){
+    breakSolenoid.set(activateBreak);
+
+  }
+
+  public boolean isBreakOn(){
+    return breakSolenoid.get();
   }
   
   /* TODO :
