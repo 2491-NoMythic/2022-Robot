@@ -14,6 +14,7 @@ public class Drive implements Command {
     
     double currentLeftSpeed = 0;
     double currentRightSpeed = 0;
+    Joystick driveStick = new Joystick(0);
 
     @Override
     public Set<Subsystem> getRequirements() {
@@ -27,8 +28,12 @@ public class Drive implements Command {
         this.drivetrain = drivetrain;
     }
 
+    @Override
     public void execute()
     {
+        var robotTurnSpeed = driveStick.getX();
+        currentLeftSpeed = driveStick.getY() - robotTurnSpeed;
+        currentRightSpeed = driveStick.getY() + robotTurnSpeed;
         drivetrain.setDrive(currentLeftSpeed, currentRightSpeed);
     }
 
