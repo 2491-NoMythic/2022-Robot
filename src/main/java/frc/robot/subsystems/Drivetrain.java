@@ -32,18 +32,22 @@ public class Drivetrain extends SubsystemBase{
     }
 
     /**
- * This command makes the motors move at the same rate, with default control mode PercentOutput. 
+ * This command makes the motors move at the same rate, with default control mode PercentOutput(Left, Right). 
  */
     public void setDrive(double speed){
         setDrive(ControlMode.PercentOutput, speed, speed);
     }
-
+/**
+ * Controls motors with contorol PercentOutput. (Left, Right)
+ * @param leftSpeed
+ * @param rightSpeed
+ */
     public void setDrive(double leftSpeed, double rightSpeed) {
         setDriveLeft(ControlMode.PercentOutput, leftSpeed);
         setDriveRight(ControlMode.PercentOutput, rightSpeed);
     }
 /**
- * Controls motors with control mode
+ * Controls motors with control mode. (Left, Right)
  *Also, never gonna give you up, never gonna let you down, never going to annoy Liam by typing this comment. :)
  */
     public void setDrive(ControlMode mode, double leftSpeed, double rightSpeed) {
