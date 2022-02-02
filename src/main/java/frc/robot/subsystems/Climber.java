@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -11,6 +13,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import static frc.robot.settings.Constants.Climber.*;
 
 public class Climber extends SubsystemBase {
   private static Climber instance = null;
@@ -20,10 +23,17 @@ public class Climber extends SubsystemBase {
   /** Creates a new climber. */
   private Climber() {
 
-    breakSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
-    armSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 0);
-    leftWinchMotor = new WPI_TalonFX(0);
-    rightWinchMotor = new WPI_TalonFX(0);
+    breakSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, BREAK_CHANNEL);
+    armSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
+    leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
+    rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
+
+    rightWinchMotor.setInverted(InvertType.None);
+    leftWinchMotor.setInverted(InvertType.None);
+
+    rightWinchMotor.set(ControlMode.PercentOutput, 0);
+    leftWinchMotor.set(ControlMode.PercentOutput, 0);
+
     toggleBreak(true);
   }
 
@@ -58,6 +68,13 @@ public void setArmOut (){
   armSolenoid.set(Value.kForward);
 
 }
+
+public void setMotorSpeed(double speed){
+  rightWinchMotor.set(ControlMode.PercentOutput, speed);
+  leftWinchMotor.set(ControlMode.PercentOutput, speed);
+ 
+}
+
 
   /* TODO :
     - ask about motors
