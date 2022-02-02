@@ -37,8 +37,10 @@ public final class Constants {
      * TODO: link
      */
     public final class Drivetrain {
-        private Drivetrain() {
-        }
+        public final static int driveLeftMotor1= 2491;
+        public final static int driveLeftMotor2= 2491;
+        public final static int driveRightMotor1= 2491;
+        public final static int driveRightMotor2= 2491;
     }
 
     /**
