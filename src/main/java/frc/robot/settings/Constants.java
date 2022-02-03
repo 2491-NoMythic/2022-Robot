@@ -48,6 +48,8 @@ public final class Constants {
     public final class Intake {
         private Intake() {
         }
-
+        public static final int ARM_FORWARD_CHANNEL = 0;
+        public static final int ARM_REVERSE_CHANNEL = 0;
+        public static final int AXLE_ID = 0;
     }
 }
