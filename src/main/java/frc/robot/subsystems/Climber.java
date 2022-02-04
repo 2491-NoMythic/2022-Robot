@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -20,6 +21,8 @@ public class Climber extends SubsystemBase {
   private Solenoid breakSolenoid;
   private DoubleSolenoid armSolenoid;
   private WPI_TalonFX leftWinchMotor, rightWinchMotor;
+  private DigitalInput topRightLimitSwitch, bottomRightLimitSwitch, topLeftLimitSwitch, bottomLeftLimitSwitch;
+    
   /** Creates a new climber. */
   private Climber() {
 
@@ -27,6 +30,11 @@ public class Climber extends SubsystemBase {
     armSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
     leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
     rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
+
+    topRightLimitSwitch = new DigitalInput(TOP_RIGHT_LIMIT_SWITCH);
+    topLeftLimitSwitch = new DigitalInput(TOP_LEFT_LIMIT_SWITCH);
+    bottomRightLimitSwitch = new DigitalInput(BOTTOM_RIGHT_LIMIT_SWITCH);
+    bottomLeftLimitSwitch = new DigitalInput(BOTTOM_LEFT_LIMIT_SWITCH);
 
     rightWinchMotor.setInverted(InvertType.None);
     leftWinchMotor.setInverted(InvertType.None);
@@ -69,12 +77,62 @@ public void setArmOut (){
 
 }
 
-public void setMotorSpeed(double speed){
-  rightWinchMotor.set(ControlMode.PercentOutput, speed);
-  leftWinchMotor.set(ControlMode.PercentOutput, speed);
- 
+private void setMotorSpeed(double leftSpeed, double rightSpeed){
+  rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
+  leftWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
 }
 
+/**
+ * use motors to move the climber into extended position
+ * @param speed 0-1 speed
+ * @return whether motors are still running or not
+ * @note method must be called repeatedly so robot can accuratley check sensors
+ */
+public boolean climberOut(double speed){ 
+  if (speed < 0) {
+    setMotorSpeed(0, 0);
+    return false;
+  }
+
+  double leftSpeed = speed;
+  double rightSpeed = speed;
+  
+  if (topLeftLimitSwitch.get()){
+    leftSpeed = 0;
+  }
+  if (topRightLimitSwitch.get()){
+    rightSpeed = 0;
+  }
+  setMotorSpeed(leftSpeed, rightSpeed);
+
+  return leftSpeed != 0 || rightSpeed != 0;
+}
+
+/**
+ * use motors to move the climber into extended position
+ * @param speed 0-1 speed
+ * @return whether motors are still running or not
+ * @note method must be called repeatedly so robot can accuratley check sensors
+ */
+public boolean climberIn(double speed){ 
+  if (speed < 0) {
+    setMotorSpeed(0, 0);
+    return false;
+  }
+
+  double leftSpeed = -speed;
+  double rightSpeed = -speed;
+  
+  if (bottomLeftLimitSwitch.get()){
+    leftSpeed = 0;
+  }
+  if (bottomRightLimitSwitch.get()){
+    rightSpeed = 0;
+  }
+  setMotorSpeed(leftSpeed, rightSpeed);
+
+  return leftSpeed != 0 || rightSpeed != 0;
+}
 
   /* TODO :
     - ask about motors

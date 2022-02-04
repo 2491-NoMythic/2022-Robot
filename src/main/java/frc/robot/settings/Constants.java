@@ -22,14 +22,19 @@ public final class Constants {
      * TODO: link
      */
     public final class Climber {
-        private Climber() {
-        }
 
         public static final int BREAK_CHANNEL = 0;
+
         public static final int ARM_FORWARD_CHANNEL = 0;
         public static final int ARM_REVERSE_CHANNEL = 0;
+
         public static final int LEFT_WINCH_ID = 0;
         public static final int RIGHT_WINCH_ID = 0;
+
+        public static final int TOP_RIGHT_LIMIT_SWITCH = 0;
+        public static final int BOTTOM_RIGHT_LIMIT_SWITCH = 0;
+        public static final int TOP_LEFT_LIMIT_SWITCH = 0;
+        public static final int BOTTOM_LEFT_LIMIT_SWITCH = 0;
     }
 
     /**
