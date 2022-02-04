@@ -134,6 +134,10 @@ public boolean climberIn(double speed){
   return leftSpeed != 0 || rightSpeed != 0;
 }
 
+public void stop(){
+  setMotorSpeed(0, 0);
+}
+
   /* TODO :
     - ask about motors
     - add a pnumatics control hub
