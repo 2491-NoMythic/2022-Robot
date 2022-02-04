@@ -3,6 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 //All Hail the Glorious Shotgun Princess
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -31,10 +32,12 @@ public class Drive implements Command {
     @Override
     public void execute()
     {
+        double m_SpeedManager = 1-(driveStick.getRawAxis(3)+1)/+2;
+        SmartDashboard.putNumber("Slider", m_SpeedManager);
         var robotTurnSpeed = driveStick.getX();
         currentLeftSpeed = driveStick.getY() - robotTurnSpeed;
         currentRightSpeed = driveStick.getY() + robotTurnSpeed;
-        drivetrain.setDrive(currentLeftSpeed, currentRightSpeed);
+        drivetrain.setDrive(currentLeftSpeed *m_SpeedManager, currentRightSpeed *m_SpeedManager);
     }
 
 
