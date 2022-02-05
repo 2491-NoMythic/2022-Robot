@@ -20,10 +20,10 @@ public final class Constants {
      */
     public final class Drivetrain {
         private Drivetrain() {}
-        public static final int LEFT_MOTOR_ID_1= 0;
-        public static final int LEFT_MOTOR_ID_2= 0;
-        public static final int RIGHT_MOTOR_ID_1= 0;
-        public static final int RIGHT_MOTOR_ID_2= 0;
+        public static final int LEFT_LEAD_ID= 1;
+        public static final int LEFT_FOLLOW_ID= 3;
+        public static final int RIGHT_LEAD_ID= 2;
+        public static final int RIGHT_FOLLOW_ID= 4;
         
     }
 

@@ -8,27 +8,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Drivetrain.*;
 
 public class Drivetrain extends SubsystemBase{
-    private WPI_TalonFX driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2;
+    private WPI_TalonFX leftLeadMotor;
+    private WPI_TalonFX leftFollowMotor;
+    private WPI_TalonFX rightLeadMotor;
+    private WPI_TalonFX rightFollowMotor;
     public Drivetrain() {
 /**
  * These are IDs.
  */
-		driveLeftMotor1 = new WPI_TalonFX(LEFT_MOTOR_ID_1);
-		driveLeftMotor2 = new WPI_TalonFX(LEFT_MOTOR_ID_2);
-		driveRightMotor1 = new WPI_TalonFX(RIGHT_MOTOR_ID_1);
-		driveRightMotor2 = new WPI_TalonFX(RIGHT_MOTOR_ID_2);
+		leftLeadMotor = new WPI_TalonFX(LEFT_LEAD_ID);
+		leftFollowMotor = new WPI_TalonFX(LEFT_FOLLOW_ID);
+		rightLeadMotor = new WPI_TalonFX(RIGHT_LEAD_ID);
+		rightFollowMotor = new WPI_TalonFX(RIGHT_FOLLOW_ID);
 
 
         //Setting Followers
-		driveLeftMotor2.follow(driveLeftMotor1);
-		driveRightMotor2.follow(driveRightMotor1);
+		leftFollowMotor.follow(leftLeadMotor);
+		rightFollowMotor.follow(rightLeadMotor);
 
         
 		//making right motors go right
-		driveRightMotor1.setInverted(InvertType.None);
-		driveRightMotor2.setInverted(InvertType.None);
-		driveLeftMotor1.setInverted(InvertType.None);
-		driveLeftMotor2.setInverted(InvertType.None);
+		rightLeadMotor.setInverted(InvertType.None);
+		rightFollowMotor.setInverted(InvertType.None);
+		leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
+		leftFollowMotor.setInverted(InvertType.InvertMotorOutput);
     }
     public void setDrive(ControlMode mode, double speed){
         setDrive(mode, speed, speed);
@@ -59,10 +62,10 @@ public class Drivetrain extends SubsystemBase{
     }
 
     public void setDriveLeft(ControlMode mode,double speed) {
-        driveLeftMotor1.set(mode, speed);
+        leftLeadMotor.set(mode, speed);
     }
     public void setDriveRight(ControlMode mode,double speed) {
-        driveRightMotor1.set(mode, speed);
+        rightLeadMotor.set(mode, speed);
     }
     
 }
