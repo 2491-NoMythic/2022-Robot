@@ -29,9 +29,9 @@ public class Drivetrain extends SubsystemBase{
         
 		//making right motors go right
 		rightLeadMotor.setInverted(InvertType.None);
-		rightFollowMotor.setInverted(InvertType.None);
+		rightFollowMotor.setInverted(InvertType.FollowMaster);
 		leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
-		leftFollowMotor.setInverted(InvertType.InvertMotorOutput);
+		leftFollowMotor.setInverted(InvertType.FollowMaster);
     }
     public void setDrive(ControlMode mode, double speed){
         setDrive(mode, speed, speed);
@@ -68,4 +68,10 @@ public class Drivetrain extends SubsystemBase{
         rightLeadMotor.set(mode, speed);
     }
     
+    public void setDriveVoltage (double leftOutputVolts, double rightOutputVolts)
+    {
+        rightLeadMotor.setVoltage(leftOutputVolts);
+        leftLeadMotor.setVoltage(rightOutputVolts);
+
+    }
 }
