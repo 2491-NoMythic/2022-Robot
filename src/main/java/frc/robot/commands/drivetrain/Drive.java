@@ -34,7 +34,7 @@ public class Drive implements Command {
     {
         double m_SpeedManager = 1-(driveStick.getRawAxis(3)+1)/+2;
         SmartDashboard.putNumber("Slider", m_SpeedManager);
-        var robotTurnSpeed = driveStick.getX();
+        var robotTurnSpeed = driveStick.getZ();
         currentLeftSpeed = driveStick.getY() - robotTurnSpeed;
         currentRightSpeed = driveStick.getY() + robotTurnSpeed;
         drivetrain.setDrive(currentLeftSpeed *m_SpeedManager, currentRightSpeed *m_SpeedManager);

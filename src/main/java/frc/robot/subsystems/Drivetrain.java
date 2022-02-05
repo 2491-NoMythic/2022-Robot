@@ -1,19 +1,22 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.settings.Constants;
+import static frc.robot.settings.Constants.Drivetrain.*;
 
 public class Drivetrain extends SubsystemBase{
     private WPI_TalonFX driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2;
     public Drivetrain() {
-
-		driveLeftMotor1 = new WPI_TalonFX(Constants.Drivetrain.driveLeftMotor1);
-		driveLeftMotor2 = new WPI_TalonFX(Constants.Drivetrain.driveLeftMotor2);
-		driveRightMotor1 = new WPI_TalonFX(Constants.Drivetrain.driveRightMotor1);
-		driveRightMotor2 = new WPI_TalonFX(Constants.Drivetrain.driveRightMotor2);
+/**
+ * These are IDs.
+ */
+		driveLeftMotor1 = new WPI_TalonFX(LEFT_MOTOR_ID_1);
+		driveLeftMotor2 = new WPI_TalonFX(LEFT_MOTOR_ID_2);
+		driveRightMotor1 = new WPI_TalonFX(RIGHT_MOTOR_ID_1);
+		driveRightMotor2 = new WPI_TalonFX(RIGHT_MOTOR_ID_2);
 
 
         //Setting Followers
@@ -22,10 +25,10 @@ public class Drivetrain extends SubsystemBase{
 
         
 		//making right motors go right
-		driveRightMotor1.setInverted(false);
-		driveRightMotor2.setInverted(false);
-		driveLeftMotor1.setInverted(false);
-		driveLeftMotor2.setInverted(false);
+		driveRightMotor1.setInverted(InvertType.None);
+		driveRightMotor2.setInverted(InvertType.None);
+		driveLeftMotor1.setInverted(InvertType.None);
+		driveLeftMotor2.setInverted(InvertType.None);
     }
     public void setDrive(ControlMode mode, double speed){
         setDrive(mode, speed, speed);

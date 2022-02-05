@@ -1,5 +1,7 @@
 package frc.robot.settings;
 
+import java.lang.reflect.Constructor;
+
 /**
  * Robot system constants
  */
@@ -17,10 +19,12 @@ public final class Constants {
      * TODO: link
      */
     public final class Drivetrain {
-        public final static int driveLeftMotor1= 2491;
-        public final static int driveLeftMotor2= 2491;
-        public final static int driveRightMotor1= 2491;
-        public final static int driveRightMotor2= 2491;
+        private Drivetrain() {}
+        public static final int LEFT_MOTOR_ID_1= 0;
+        public static final int LEFT_MOTOR_ID_2= 0;
+        public static final int RIGHT_MOTOR_ID_1= 0;
+        public static final int RIGHT_MOTOR_ID_2= 0;
+        
     }
 
     /**
