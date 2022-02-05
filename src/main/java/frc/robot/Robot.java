@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import frc.robot.commands.drivetrain.Drive;
 import frc.robot.subsystems.Drivetrain;
 
 
@@ -23,6 +24,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     drivetrain = new Drivetrain();
+    drivetrain.setDefaultCommand(new Drive(drivetrain));
   }
   @Override
   public void robotPeriodic() {}

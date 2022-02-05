@@ -11,7 +11,9 @@ import frc.robot.subsystems.Drivetrain;
 
 public class Drive implements Command {
     private Drivetrain drivetrain;
-    double turnSpeed, lastLeftSpeed, lastRightSpeed; 
+    double turnSpeed;
+    double lastLeftSpeed;
+    double lastRightSpeed; 
     
     double currentLeftSpeed = 0;
     double currentRightSpeed = 0;
@@ -19,7 +21,7 @@ public class Drive implements Command {
 
     @Override
     public Set<Subsystem> getRequirements() {
-        Set<Subsystem> requirements = new HashSet<Subsystem>();
+        Set<Subsystem> requirements = new HashSet<>();
         requirements.add(drivetrain);
         return requirements;
     }
@@ -32,12 +34,12 @@ public class Drive implements Command {
     @Override
     public void execute()
     {
-        double m_SpeedManager = 1-(driveStick.getRawAxis(3)+1)/+2;
-        SmartDashboard.putNumber("Slider", m_SpeedManager);
+        double speedManager = 1-(driveStick.getRawAxis(3)+1)/2;
+        SmartDashboard.putNumber("Slider", speedManager);
         var robotTurnSpeed = driveStick.getZ();
-        currentLeftSpeed = driveStick.getY() - robotTurnSpeed;
-        currentRightSpeed = driveStick.getY() + robotTurnSpeed;
-        drivetrain.setDrive(currentLeftSpeed *m_SpeedManager, currentRightSpeed *m_SpeedManager);
+        currentLeftSpeed = driveStick.getY() * -1 - robotTurnSpeed;
+        currentRightSpeed = driveStick.getY() * -1 + robotTurnSpeed;
+        drivetrain.setDrive(currentLeftSpeed * speedManager, currentRightSpeed * speedManager);
     }
 
 
