@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Drivetrain.*;
 
@@ -12,6 +13,7 @@ public class Drivetrain extends SubsystemBase{
     private WPI_TalonFX leftFollowMotor;
     private WPI_TalonFX rightLeadMotor;
     private WPI_TalonFX rightFollowMotor;
+    private DifferentialDrive bbDriveSystem = new DifferentialDrive(leftLeadMotor, rightLeadMotor);
     public Drivetrain() {
 /**
  * These are IDs.
@@ -32,6 +34,7 @@ public class Drivetrain extends SubsystemBase{
 		rightFollowMotor.setInverted(InvertType.None);
 		leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
 		leftFollowMotor.setInverted(InvertType.InvertMotorOutput);
+        bbDriveSystem.setDeadband(0.04);
     }
     public void setDrive(ControlMode mode, double speed){
         setDrive(mode, speed, speed);
@@ -67,5 +70,7 @@ public class Drivetrain extends SubsystemBase{
     public void setDriveRight(ControlMode mode,double speed) {
         rightLeadMotor.set(mode, speed);
     }
-    
+    public void curvatureDrive(double xSpeed, double zRotation, boolean allowTurnInPlace){
+        bbDriveSystem.curvatureDrive(xSpeed, zRotation, allowTurnInPlace);
+    }
 }
