@@ -94,8 +94,8 @@ public boolean climberOut(double speed){
     return false;
   }
 
-  double leftSpeed = speed;
-  double rightSpeed = speed;
+  double leftSpeed = -speed;
+  double rightSpeed = -speed;
   
   if (topLeftLimitSwitch.get()){
     leftSpeed = 0;
@@ -120,8 +120,8 @@ public boolean climberIn(double speed){
     return false;
   }
 
-  double leftSpeed = -speed;
-  double rightSpeed = -speed;
+  double leftSpeed = speed;
+  double rightSpeed = speed;
   
   if (bottomLeftLimitSwitch.get()){
     leftSpeed = 0;
