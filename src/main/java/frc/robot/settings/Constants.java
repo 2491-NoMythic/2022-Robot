@@ -37,8 +37,12 @@ public final class Constants {
      * TODO: link
      */
     public final class Drivetrain {
-        private Drivetrain() {
-        }
+        private Drivetrain() {}
+        public static final int LEFT_LEAD_ID= 1;
+        public static final int LEFT_FOLLOW_ID= 3;
+        public static final int RIGHT_LEAD_ID= 2;
+        public static final int RIGHT_FOLLOW_ID= 4;
+        
     }
 
     /**
