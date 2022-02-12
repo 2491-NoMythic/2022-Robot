@@ -7,23 +7,34 @@ import frc.robot.subsystems.Climber;
 public class armPneumaticTipping extends CommandBase {
 
     Climber climber;
-    boolean isArmUp;
+    ArmTipState state;
+
+    enum ArmTipState {
+      Up,
+      Down
+    }
 /**
  * if armUp = true, the solenoid is extended
  * if armUp = false, the solenoid is retracted
  * @param climber
- * @param armUp
+ * @param armTipState
  */
 
-      public armPneumaticTipping(Climber climber, boolean armUp ) {
+      public armPneumaticTipping(Climber climber, ArmTipState armTipState ) {
         this.climber = climber;
         
         addRequirements(climber);
-        isArmUp = armUp;
+        state = armTipState;
       }
 
       public void initialize(){
-        climber.toggleBreak(isArmUp);
+        climber.toggleLock(isArmUp);
+
+        switch(state){
+
+          case Up:
+          climber.toggleLock(activateBreak);
+        }
 
       }
 

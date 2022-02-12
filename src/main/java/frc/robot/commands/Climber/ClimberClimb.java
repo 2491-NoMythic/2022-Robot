@@ -7,19 +7,25 @@ public class ClimberClimb extends CommandBase {
 
   Climber climber;
   boolean stillRunning;
-  boolean isClimberExtending;
+  ArmExtendState state;
+
+  enum ArmExtendState {
+    In,
+    Out
+  }
 
   /**
-   * if climberExtending = true, the climber arm is extending 
-   * if climberExtending = false, the clarm is retracting
+   * 
    * @param climber
-   * @param climberExtending
+   * @param ArmExtendState
+   * out = arm moving out
+   * in = arm moving in
    */
-  public ClimberClimb(Climber climber, boolean climberExtending ) {
+  public ClimberClimb(Climber climber, ArmExtendState armState) {
     this.climber = climber;
     addRequirements(climber);
-
-    isClimberExtending = climberExtending;
+        
+   state = armState;
   }
 
   @Override
@@ -29,11 +35,15 @@ public class ClimberClimb extends CommandBase {
 
   @Override
   public void execute() {
-    if (isClimberExtending == true) {
-      stillRunning = climber.climberOut(.5);
 
-    } else {
+    switch(state){
+
+      case Out:
+      stillRunning = climber.climberOut(.5);
+        break;
+      case In:
       stillRunning = climber.climberIn(.5);
+        break;
     }
   }
 
