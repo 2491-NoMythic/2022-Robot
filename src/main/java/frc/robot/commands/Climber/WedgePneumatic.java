@@ -13,7 +13,7 @@ public class WedgePneumatic extends CommandBase {
    * @param climber
    * @param wedgeOut
    */
-    public WedgePneumatic(Climber climber, boolean wedgeOut ) {
+      public WedgePneumatic(Climber climber, boolean wedgeOut ) {
         this.climber = climber;
         
         addRequirements(climber);
@@ -23,6 +23,11 @@ public class WedgePneumatic extends CommandBase {
       public void initialize(){
         climber.toggleBreak(isWedgeOut);
 
+      }
+
+      public boolean isFinished(){
+
+        return true;
       }
     
     

@@ -1,4 +1,6 @@
 package frc.robot.commands.Climber;
+import com.fasterxml.jackson.databind.node.BooleanNode;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 
@@ -13,7 +15,7 @@ public class armPneumaticTipping extends CommandBase {
  * @param armUp
  */
 
-    public armPneumaticTipping(Climber climber, boolean armUp ) {
+      public armPneumaticTipping(Climber climber, boolean armUp ) {
         this.climber = climber;
         
         addRequirements(climber);
@@ -23,6 +25,11 @@ public class armPneumaticTipping extends CommandBase {
       public void initialize(){
         climber.toggleBreak(isArmUp);
 
+      }
+
+      public boolean isFinished(){
+
+        return true;
       }
     
     
