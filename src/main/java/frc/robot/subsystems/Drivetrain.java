@@ -1,31 +1,37 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.settings.Constants;
+import static frc.robot.settings.Constants.Drivetrain.*;
 
 public class Drivetrain extends SubsystemBase{
-    private WPI_TalonFX driveLeftMotor1,driveLeftMotor2,driveRightMotor1,driveRightMotor2;
+    private WPI_TalonFX leftLeadMotor;
+    private WPI_TalonFX leftFollowMotor;
+    private WPI_TalonFX rightLeadMotor;
+    private WPI_TalonFX rightFollowMotor;
     public Drivetrain() {
-
-		driveLeftMotor1 = new WPI_TalonFX(Constants.Drivetrain.driveLeftMotor1);
-		driveLeftMotor2 = new WPI_TalonFX(Constants.Drivetrain.driveLeftMotor2);
-		driveRightMotor1 = new WPI_TalonFX(Constants.Drivetrain.driveRightMotor1);
-		driveRightMotor2 = new WPI_TalonFX(Constants.Drivetrain.driveRightMotor2);
+/**
+ * These are IDs.
+ */
+		leftLeadMotor = new WPI_TalonFX(LEFT_LEAD_ID);
+		leftFollowMotor = new WPI_TalonFX(LEFT_FOLLOW_ID);
+		rightLeadMotor = new WPI_TalonFX(RIGHT_LEAD_ID);
+		rightFollowMotor = new WPI_TalonFX(RIGHT_FOLLOW_ID);
 
 
         //Setting Followers
-		driveLeftMotor2.follow(driveLeftMotor1);
-		driveRightMotor2.follow(driveRightMotor1);
+		leftFollowMotor.follow(leftLeadMotor);
+		rightFollowMotor.follow(rightLeadMotor);
 
         
 		//making right motors go right
-		driveRightMotor1.setInverted(false);
-		driveRightMotor2.setInverted(false);
-		driveLeftMotor1.setInverted(false);
-		driveLeftMotor2.setInverted(false);
+		rightLeadMotor.setInverted(InvertType.None);
+		rightFollowMotor.setInverted(InvertType.None);
+		leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
+		leftFollowMotor.setInverted(InvertType.InvertMotorOutput);
     }
     public void setDrive(ControlMode mode, double speed){
         setDrive(mode, speed, speed);
@@ -56,10 +62,10 @@ public class Drivetrain extends SubsystemBase{
     }
 
     public void setDriveLeft(ControlMode mode,double speed) {
-        driveLeftMotor1.set(mode, speed);
+        leftLeadMotor.set(mode, speed);
     }
     public void setDriveRight(ControlMode mode,double speed) {
-        driveRightMotor1.set(mode, speed);
+        rightLeadMotor.set(mode, speed);
     }
     
 }

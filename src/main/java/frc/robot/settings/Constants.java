@@ -42,10 +42,12 @@ public final class Constants {
      * TODO: link
      */
     public final class Drivetrain {
-        public final static int driveLeftMotor1= 2491;
-        public final static int driveLeftMotor2= 2491;
-        public final static int driveRightMotor1= 2491;
-        public final static int driveRightMotor2= 2491;
+        private Drivetrain() {}
+        public static final int LEFT_LEAD_ID= 1;
+        public static final int LEFT_FOLLOW_ID= 3;
+        public static final int RIGHT_LEAD_ID= 2;
+        public static final int RIGHT_FOLLOW_ID= 4;
+        
     }
 
     /**
