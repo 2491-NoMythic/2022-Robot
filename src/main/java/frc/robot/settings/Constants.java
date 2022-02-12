@@ -23,7 +23,8 @@ public final class Constants {
      */
     public final class Climber {
 
-        public static final int BREAK_CHANNEL = 0;
+        public static final int RUNG_LOCK_FORWARD_CHANNEL = 0;
+        public static final int RUNG_LOCK_REVERSE_CHANNEL = 0;
 
         public static final int ARM_FORWARD_CHANNEL = 0;
         public static final int ARM_REVERSE_CHANNEL = 0;
@@ -35,6 +36,13 @@ public final class Constants {
         public static final int BOTTOM_RIGHT_LIMIT_SWITCH = 0;
         public static final int TOP_LEFT_LIMIT_SWITCH = 0;
         public static final int BOTTOM_LEFT_LIMIT_SWITCH = 0;
+    }
+
+    public final class Ps4 {
+
+        public static final int CONTROLLER_ID = 0;
+
+        public static final int CLIMB_BUTTON_ID = 0;
     }
 
     /**

@@ -17,16 +17,34 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Climber.*;
 
 public class Climber extends SubsystemBase {
-  private static Climber instance = null;
-  private Solenoid breakSolenoid;
+
+  enum RungLockState{
+    Unlocked(Value.kReverse),
+    Locked(Value.kForward);
+
+    Value solenoidDirection;
+    RungLockState(Value v){
+      solenoidDirection = v;
+    }
+
+    Value getValue(){
+      return solenoidDirection;
+    }
+  }
+
+  private DoubleSolenoid rungLockSolenoid;
   private DoubleSolenoid armSolenoid;
-  private WPI_TalonFX leftWinchMotor, rightWinchMotor;
-  private DigitalInput topRightLimitSwitch, bottomRightLimitSwitch, topLeftLimitSwitch, bottomLeftLimitSwitch;
+  private WPI_TalonFX leftWinchMotor;
+  private WPI_TalonFX rightWinchMotor;
+  private DigitalInput topRightLimitSwitch;
+  private DigitalInput bottomRightLimitSwitch;
+  private DigitalInput topLeftLimitSwitch;
+  private DigitalInput bottomLeftLimitSwitch;
     
   /** Creates a new climber. */
-  private Climber() {
+  public Climber() {
 
-    breakSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM, BREAK_CHANNEL);
+    rungLockSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RUNG_LOCK_FORWARD_CHANNEL, RUNG_LOCK_REVERSE_CHANNEL);
     armSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
     leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
     rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
@@ -42,29 +60,28 @@ public class Climber extends SubsystemBase {
     rightWinchMotor.set(ControlMode.PercentOutput, 0);
     leftWinchMotor.set(ControlMode.PercentOutput, 0);
 
-    toggleBreak(true);
+    toggleLock(true);
   }
 
-  
-  /** Returns the singleton climber. */
-  public static Climber getInstance() {
-    if (instance == null){
-      instance = new Climber(); 
+  public void toggleLock(){
+    toggleLock(!isLockOn());
+  }
+
+  public void toggleLock(RungLockState lockState){
+      rungLockSolenoid.set(lockState.getValue());
+  }
+
+  public RungLockState isLockOn(){
+    switch(rungLockSolenoid.get()){
+      case kForward:
+      return RungLockState.Locked;
+      
+      case kReverse:
+      case kOff:
+      default:
+      return RungLockState.Unlocked;
+
     }
-    return instance;
-  }
-
-  public void toggleBreak(){
-    toggleBreak(!isBreakOn());
-  }
-
-  public void toggleBreak(boolean activateBreak){
-    breakSolenoid.set(activateBreak);
-
-  }
-
-  public boolean isBreakOn(){
-    return breakSolenoid.get();
   }
   
 public void setArmIn(){
