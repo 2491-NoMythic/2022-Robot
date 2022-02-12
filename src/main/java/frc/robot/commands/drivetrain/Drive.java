@@ -3,10 +3,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import edu.wpi.first.wpilibj.Joystick;
-<<<<<<< HEAD
-=======
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
->>>>>>> origin/develop
 import edu.wpi.first.wpilibj2.command.Command;
 //All Hail the Glorious Shotgun Princess
 import edu.wpi.first.wpilibj2.command.Subsystem;
@@ -14,16 +11,6 @@ import frc.robot.subsystems.Drivetrain;
 
 public class Drive implements Command {
     private Drivetrain drivetrain;
-<<<<<<< HEAD
-    double turnSpeed, lastLeftSpeed, lastRightSpeed; 
-    
-    double currentLeftSpeed = 0;
-    double currentRightSpeed = 0;
-
-    @Override
-    public Set<Subsystem> getRequirements() {
-        Set<Subsystem> requirements = new HashSet<Subsystem>();
-=======
     double turnSpeed;
     double lastLeftSpeed;
     double lastRightSpeed; 
@@ -35,7 +22,6 @@ public class Drive implements Command {
     @Override
     public Set<Subsystem> getRequirements() {
         Set<Subsystem> requirements = new HashSet<>();
->>>>>>> origin/develop
         requirements.add(drivetrain);
         return requirements;
     }
@@ -45,11 +31,6 @@ public class Drive implements Command {
         this.drivetrain = drivetrain;
     }
 
-<<<<<<< HEAD
-    public void execute()
-    {
-        drivetrain.setDrive(currentLeftSpeed, currentRightSpeed);
-=======
     @Override
     public void execute()
     {
@@ -59,7 +40,6 @@ public class Drive implements Command {
         currentLeftSpeed = driveStick.getY() * -1 - robotTurnSpeed;
         currentRightSpeed = driveStick.getY() * -1 + robotTurnSpeed;
         drivetrain.setDrive(currentLeftSpeed * speedManager, currentRightSpeed * speedManager);
->>>>>>> origin/develop
     }
 
 
