@@ -13,7 +13,7 @@ public class Drivetrain extends SubsystemBase{
     private WPI_TalonFX leftFollowMotor;
     private WPI_TalonFX rightLeadMotor;
     private WPI_TalonFX rightFollowMotor;
-    private DifferentialDrive bbDriveSystem = new DifferentialDrive(leftLeadMotor, rightLeadMotor);
+    private DifferentialDrive bbDriveSystem;
     public Drivetrain() {
 /**
  * These are IDs.
@@ -22,7 +22,10 @@ public class Drivetrain extends SubsystemBase{
 		leftFollowMotor = new WPI_TalonFX(LEFT_FOLLOW_ID);
 		rightLeadMotor = new WPI_TalonFX(RIGHT_LEAD_ID);
 		rightFollowMotor = new WPI_TalonFX(RIGHT_FOLLOW_ID);
-
+        addChild("Left Lead", leftLeadMotor);
+        addChild("Left Follow", leftFollowMotor);
+        addChild("Right Lead", rightLeadMotor);
+        addChild("Right Follow", rightFollowMotor);
 
         //Setting Followers
 		leftFollowMotor.follow(leftLeadMotor);
@@ -34,7 +37,9 @@ public class Drivetrain extends SubsystemBase{
 		rightFollowMotor.setInverted(InvertType.None);
 		leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
 		leftFollowMotor.setInverted(InvertType.InvertMotorOutput);
+        bbDriveSystem = new DifferentialDrive(leftLeadMotor, rightLeadMotor);
         bbDriveSystem.setDeadband(0.04);
+        addChild("Diff Drive", bbDriveSystem);
     }
     public void setDrive(ControlMode mode, double speed){
         setDrive(mode, speed, speed);
@@ -72,5 +77,10 @@ public class Drivetrain extends SubsystemBase{
     }
     public void curvatureDrive(double xSpeed, double zRotation, boolean allowTurnInPlace){
         bbDriveSystem.curvatureDrive(xSpeed, zRotation, allowTurnInPlace);
+    }
+
+    @Override
+    public void periodic() {
+        bbDriveSystem.feed();
     }
 }
