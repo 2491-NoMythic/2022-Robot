@@ -7,9 +7,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 /** Add your docs here. */
-public class Vision {
+public class Vision extends SubsystemBase {
     NetworkTableEntry tv, tx, ty, ta, ts, tl, tshort, tlong, thor, tvert, getpipe;
     public Vision() {
       
@@ -31,13 +32,12 @@ public class Vision {
     }
 
 
-public double GetAngleFromCargo(){
-    
-    double angle = tx.getDouble(0);
-    return angle;
-}
+    public double getHorizontalPos(){
+        
+        double angle = tx.getDouble(0);
+        return angle;
+    }
 
-    
 
     
 
