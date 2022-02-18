@@ -36,6 +36,7 @@ public final class Constants {
         public static final int BOTTOM_RIGHT_LIMIT_SWITCH = 0;
         public static final int TOP_LEFT_LIMIT_SWITCH = 0;
         public static final int BOTTOM_LEFT_LIMIT_SWITCH = 0;
+        public static final double TIME_FOR_ARM_TO_GO_UP = 2;
     }
 
     public final class Ps4 {

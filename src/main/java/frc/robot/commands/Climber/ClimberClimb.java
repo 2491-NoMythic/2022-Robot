@@ -16,10 +16,10 @@ public class ClimberClimb extends CommandBase {
 
   /**
    * 
-   * @param climber
+   * Moves arm up and down
+   * 
    * @param ArmExtendState
-   * out = arm moving out
-   * in = arm moving in
+   *
    */
   public ClimberClimb(Climber climber, ArmExtendState armState) {
     this.climber = climber;

@@ -7,11 +7,11 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.settings.Constants.Ps4;
+import frc.robot.commands.Climber.AutomatedClimb;
 
 import static frc.robot.settings.Constants.Ps4.*;
-import frc.robot.subsystems.ExampleSubsystem;
+
+import frc.robot.subsystems.Climber;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -23,9 +23,9 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final Climber climber = new Climber();
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  private final AutomatedClimb automatedClimb = new AutomatedClimb(climber);
 
   private final Joystick Ps4;
   private final JoystickButton climb;
@@ -47,7 +47,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    climb.whenPressed(command, false)
+    climb.whenPressed(automatedClimb, false);
   }
 
   /**
@@ -57,6 +57,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null;
   }
 }
