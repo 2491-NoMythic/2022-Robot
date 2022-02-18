@@ -11,157 +11,191 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Climber.*;
 
 public class Climber extends SubsystemBase {
 
-  enum RungLockState{
-    Unlocked(Value.kReverse),
-    Locked(Value.kForward);
+    public enum RungLockState {
+        Unlocked(Value.kForward),
+        Locked(Value.kReverse);
 
-    Value solenoidDirection;
-    RungLockState(Value v){
-      solenoidDirection = v;
+        Value solenoidDirection;
+
+        RungLockState(Value v) {
+            solenoidDirection = v;
+        }
+
+        Value getLockStateValue() {
+            return solenoidDirection;
+        }
     }
 
-    Value getValue(){
-      return solenoidDirection;
+    private DoubleSolenoid rungLockSolenoid;
+    private DoubleSolenoid armSolenoid;
+    private WPI_TalonFX leftWinchMotor;
+    private WPI_TalonFX rightWinchMotor;
+    private DigitalInput topRightLimitSwitch;
+    private DigitalInput bottomRightLimitSwitch;
+    private DigitalInput topLeftLimitSwitch;
+    private DigitalInput bottomLeftLimitSwitch;
+
+    /** Creates a new climber. */
+    public Climber() {
+
+        rungLockSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RUNG_LOCK_FORWARD_CHANNEL,
+                RUNG_LOCK_REVERSE_CHANNEL);
+        armSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
+        leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
+        rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
+
+        topRightLimitSwitch = new DigitalInput(TOP_RIGHT_LIMIT_SWITCH);
+        topLeftLimitSwitch = new DigitalInput(TOP_LEFT_LIMIT_SWITCH);
+        bottomRightLimitSwitch = new DigitalInput(BOTTOM_RIGHT_LIMIT_SWITCH);
+        bottomLeftLimitSwitch = new DigitalInput(BOTTOM_LEFT_LIMIT_SWITCH);
+
+        rightWinchMotor.setInverted(InvertType.None);
+        leftWinchMotor.setInverted(InvertType.None);
+
+        rightWinchMotor.set(ControlMode.PercentOutput, 0);
+        leftWinchMotor.set(ControlMode.PercentOutput, 0);
+
+        toggleLock();
     }
-  }
 
-  private DoubleSolenoid rungLockSolenoid;
-  private DoubleSolenoid armSolenoid;
-  private WPI_TalonFX leftWinchMotor;
-  private WPI_TalonFX rightWinchMotor;
-  private DigitalInput topRightLimitSwitch;
-  private DigitalInput bottomRightLimitSwitch;
-  private DigitalInput topLeftLimitSwitch;
-  private DigitalInput bottomLeftLimitSwitch;
-    
-  /** Creates a new climber. */
-  public Climber() {
+    public void toggleLock() {
+        switch (getLockState()) {
+            case Locked:
+                setLockState(RungLockState.Unlocked);
+                break;
+            case Unlocked:
+                setLockState(RungLockState.Locked);
+                break;
 
-    rungLockSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RUNG_LOCK_FORWARD_CHANNEL, RUNG_LOCK_REVERSE_CHANNEL);
-    armSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
-    leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
-    rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
+        }
+    }
 
-    topRightLimitSwitch = new DigitalInput(TOP_RIGHT_LIMIT_SWITCH);
-    topLeftLimitSwitch = new DigitalInput(TOP_LEFT_LIMIT_SWITCH);
-    bottomRightLimitSwitch = new DigitalInput(BOTTOM_RIGHT_LIMIT_SWITCH);
-    bottomLeftLimitSwitch = new DigitalInput(BOTTOM_LEFT_LIMIT_SWITCH);
+    public void setLockState(RungLockState lockState) {
+        rungLockSolenoid.set(lockState.getLockStateValue());
+    }
 
-    rightWinchMotor.setInverted(InvertType.None);
-    leftWinchMotor.setInverted(InvertType.None);
+    public RungLockState getLockState() {
+        switch (rungLockSolenoid.get()) {
+            case kForward:
+            case kOff:
+                return RungLockState.Unlocked;
+            case kReverse:
+            default:
+                return RungLockState.Locked;
 
-    rightWinchMotor.set(ControlMode.PercentOutput, 0);
-    leftWinchMotor.set(ControlMode.PercentOutput, 0);
+        }
+    }
 
-    toggleLock(true);
-  }
+    public boolean isLockFullyUnlocked() {
+        // TODO sensor things. return bool if sensors say
 
-  public void toggleLock(){
-    toggleLock(!isLockOn());
-  }
+        return false;
+    }
 
-  public void toggleLock(RungLockState lockState){
-      rungLockSolenoid.set(lockState.getValue());
-  }
+    public boolean isLockFullyLocked() {
+        // TODO sensor things. return bool if sensors say
 
-  public RungLockState isLockOn(){
-    switch(rungLockSolenoid.get()){
-      case kForward:
-      return RungLockState.Locked;
-      
-      case kReverse:
-      case kOff:
-      default:
-      return RungLockState.Unlocked;
+        return false;
+    }
+
+    public void setArmDown() {
+        armSolenoid.set(Value.kReverse);
 
     }
-  }
-  
-public void setArmIn(){
-  armSolenoid.set(Value.kReverse);
 
-} 
+    public void setArmUp() {
+        armSolenoid.set(Value.kForward);
 
-public void setArmOut (){
-  armSolenoid.set(Value.kForward);
+    }
 
-}
+    public boolean isArmFullyDown() {
+        // TODO sensor things. return bool if sensors say
 
-private void setMotorSpeed(double leftSpeed, double rightSpeed){
-  rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
-  leftWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
-}
+        return false;
+    }
 
-/**
- * use motors to move the climber into extended position
- * @param speed 0-1 speed
- * @return whether motors are still running or not
- * @note method must be called repeatedly so robot can accuratley check sensors
- */
-public boolean climberOut(double speed){ 
-  if (speed < 0) {
-    setMotorSpeed(0, 0);
-    return false;
-  }
+    public boolean isArmFullyUp() {
+        // TODO sensor things. return bool if sensors say
 
-  double leftSpeed = -speed;
-  double rightSpeed = -speed;
-  
-  if (topLeftLimitSwitch.get()){
-    leftSpeed = 0;
-  }
-  if (topRightLimitSwitch.get()){
-    rightSpeed = 0;
-  }
-  setMotorSpeed(leftSpeed, rightSpeed);
+        return false;
+    }
 
-  return leftSpeed != 0 || rightSpeed != 0;
-}
+    private void setMotorSpeed(double leftSpeed, double rightSpeed) {
+        rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
+        leftWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
+    }
 
-/**
- * use motors to move the climber into extended position
- * @param speed 0-1 speed
- * @return whether motors are still running or not
- * @note method must be called repeatedly so robot can accuratley check sensors
- */
-public boolean climberIn(double speed){ 
-  if (speed < 0) {
-    setMotorSpeed(0, 0);
-    return false;
-  }
+    /**
+     * use motors to move the climber into extended position
+     * 
+     * @param speed 0-1 speed
+     * @return whether motors are still running or not
+     * @note method must be called repeatedly so robot can accuratley check sensors
+     */
+    public boolean climberOut(double speed) {
+        if (speed < 0) {
+            setMotorSpeed(0, 0);
+            return false;
+        }
 
-  double leftSpeed = speed;
-  double rightSpeed = speed;
-  
-  if (bottomLeftLimitSwitch.get()){
-    leftSpeed = 0;
-  }
-  if (bottomRightLimitSwitch.get()){
-    rightSpeed = 0;
-  }
-  setMotorSpeed(leftSpeed, rightSpeed);
+        double leftSpeed = -speed;
+        double rightSpeed = -speed;
 
-  return leftSpeed != 0 || rightSpeed != 0;
-}
+        if (topLeftLimitSwitch.get()) {
+            leftSpeed = 0;
+        }
+        if (topRightLimitSwitch.get()) {
+            rightSpeed = 0;
+        }
+        setMotorSpeed(leftSpeed, rightSpeed);
 
-public void stop(){
-  setMotorSpeed(0, 0);
-}
+        return leftSpeed != 0 || rightSpeed != 0;
+    }
 
-  /* TODO :
-    - ask about motors
-    - add a pnumatics control hub
-    - ask about sensers  
-  */
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    /**
+     * use motors to move the climber into extended position
+     * 
+     * @param speed 0-1 speed
+     * @return whether motors are still running or not
+     * @note method must be called repeatedly so robot can accuratley check sensors
+     */
+    public boolean climberIn(double speed) {
+        if (speed < 0) {
+            setMotorSpeed(0, 0);
+            return false;
+        }
+
+        double leftSpeed = speed;
+        double rightSpeed = speed;
+
+        if (bottomLeftLimitSwitch.get()) {
+            leftSpeed = 0;
+        }
+        if (bottomRightLimitSwitch.get()) {
+            rightSpeed = 0;
+        }
+        setMotorSpeed(leftSpeed, rightSpeed);
+
+        return leftSpeed != 0 || rightSpeed != 0;
+    }
+
+    public void stop() {
+        setMotorSpeed(0, 0);
+    }
+
+    /*
+     * TODO :
+     * - ask about motors
+     * - ask about sensors
+     */
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }

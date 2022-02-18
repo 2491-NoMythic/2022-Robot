@@ -17,6 +17,6 @@ public class AutomatedClimb extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     //TODO needs to work with drivetrain
-    addCommands(new ClimberClimb(climber, true), new ClimberClimb(climber, false), new WedgePneumatic(climber, PneumaticState.In));
+    addCommands(new ClimberClimb(climber, true), new ClimberClimb(climber, false), new WedgePneumatic(climber, WedgeState.In));
   }
 }

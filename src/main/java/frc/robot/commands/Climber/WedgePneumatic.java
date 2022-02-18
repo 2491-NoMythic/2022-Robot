@@ -1,51 +1,42 @@
 package frc.robot.commands.Climber;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
-
-
-enum PneumaticState {
-  In,
-  Out
-}
+import frc.robot.subsystems.Climber.RungLockState;
 
 public class WedgePneumatic extends CommandBase {
 
-    Climber climber;
-    PneumaticState state;
-    
+    private Climber climber;
+    private RungLockState targetState;
 
     /**
      * out makes solinoid out
      * in makes solinoid in
+     * 
      * @param climber
-     * @param PneumaticState
+     * @param WedgeState
      * @param wedgeOut
      */
-      public WedgePneumatic(Climber climber, PneumaticState pneumaticState) {
+    public WedgePneumatic(Climber climber, RungLockState pneumaticState) {
         this.climber = climber;
         addRequirements(climber);
 
-        state = pneumaticState;
-      }
+        targetState = pneumaticState;
+    }
 
-      public void initialize(){
-        
-        switch(state){
+    public void initialize() {
+        climber.setLockState(targetState);
+    }
 
-          case Out:
-          climber.toggleLock(true);
-            break;
-          case In:
-          climber.toggleLock(false);
-            break;
+    public boolean isFinished() {
+
+        switch (targetState) {
+            case Locked:
+                return climber.isLockFullyLocked();
+            case Unlocked:
+                return climber.isLockFullyUnlocked();
         }
+        return false;
+    }
 
-      }
-
-      public boolean isFinished(){
-
-        return true;
-      }
-    
-    
 }
