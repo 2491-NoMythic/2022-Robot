@@ -7,12 +7,11 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
-
-public class Up extends CommandBase {
-  /** Creates a new up. */
+public class Down extends CommandBase {
+  /** Creates a new Down. */
   private Intake intake;
-
-  public Up(Intake intake) {
+  
+  public Down(Intake intake) {
     this.intake = intake;
     addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -21,10 +20,9 @@ public class Up extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setArmUp();
-    //move arm up
+    intake.setArmDown();
+    //move arm down
   }
-  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

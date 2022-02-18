@@ -6,13 +6,13 @@ package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
+import static frc.robot.settings.Constants.Intake.*;
 
-
-public class Up extends CommandBase {
-  /** Creates a new up. */
+public class Out extends CommandBase {
+  /** Creates a new Out. */
   private Intake intake;
 
-  public Up(Intake intake) {
+  public Out(Intake intake) {
     this.intake = intake;
     addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
@@ -20,15 +20,13 @@ public class Up extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    intake.setArmUp();
-    //move arm up
-  }
-  
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    intake.runIntake(OUT_SPEED);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -37,6 +35,6 @@ public class Up extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
