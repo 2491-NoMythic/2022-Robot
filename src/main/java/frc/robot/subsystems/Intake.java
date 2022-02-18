@@ -14,17 +14,22 @@ public class Intake extends SubsystemBase {
         Red,
         Blue,
         }
-    CANSparkMax intakeMotor;
+    CANSparkMax leftIntakeMotor;
+    CANSparkMax rightIntakeMotor;
     private DoubleSolenoid armDoubleSolenoid;
 
     public Intake() {
-        intakeMotor = new CANSparkMax(AXLE_ID, MotorType.kBrushless);
-        intakeMotor.setInverted(false);
+        leftIntakeMotor = new CANSparkMax(LEFT_MOTOR_ID, MotorType.kBrushless);
+        rightIntakeMotor = new CANSparkMax(RIGHT_MOTOR_ID, MotorType.kBrushless); 
+        leftIntakeMotor.setInverted(false);
+        leftIntakeMotor.setInverted(false); 
         armDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
+        rightIntakeMotor.follow(leftIntakeMotor);
+        //TODO make motors operate independantly. 
     }
 
     public void runIntake(double speed){
-        intakeMotor.set(speed);
+        leftIntakeMotor.set(speed);
     }
     public void setArmUp(){
         armDoubleSolenoid.set(Value.kForward);
@@ -34,15 +39,11 @@ public class Intake extends SubsystemBase {
     }
     public double getSensors(){
         //stub
+        //TODO put sensors in here. 
         double value = .2491;
         return value;
     }
-    public boolean isArmUp(){
-        //stub
-        boolean state = true;
-        return state;
-    }
-    public CargoState[] getcCargoState(){
+    public CargoState[] getCargoState(){
         //stub, get ball colors, and positions?
         CargoState[] state = {CargoState.Red, CargoState.Empty};
         return state;
