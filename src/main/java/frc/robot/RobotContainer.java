@@ -11,6 +11,8 @@ import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import frc.robot.commands.LightsSoftware;
+
 import static frc.robot.settings.Constants.Ps4.*;
 
 import frc.robot.commands.PointAtCargo;
@@ -18,6 +20,7 @@ import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
 import frc.robot.subsystems.Intake;
@@ -38,6 +41,8 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final LightsHardware lights;
+
   private final Climber climber;
   private final Drivetrain drivetrain;
   private final Vision vision;
@@ -48,32 +53,33 @@ public class RobotContainer {
   private final PointAtCargo pointAtCargo;
 
   private final Joystick ps4;
-  private final JoystickButton climb;
+  private JoystickButton climb;
+  private JoystickButton lightsToggle;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // Configure the button bindings
     climber = new Climber();
     drivetrain = new Drivetrain();
     vision = new Vision();
     intake = new Intake();
+    lights = new LightsHardware();
 
     defaultDriveCommand = new Drive(drivetrain);
     automatedClimb = new AutomatedClimb(climber);
     pointAtCargo = new PointAtCargo(drivetrain, vision);
 
     ps4 = new Joystick(CONTROLLER_ID);
-    climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
 
     drivetrain.setDefaultCommand(defaultDriveCommand);
-    configureButtonBindings();
 
+    configureButtonBindings();
     configureSmartDashboard();
   }
 
   private void configureSmartDashboard() {
+    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
     SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
     SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
@@ -81,7 +87,6 @@ public class RobotContainer {
   }
 
   public void initTelemetry() {
-    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
   }
 
   /**
@@ -93,7 +98,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
+    lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
+    lightsToggle.whenPressed(new LightsSoftware(lights));
+    
+    climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     climb.whenPressed(automatedClimb, false);
   }
 
