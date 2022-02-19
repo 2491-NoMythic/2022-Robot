@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import static frc.robot.settings.Constants.Ps4.*;
 
 import frc.robot.commands.PointAtCargo;
-import frc.robot.commands.climber.AutomatedClimb;
+import frc.robot.commands.climberx.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;

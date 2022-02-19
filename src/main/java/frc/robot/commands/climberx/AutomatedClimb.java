@@ -2,10 +2,10 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Climber;
+package frc.robot.commands.climberx;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Climber.ClimberClimb.ArmExtendState;
+import frc.robot.commands.climberx.ClimberClimb.ArmExtendState;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.RungLockState;
 
