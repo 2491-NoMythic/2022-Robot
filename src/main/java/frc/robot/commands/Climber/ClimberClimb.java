@@ -10,8 +10,8 @@ public class ClimberClimb extends CommandBase {
   ArmExtendState state;
 
   enum ArmExtendState {
-    In,
-    Out
+    IN,
+    OUT
   }
 
   /**
@@ -24,8 +24,8 @@ public class ClimberClimb extends CommandBase {
   public ClimberClimb(Climber climber, ArmExtendState armState) {
     this.climber = climber;
     addRequirements(climber);
-        
-   state = armState;
+
+    state = armState;
   }
 
   @Override
@@ -36,13 +36,13 @@ public class ClimberClimb extends CommandBase {
   @Override
   public void execute() {
 
-    switch(state){
+    switch (state) {
 
-      case Out:
-      stillRunning = climber.climberOut(.5);
+      case OUT:
+        stillRunning = climber.climberOut(.5);
         break;
-      case In:
-      stillRunning = climber.climberIn(.5);
+      case IN:
+        stillRunning = climber.climberIn(.5);
         break;
     }
   }

@@ -22,6 +22,8 @@ public final class Constants {
      * TODO: link
      */
     public final class Climber {
+        private Climber() {
+        }
 
         public static final int RUNG_LOCK_FORWARD_CHANNEL = 0;
         public static final int RUNG_LOCK_REVERSE_CHANNEL = 0;
@@ -40,6 +42,8 @@ public final class Constants {
     }
 
     public final class Ps4 {
+        private Ps4() {
+        }
 
         public static final int CONTROLLER_ID = 0;
 
@@ -51,12 +55,14 @@ public final class Constants {
      * TODO: link
      */
     public final class Drivetrain {
-        private Drivetrain() {}
-        public static final int LEFT_LEAD_ID= 1;
-        public static final int LEFT_FOLLOW_ID= 3;
-        public static final int RIGHT_LEAD_ID= 2;
-        public static final int RIGHT_FOLLOW_ID= 4;
-        
+        private Drivetrain() {
+        }
+
+        public static final int LEFT_LEAD_ID = 1;
+        public static final int LEFT_FOLLOW_ID = 3;
+        public static final int RIGHT_LEAD_ID = 2;
+        public static final int RIGHT_FOLLOW_ID = 4;
+
     }
 
     /**
@@ -66,6 +72,7 @@ public final class Constants {
     public final class Intake {
         private Intake() {
         }
+
         public static final int ARM_FORWARD_CHANNEL = 0;
         public static final int ARM_REVERSE_CHANNEL = 0;
         public static final int LEFT_MOTOR_ID = 0;

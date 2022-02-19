@@ -1,4 +1,4 @@
-package frc.robot.commands.Climber;
+package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -10,9 +10,10 @@ public class ArmPneumaticTipping extends CommandBase {
     Climber climber;
     Timer timer;
     ArmTipState targetState;
+
     enum ArmTipState {
-        Up,
-        Down
+        UP,
+        DOWN
     }
 
     /**
@@ -30,25 +31,27 @@ public class ArmPneumaticTipping extends CommandBase {
         targetState = armTipState;
     }
 
+    @Override
     public void initialize() {
         // climber.setLockState(isArmUp);
         timer.reset();
         timer.start();
         switch (targetState) {
 
-            case Up:
+            case UP:
                 climber.setArmUp();
                 break;
 
-            case Down:
+            case DOWN:
                 climber.setArmDown();
                 break;
         }
 
     }
 
+    @Override
     public boolean isFinished() {
         return timer.get() >= Constants.Climber.TIME_FOR_ARM_TO_GO_UP;
-           }
+    }
 
 }

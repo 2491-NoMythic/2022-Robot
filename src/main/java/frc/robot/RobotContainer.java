@@ -9,47 +9,73 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.drivetrain.Drive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.Climber.AutomatedClimb;
+
 import static frc.robot.settings.Constants.Ps4.*;
+
+import frc.robot.commands.PointAtCargo;
+import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
- * This class is where the bulk of the robot should be declared. Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * This class is where the bulk of the robot should be declared. Since
+ * Command-based is a
+ * "declarative" paradigm, very little robot logic should actually be handled in
+ * the {@link Robot}
+ * periodic methods (other than the scheduler calls). Instead, the structure of
+ * the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Climber climber;
   private final Drivetrain drivetrain;
-  private final AutomatedClimb automatedClimb = new AutomatedClimb(climber);
+  private final Vision vision;
+  private final Intake intake;
 
-  private final Joystick Ps4;
+  private final AutomatedClimb automatedClimb;
+  private final Drive defaultDriveCommand;
+  private final PointAtCargo pointAtCargo;
+
+  private final Joystick ps4;
   private final JoystickButton climb;
 
-  private final Drive defaultDriveCommand = new Drive(drivetrain);
-  /** The container for the robot. Contains subsystems, OI devices, and commands. */
+  /**
+   * The container for the robot. Contains subsystems, OI devices, and commands.
+   */
   public RobotContainer() {
     // Configure the button bindings
     climber = new Climber();
     drivetrain = new Drivetrain();
-    Ps4 = new Joystick(CONTROLLER_ID);
-    climb = new JoystickButton(Ps4, CLIMB_BUTTON_ID);
+    vision = new Vision();
+    intake = new Intake();
 
-    configureButtonBindings();
+    defaultDriveCommand = new Drive(drivetrain);
+    automatedClimb = new AutomatedClimb(climber);
+    pointAtCargo = new PointAtCargo(drivetrain, vision);
+
+    ps4 = new Joystick(CONTROLLER_ID);
+    climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
+
     drivetrain.setDefaultCommand(defaultDriveCommand);
+    configureButtonBindings();
   }
+
   public void initTelemetry() {
     SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
   }
+
   /**
-   * Use this method to define your button->command mappings. Buttons can be created by
+   * Use this method to define your button->command mappings. Buttons can be
+   * created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing
+   * it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
