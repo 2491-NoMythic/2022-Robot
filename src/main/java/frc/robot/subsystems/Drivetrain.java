@@ -29,15 +29,16 @@ public class Drivetrain extends SubsystemBase{
         addChild("Left Follow", leftFollowMotor);
         addChild("Right Lead", rightLeadMotor);
         addChild("Right Follow", rightFollowMotor);
-
+        leftFollowMotor.follow(leftLeadMotor);
+        rightFollowMotor.follow(rightLeadMotor)
         
 		//making right motors go right
 		rightLeadMotor.setInverted(InvertType.None);
-		rightFollowMotor.setInverted(InvertType.None);
+		rightFollowMotor.setInverted(InvertType.FollowMaster);
 		leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
-		leftFollowMotor.setInverted(InvertType.InvertMotorOutput);
+		leftFollowMotor.setInverted(InvertType.FollowMaster);
         bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
-         bbDriveSystem.setDeadband(0.04);
+        bbDriveSystem.setDeadband(0.04);
         addChild("Diff Drive", bbDriveSystem);
     }
     public void setDrive(ControlMode mode, double speed){
@@ -73,6 +74,13 @@ public class Drivetrain extends SubsystemBase{
     }
     public void setDriveRight(ControlMode mode,double speed) {
         rightLeadMotor.set(mode, speed);
+    }
+    
+    public void setDriveVoltage (double leftOutputVolts, double rightOutputVolts)
+    {
+        rightLeadMotor.setVoltage(leftOutputVolts);
+        leftLeadMotor.setVoltage(rightOutputVolts);
+
     }
     public void curvatureDrive(double xSpeed, double zRotation, boolean allowTurnInPlace){
          bbDriveSystem.curvatureDrive(xSpeed, zRotation, allowTurnInPlace);

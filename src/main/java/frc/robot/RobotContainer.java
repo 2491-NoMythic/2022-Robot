@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.commands.drivetrain.Drive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.Climber.AutomatedClimb;
 import static frc.robot.settings.Constants.Ps4.*;
@@ -23,24 +24,28 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Climber climber = new Climber();
-
-  private final Drivetrain drivetrain = new Drivetrain();
+  private final Climber climber;
+  private final Drivetrain drivetrain;
   private final AutomatedClimb automatedClimb = new AutomatedClimb(climber);
 
   private final Joystick Ps4;
   private final JoystickButton climb;
 
+  private final Drive defaultDriveCommand = new Drive(drivetrain);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     // Configure the button bindings
+    climber = new Climber();
+    drivetrain = new Drivetrain();
     Ps4 = new Joystick(CONTROLLER_ID);
-   climb = new JoystickButton(Ps4, CLIMB_BUTTON_ID);
+    climb = new JoystickButton(Ps4, CLIMB_BUTTON_ID);
 
     configureButtonBindings();
+    drivetrain.setDefaultCommand(defaultDriveCommand);
   }
-
+  public void initTelemetry() {
+    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
+  }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
