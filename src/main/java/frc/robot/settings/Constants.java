@@ -66,6 +66,12 @@ public final class Constants {
     public final class Intake {
         private Intake() {
         }
-
+        public static final int ARM_FORWARD_CHANNEL = 0;
+        public static final int ARM_REVERSE_CHANNEL = 0;
+        public static final int LEFT_MOTOR_ID = 0;
+        public static final int RIGHT_MOTOR_ID = 0;
+        public static final int IN_SPEED = 1;
+        public static final int OUT_SPEED = -1;
     }
+
 }
