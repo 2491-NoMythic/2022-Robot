@@ -9,7 +9,7 @@ public class ClimberClimb extends CommandBase {
   boolean stillRunning;
   ArmExtendState state;
 
-  enum ArmExtendState {
+  public enum ArmExtendState {
     IN,
     OUT
   }
