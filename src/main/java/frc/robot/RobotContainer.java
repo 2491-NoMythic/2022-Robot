@@ -5,14 +5,16 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.drivetrain.ConstantDrive;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.Climber.AutomatedClimb;
+import static frc.robot.settings.Constants.Ps4.*;
+import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -22,19 +24,27 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
-  private final Drivetrain drivetrain = new Drivetrain();
+  private final Climber climber;
+  private final Drivetrain drivetrain;
+  private final AutomatedClimb automatedClimb = new AutomatedClimb(climber);
 
-  private final ExampleCommand autoCommand = new ExampleCommand(exampleSubsystem);
+  private final Joystick Ps4;
+  private final JoystickButton climb;
+
   private final Drive defaultDriveCommand = new Drive(drivetrain);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+    climber = new Climber();
+    drivetrain = new Drivetrain();
+    Ps4 = new Joystick(CONTROLLER_ID);
+    climb = new JoystickButton(Ps4, CLIMB_BUTTON_ID);
+
     configureButtonBindings();
     drivetrain.setDefaultCommand(defaultDriveCommand);
   }
   public void initTelemetry() {
-    SmartDashboard.putData("burn in", new ConstantDrive(drivetrain));
+    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -42,7 +52,10 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+
+    climb.whenPressed(automatedClimb, false);
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -51,6 +64,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return autoCommand;
+    return null;
   }
 }
