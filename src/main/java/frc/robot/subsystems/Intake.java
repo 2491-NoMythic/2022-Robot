@@ -8,12 +8,9 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Intake.*;
+
 public class Intake extends SubsystemBase {
-    public enum CargoState {
-        Empty,
-        Red,
-        Blue,
-        }
+    
     CANSparkMax leftIntakeMotor;
     CANSparkMax rightIntakeMotor;
     private DoubleSolenoid armDoubleSolenoid;
@@ -42,13 +39,5 @@ public class Intake extends SubsystemBase {
         //TODO put sensors in here. 
         double value = .2491;
         return value;
-    }
-    public CargoState[] getCargoState(){
-        //stub, get ball colors, and positions?
-        CargoState[] state = {CargoState.Red, CargoState.Empty};
-        return state;
-    }
-    public void setIntakeLights(CargoState[] state){
-        //stub, set lights
     }
 }
