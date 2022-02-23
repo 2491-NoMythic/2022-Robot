@@ -27,6 +27,8 @@ import frc.robot.subsystems.Intake;
 import frc.robot.commands.climber.ClimberClimb;
 import frc.robot.commands.climber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.climber.WedgePneumatic;
+import frc.robot.commands.intake.RunIntake;
+import frc.robot.commands.intake.RunIntake.Direction;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -84,6 +86,8 @@ public class RobotContainer {
     SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
     SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+    SmartDashboard.putData("intakeOut", new RunIntake(intake, Direction.OUT, Direction.OUT));
+    SmartDashboard.putData("intakeIn", new RunIntake(intake, Direction.IN, Direction.IN));
   }
 
   public void initTelemetry() {

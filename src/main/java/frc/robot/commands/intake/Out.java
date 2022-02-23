@@ -25,7 +25,8 @@ public class Out extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.runIntake(OUT_SPEED);
+    intake.rightIntake(OUT_SPEED);
+    intake.leftIntake(OUT_SPEED);
   }
 
   // Called once the command ends or is interrupted.

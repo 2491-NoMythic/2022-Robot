@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Intake.*;
 public class Intake extends SubsystemBase {
     public enum CargoState {
-        Empty,
-        Red,
-        Blue,
+        EMPTY,
+        RED,
+        BLUE,
         }
     CANSparkMax leftIntakeMotor;
     CANSparkMax rightIntakeMotor;
@@ -24,12 +24,15 @@ public class Intake extends SubsystemBase {
         leftIntakeMotor.setInverted(false);
         leftIntakeMotor.setInverted(false); 
         armDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
-        rightIntakeMotor.follow(leftIntakeMotor);
         //TODO make motors operate independantly. 
     }
 
-    public void runIntake(double speed){
+    public void leftIntake(double speed){
         leftIntakeMotor.set(speed);
+    }
+
+    public void rightIntake(double speed){
+            rightIntakeMotor.set(speed);
     }
     public void setArmUp(){
         armDoubleSolenoid.set(Value.kForward);
@@ -45,7 +48,7 @@ public class Intake extends SubsystemBase {
     }
     public CargoState[] getCargoState(){
         //stub, get ball colors, and positions?
-        CargoState[] state = {CargoState.Red, CargoState.Empty};
+        CargoState[] state = {CargoState.RED, CargoState.EMPTY};
         return state;
     }
     public void setIntakeLights(CargoState[] state){
