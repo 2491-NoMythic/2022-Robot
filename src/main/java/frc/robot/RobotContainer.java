@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.LightsSoftware;
@@ -56,10 +57,13 @@ public class RobotContainer {
   private JoystickButton climb;
   private JoystickButton lightsToggle;
 
+  //TODO change "Command" in sendable 
+  SendableChooser<Command> chooser = new SendableChooser<>();
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+
     climber = new Climber();
     drivetrain = new Drivetrain();
     vision = new Vision();
@@ -76,6 +80,10 @@ public class RobotContainer {
 
     configureButtonBindings();
     configureSmartDashboard();
+
+    chooser.setDefaultOption("Burn In", new BurnIn(drivetrain));
+    chooser.setDefaultOption("Simple Forward", new ForwardDistance(drivetrain, 1, .3));
+    SmartDashboard.putData(chooser);
   }
 
   private void configureSmartDashboard() {
@@ -104,6 +112,7 @@ public class RobotContainer {
     climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     climb.whenPressed(automatedClimb, false);
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

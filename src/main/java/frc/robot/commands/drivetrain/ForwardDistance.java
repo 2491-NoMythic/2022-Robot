@@ -8,6 +8,13 @@ public class ForwardDistance extends CommandBase{
     private Timer timer;
     private double driveTime;
     private double power;
+
+    /**
+     * Simple Movment Forward
+     * @param base
+     * @param driveTime
+     * @param power
+     */
   public ForwardDistance(Drivetrain base, double driveTime, double power){
     addRequirements(base);
     drivetrain = base;
