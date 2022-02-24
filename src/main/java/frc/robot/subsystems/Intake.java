@@ -10,11 +10,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Intake.*;
 
 public class Intake extends SubsystemBase {
-    public enum CargoState {
-        EMPTY,
-        RED,
-        BLUE,
-    }
 
     CANSparkMax leftIntakeMotor;
     CANSparkMax rightIntakeMotor;
@@ -47,15 +42,5 @@ public class Intake extends SubsystemBase {
         // TODO put sensors in here.
         double value = .2491;
         return value;
-    }
-
-    public CargoState[] getCargoState() {
-        // stub, get ball colors, and positions?
-        CargoState[] state = { CargoState.RED, CargoState.EMPTY };
-        return state;
-    }
-
-    public void setIntakeLights(CargoState[] state) {
-        // stub, set lights
     }
 }
