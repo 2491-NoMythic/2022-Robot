@@ -33,7 +33,6 @@ public class ArmPneumaticTipping extends CommandBase {
 
     @Override
     public void initialize() {
-        // climber.setLockState(isArmUp);
         timer.reset();
         timer.start();
         switch (targetState) {

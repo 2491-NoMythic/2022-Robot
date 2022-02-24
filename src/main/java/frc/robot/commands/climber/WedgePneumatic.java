@@ -24,10 +24,12 @@ public class WedgePneumatic extends CommandBase {
         targetState = pneumaticState;
     }
 
+    @Override
     public void initialize() {
         climber.setLockState(targetState);
     }
 
+    @Override
     public boolean isFinished() {
 
         switch (targetState) {

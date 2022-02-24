@@ -10,33 +10,36 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Intake.*;
 
 public class Intake extends SubsystemBase {
-    
+
     CANSparkMax leftIntakeMotor;
     CANSparkMax rightIntakeMotor;
     private DoubleSolenoid armDoubleSolenoid;
 
     public Intake() {
         leftIntakeMotor = new CANSparkMax(LEFT_MOTOR_ID, MotorType.kBrushless);
-        rightIntakeMotor = new CANSparkMax(RIGHT_MOTOR_ID, MotorType.kBrushless); 
+        rightIntakeMotor = new CANSparkMax(RIGHT_MOTOR_ID, MotorType.kBrushless);
         leftIntakeMotor.setInverted(false);
-        leftIntakeMotor.setInverted(false); 
+        leftIntakeMotor.setInverted(false);
         armDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
         rightIntakeMotor.follow(leftIntakeMotor);
-        //TODO make motors operate independantly. 
+        // TODO make motors operate independantly.
     }
 
-    public void runIntake(double speed){
+    public void runIntake(double speed) {
         leftIntakeMotor.set(speed);
     }
-    public void setArmUp(){
+
+    public void setArmUp() {
         armDoubleSolenoid.set(Value.kForward);
     }
-    public void setArmDown(){
+
+    public void setArmDown() {
         armDoubleSolenoid.set(Value.kReverse);
     }
-    public double getSensors(){
-        //stub
-        //TODO put sensors in here. 
+
+    public double getSensors() {
+        // stub
+        // TODO put sensors in here.
         double value = .2491;
         return value;
     }
