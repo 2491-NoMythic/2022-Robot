@@ -16,6 +16,7 @@ import frc.robot.commands.LightsSoftware;
 import static frc.robot.settings.Constants.Ps4.*;
 
 import frc.robot.commands.PointAtCargo;
+import frc.robot.commands.climber.ArmPneumaticTipping;
 import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
@@ -27,6 +28,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.commands.climber.ClimberClimb;
 import frc.robot.commands.climber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.climber.WedgePneumatic;
+import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -80,10 +82,13 @@ public class RobotContainer {
 
   private void configureSmartDashboard() {
     SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
+    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+
     SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
     SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
     SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
-    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+    SmartDashboard.putData("tiltDown", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
+    SmartDashboard.putData("tiltUp", new  ArmPneumaticTipping(climber, ArmTipState.UP));
   }
 
   public void initTelemetry() {

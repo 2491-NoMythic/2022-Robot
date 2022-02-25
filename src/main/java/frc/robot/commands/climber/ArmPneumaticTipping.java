@@ -11,14 +11,12 @@ public class ArmPneumaticTipping extends CommandBase {
     Timer timer;
     ArmTipState targetState;
 
-    enum ArmTipState {
+    public enum ArmTipState {
         UP,
         DOWN
     }
 
     /**
-     * if armUp = true, the solenoid is extended
-     * if armUp = false, the solenoid is retracted
      * 
      * @param climber
      * @param armTipState
