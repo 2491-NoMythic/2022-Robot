@@ -67,7 +67,7 @@ public class RobotContainer {
     lights = new LightsHardware();
 
     defaultDriveCommand = new Drive(drivetrain);
-    automatedClimb = new AutomatedClimb(climber);
+    automatedClimb = new AutomatedClimb(climber, drivetrain);
     pointAtCargo = new PointAtCargo(drivetrain, vision);
 
     ps4 = new Joystick(CONTROLLER_ID);

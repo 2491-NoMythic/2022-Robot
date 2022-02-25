@@ -5,7 +5,10 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
 import frc.robot.commands.climber.ClimberClimb.ArmExtendState;
+import frc.robot.commands.drivetrain.ForwardDistance;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Climber.RungLockState;
 
@@ -15,10 +18,18 @@ import frc.robot.subsystems.Climber.RungLockState;
 public class AutomatedClimb extends SequentialCommandGroup {
   /** Creates a new AutomatedClimb. */
 
-  public AutomatedClimb(Climber climber) {
+  public AutomatedClimb(Climber climber, Drivetrain drivetrain) {
     // Add your commands in the addCommands() call, e.g.
-    // TODO needs to work with drivetrain
-    addCommands(new ClimberClimb(climber, ArmExtendState.OUT), new ClimberClimb(climber, ArmExtendState.IN),
-        new WedgePneumatic(climber, RungLockState.Locked));
+    addCommands(
+    new ClimberClimb(climber, ArmExtendState.OUT),
+    new ForwardDistance(drivetrain, 3, 0.3),
+    new ClimberClimb(climber, ArmExtendState.IN), 
+    new WedgePneumatic(climber, RungLockState.Locked),
+    new ArmPneumaticTipping(climber, ArmTipState.DOWN),
+    new ClimberClimb(climber, ArmExtendState.OUT),
+    new ArmPneumaticTipping(climber, ArmTipState.UP),
+    new WedgePneumatic(climber, RungLockState.Unlocked),
+    new ClimberClimb(climber, ArmExtendState.IN)
+    );
   }
 }
