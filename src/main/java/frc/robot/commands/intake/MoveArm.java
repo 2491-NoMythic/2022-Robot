@@ -3,28 +3,44 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.intake;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
 
 
-public class Up extends CommandBase {
-  /** Creates a new up. */
-  private Intake intake;
+public class MoveArm extends CommandBase {
 
-  public Up(Intake intake) {
+  public enum IntakeArmState{
+    armUp,
+    armDown
+  }
+ 
+  private Intake intake;
+  private IntakeArmState state;
+  
+/**
+ * State is used for the state the arm will move in
+ * @param intake
+ * @param state
+ */
+  public MoveArm(Intake intake, IntakeArmState state) {
     this.intake = intake;
     addRequirements(intake);
-    // Use addRequirements() here to declare subsystem dependencies.
+    this.state = state;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setArmUp();
-    //move arm up
+    
+    switch(state)
+    {
+      case armUp:
+        intake.setArmUp();
+      case armDown:
+        intake.setArmDown();
+    
+    }
   }
-  
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
