@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.sensors.Pigeon2;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -21,6 +22,7 @@ public class Drivetrain extends SubsystemBase {
     private DifferentialDrive bbDriveSystem;
     private MotorControllerGroup leftMotors;
     private MotorControllerGroup rightMotors;
+    private Pigeon2 gyroBirb;
 
     public Drivetrain() {
 
@@ -46,6 +48,7 @@ public class Drivetrain extends SubsystemBase {
         bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
         bbDriveSystem.setDeadband(0.04);
         addChild("Diff Drive", bbDriveSystem);
+        gyroBirb = new Pigeon2(PIGEON_ID);
     }
 
     public void setDrive(ControlMode mode, double speed) {
@@ -97,6 +100,10 @@ public class Drivetrain extends SubsystemBase {
 
     public void curvatureDrive(double xSpeed, double zRotation, boolean allowTurnInPlace) {
         bbDriveSystem.curvatureDrive(xSpeed, zRotation, allowTurnInPlace);
+    }
+
+    public double getGyroAngle() {
+        return gyroBirb.getYaw();
     }
 
     @Override

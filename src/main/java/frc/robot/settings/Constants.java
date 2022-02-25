@@ -99,6 +99,7 @@ public final class Constants {
         public static final int LEFT_FOLLOW_ID = 3;
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
+        public static final int PIGEON_ID = 2491;
 
         public static final double ENCODER_TICKS_TO_INCHES =
             (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); //TODO: find effective diameter of the wheels.
