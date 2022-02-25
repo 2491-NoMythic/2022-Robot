@@ -22,9 +22,12 @@ public class Pixy2SubSystem extends SubsystemBase {
 	private Block blockLeft;
 	private Block blockRight;
 
+	private long count = 0l;
+
 	public Pixy2SubSystem() {
 		pixy = Pixy2.createInstance(new SPILink()); // Creates a new Pixy2 camera using SPILink
 		pixy.init();
+		SmartDashboard.putString("Pixy Status", "initialized");
 	}
 
 	public void turnOnLights() {
@@ -54,6 +57,7 @@ public class Pixy2SubSystem extends SubsystemBase {
 
 	@Override
 	public void periodic() {
+		SmartDashboard.putString("Pixy Running", "running " + count++);
 		scanForBlocks();
 	}
 
@@ -67,8 +71,12 @@ public class Pixy2SubSystem extends SubsystemBase {
 		ArrayList<Block> blocks = pixy.getCCC().getBlockCache();
 		
 		if (blocks == null) {
+			SmartDashboard.putString("Pixy Status", "No Data");
 			return;
 		}
+		
+		SmartDashboard.putNumber("Blocks", blocks.size());
+
 		for (Block block : blocks) {
 			if ((block.getSignature() == RED || block.getSignature() == BLUE)  && block.getWidth() > MIN_SIZE) {
 				if (largestBlock == null) {
@@ -81,7 +89,6 @@ public class Pixy2SubSystem extends SubsystemBase {
 		}
 		if (largestBlock == null) {
 			// nothing both left and right
-			return;
 		} else if (secondLargestBlock == null) {
 			// one side is empty
 			if (largestBlock.getX() < 315/2) {
@@ -99,6 +106,7 @@ public class Pixy2SubSystem extends SubsystemBase {
 			blockRight = secondLargestBlock;
 			blockLeft = largestBlock;
 		}
+		SmartDashboard.putString("Pixy Status", "Good");
 		SmartDashboard.putString("Ball Left", convert(blockLeft).toString());
 		SmartDashboard.putString("Ball Right", convert(blockRight).toString());
 	}

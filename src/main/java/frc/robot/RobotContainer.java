@@ -21,6 +21,7 @@ import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LightsHardware;
+import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
 import frc.robot.subsystems.Intake;
@@ -41,16 +42,17 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final LightsHardware lights;
+  // private final LightsHardware lights;
 
-  private final Climber climber;
-  private final Drivetrain drivetrain;
-  private final Vision vision;
-  private final Intake intake;
+  // private final Climber climber;
+  // private final Drivetrain drivetrain;
+  // private final Vision vision;
+  // private final Intake intake;
+  private final Pixy2SubSystem pixy2SubSystem;
 
-  private final AutomatedClimb automatedClimb;
-  private final Drive defaultDriveCommand;
-  private final PointAtCargo pointAtCargo;
+  // private final AutomatedClimb automatedClimb;
+  // private final Drive defaultDriveCommand;
+  // private final PointAtCargo pointAtCargo;
 
   private final Joystick ps4;
   private JoystickButton climb;
@@ -60,30 +62,32 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    climber = new Climber();
-    drivetrain = new Drivetrain();
-    vision = new Vision();
-    intake = new Intake();
-    lights = new LightsHardware();
+    // climber = new Climber();
+    // drivetrain = new Drivetrain();
+    // vision = new Vision();
+    // intake = new Intake();
+    // lights = new LightsHardware();
+    pixy2SubSystem = new Pixy2SubSystem();
 
-    defaultDriveCommand = new Drive(drivetrain);
-    automatedClimb = new AutomatedClimb(climber);
-    pointAtCargo = new PointAtCargo(drivetrain, vision);
+    // defaultDriveCommand = new Drive(drivetrain);
+    // automatedClimb = new AutomatedClimb(climber);
+    // pointAtCargo = new PointAtCargo(drivetrain, vision);
 
     ps4 = new Joystick(CONTROLLER_ID);
 
-    drivetrain.setDefaultCommand(defaultDriveCommand);
+    // drivetrain.setDefaultCommand(defaultDriveCommand);
 
     configureButtonBindings();
     configureSmartDashboard();
   }
 
   private void configureSmartDashboard() {
-    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
-    SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
-    SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
-    SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
-    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+    SmartDashboard.putString("Pixy Status", "Starting");
+    // SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
+    // SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
+    // SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
+    // SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
+    // SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
   }
 
   public void initTelemetry() {
@@ -99,10 +103,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
-    lightsToggle.whenPressed(new LightsSoftware(lights));
+    //lightsToggle.whenPressed(new LightsSoftware(lights));
     
     climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
-    climb.whenPressed(automatedClimb, false);
+    //climb.whenPressed(automatedClimb, false);
   }
 
   /**
