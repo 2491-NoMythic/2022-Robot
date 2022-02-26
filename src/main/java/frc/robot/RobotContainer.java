@@ -28,6 +28,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.commands.climber.ClimberClimb;
 import frc.robot.commands.climber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.climber.WedgePneumatic;
@@ -55,6 +56,7 @@ public class RobotContainer {
   private final Drivetrain drivetrain;
   private final Vision vision;
   private final Intake intake;
+  private final Pixy2SubSystem pixy;
 
   private final AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
@@ -90,6 +92,7 @@ public class RobotContainer {
     vision = new Vision();
     intake = new Intake();
     // lights = new LightsHardware();
+    pixy = new Pixy2SubSystem();
 
     defaultDriveCommand = new Drive(drivetrain);
     automatedClimb = new AutomatedClimb(climber);

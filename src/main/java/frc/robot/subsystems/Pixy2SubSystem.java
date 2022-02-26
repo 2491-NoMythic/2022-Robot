@@ -64,11 +64,13 @@ public class Pixy2SubSystem extends SubsystemBase {
 		Block largestBlock = null;
 		Block secondLargestBlock = null;
 
+		pixy.getCCC().getBlocks(false);
 		ArrayList<Block> blocks = pixy.getCCC().getBlockCache();
 		
 		if (blocks == null) {
 			return;
 		}
+
 		for (Block block : blocks) {
 			if ((block.getSignature() == RED || block.getSignature() == BLUE)  && block.getWidth() > MIN_SIZE) {
 				if (largestBlock == null) {
@@ -76,12 +78,13 @@ public class Pixy2SubSystem extends SubsystemBase {
 				} else if (block.getWidth() > largestBlock.getWidth()) {
 					secondLargestBlock = largestBlock;
 					largestBlock = block;
+				} else if (secondLargestBlock == null || block.getWidth() > secondLargestBlock.getWidth()) {
+					secondLargestBlock = block;
 				}
 			}
 		}
 		if (largestBlock == null) {
 			// nothing both left and right
-			return;
 		} else if (secondLargestBlock == null) {
 			// one side is empty
 			if (largestBlock.getX() < 315/2) {
