@@ -16,6 +16,7 @@ public class RunIntake extends CommandBase {
   /** Creates a new RunIntake. */
   public RunIntake(Intake intake, PS4Controller ps4Controller) {
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intake);
     this.intake = intake;
     this.ps4Controller = ps4Controller;
   }
