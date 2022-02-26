@@ -4,14 +4,18 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTablesJNI;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
+import frc.robot.commands.intake.MoveArm;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.commands.LightsSoftware;
+// import frc.robot.commands.LightsSoftware;
 
 import static frc.robot.settings.Constants.Ps4.*;
 
@@ -20,7 +24,7 @@ import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.LightsHardware;
+// import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
 import frc.robot.subsystems.Intake;
@@ -29,6 +33,7 @@ import frc.robot.commands.climber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.climber.WedgePneumatic;
 import frc.robot.commands.intake.RunIntakeLeft;
 import frc.robot.commands.intake.RunIntakeRight;
+import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.commands.intake.Direction;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -44,7 +49,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final LightsHardware lights;
+  // private final LightsHardware lights;
 
   private final Climber climber;
   private final Drivetrain drivetrain;
@@ -54,11 +59,19 @@ public class RobotContainer {
   private final AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
   private final PointAtCargo pointAtCargo;
+  private final MoveArm intakeUpCommand;
+  private final MoveArm intakeDownCommand;
+  
 
   private final Joystick ps4;
   private JoystickButton climb;
-  private JoystickButton lightsToggle;
 
+  private JoystickButton intakeUp;
+  private JoystickButton intakeDown;
+
+  // private JoystickButton lightsToggle;
+
+  private Compressor pcmCompressor;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -67,15 +80,21 @@ public class RobotContainer {
     drivetrain = new Drivetrain();
     vision = new Vision();
     intake = new Intake();
-    lights = new LightsHardware();
+    // lights = new LightsHardware();
 
     defaultDriveCommand = new Drive(drivetrain);
     automatedClimb = new AutomatedClimb(climber);
     pointAtCargo = new PointAtCargo(drivetrain, vision);
 
+    intakeUpCommand = new MoveArm(intake, IntakeArmState.armUp);
+    intakeDownCommand = new MoveArm(intake, IntakeArmState.armDown);
     ps4 = new Joystick(CONTROLLER_ID);
 
     drivetrain.setDefaultCommand(defaultDriveCommand);
+    
+    pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
+    pcmCompressor.enableDigital();
+    pcmCompressor.enabled();
 
     configureButtonBindings();
     configureSmartDashboard();
@@ -103,8 +122,12 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
-    lightsToggle.whenPressed(new LightsSoftware(lights));
+    // lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
+    // lightsToggle.whenPressed(new LightsSoftware(lights));
+    intakeUp = new JoystickButton(ps4, INTAKEUP_BUTTON_ID);
+    intakeUp.whenPressed(intakeUpCommand, false);
+    intakeDown = new JoystickButton(ps4, INTAKEDOWN_BUTTON_ID);
+    intakeDown.whenPressed(intakeDownCommand, false);
     
     climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     climb.whenPressed(automatedClimb, false);

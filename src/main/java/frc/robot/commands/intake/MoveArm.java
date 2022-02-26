@@ -36,9 +36,10 @@ public class MoveArm extends CommandBase {
     {
       case armUp:
         intake.setArmUp();
+        break;
       case armDown:
         intake.setArmDown();
-    
+        break;
     }
   }
 
