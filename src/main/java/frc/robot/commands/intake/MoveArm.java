@@ -3,29 +3,49 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands.intake;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
-import static frc.robot.settings.Constants.Intake.*;
-public class In extends CommandBase {
-  /** Creates a new In. */
-  private Intake intake;
 
-  public In(Intake intake) {
+
+public class MoveArm extends CommandBase {
+
+  public enum IntakeArmState{
+    armUp,
+    armDown
+  }
+ 
+  private Intake intake;
+  private IntakeArmState state;
+  
+/**
+ * State is used for the state the arm will move in
+ * @param intake
+ * @param state
+ */
+  public MoveArm(Intake intake, IntakeArmState state) {
     this.intake = intake;
     addRequirements(intake);
-    // Use addRequirements() here to declare subsystem dependencies.
+    this.state = state;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+    switch(state)
+    {
+      case armUp:
+        intake.setArmUp();
+        break;
+      case armDown:
+        intake.setArmDown();
+        break;
+    }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    intake.runIntake(IN_SPEED);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
@@ -34,6 +54,6 @@ public class In extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

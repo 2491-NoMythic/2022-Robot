@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Intake.*;
 
 public class Intake extends SubsystemBase {
-
     CANSparkMax leftIntakeMotor;
     CANSparkMax rightIntakeMotor;
     private DoubleSolenoid armDoubleSolenoid;
@@ -21,15 +20,17 @@ public class Intake extends SubsystemBase {
         leftIntakeMotor.setInverted(false);
         leftIntakeMotor.setInverted(false);
         armDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
-        rightIntakeMotor.follow(leftIntakeMotor);
-        // TODO make motors operate independantly.
+        //TODO make motors operate independantly. 
     }
 
-    public void runIntake(double speed) {
+    public void leftIntake(double speed){
         leftIntakeMotor.set(speed);
     }
 
-    public void setArmUp() {
+    public void rightIntake(double speed){
+            rightIntakeMotor.set(speed);
+    }
+    public void setArmUp(){
         armDoubleSolenoid.set(Value.kForward);
     }
 

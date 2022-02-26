@@ -12,11 +12,10 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
-import frc.robot.commands.intake.Down;
-import frc.robot.commands.intake.Up;
+import frc.robot.commands.intake.MoveArm;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import frc.robot.commands.LightsSoftware;
+// import frc.robot.commands.LightsSoftware;
 
 import static frc.robot.settings.Constants.Ps4.*;
 
@@ -25,13 +24,17 @@ import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.LightsHardware;
+// import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
 import frc.robot.subsystems.Intake;
 import frc.robot.commands.climber.ClimberClimb;
 import frc.robot.commands.climber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.climber.WedgePneumatic;
+import frc.robot.commands.intake.RunIntakeLeft;
+import frc.robot.commands.intake.RunIntakeRight;
+import frc.robot.commands.intake.MoveArm.IntakeArmState;
+import frc.robot.commands.intake.Direction;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -56,8 +59,9 @@ public class RobotContainer {
   private final AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
   private final PointAtCargo pointAtCargo;
-  private final Up intakeUpCommand;
-  private final Down intakeDownCommand;
+  private final MoveArm intakeUpCommand;
+  private final MoveArm intakeDownCommand;
+  
 
   private final Joystick ps4;
   private JoystickButton climb;
@@ -82,8 +86,8 @@ public class RobotContainer {
     automatedClimb = new AutomatedClimb(climber);
     pointAtCargo = new PointAtCargo(drivetrain, vision);
 
-    intakeUpCommand = new Up(intake);
-    intakeDownCommand = new Down(intake);
+    intakeUpCommand = new MoveArm(intake, IntakeArmState.armUp);
+    intakeDownCommand = new MoveArm(intake, IntakeArmState.armDown);
     ps4 = new Joystick(CONTROLLER_ID);
 
     drivetrain.setDefaultCommand(defaultDriveCommand);
@@ -102,6 +106,8 @@ public class RobotContainer {
     SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
     SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+    SmartDashboard.putData("RightIntakeOut", new RunIntakeRight(intake, Direction.OUT));
+    SmartDashboard.putData("intakeIn", new RunIntakeLeft(intake, Direction.OUT));
   }
 
   public void initTelemetry() {
