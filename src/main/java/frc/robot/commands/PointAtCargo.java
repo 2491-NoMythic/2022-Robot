@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
@@ -33,6 +34,7 @@ public class PointAtCargo extends CommandBase {
 
     double throttle = hPos / 50;
     drivetrain.setDrive(-throttle, throttle);
+    SmartDashboard.putNumber("hAngle", hPos);
 
   }
 

@@ -56,13 +56,12 @@ public class RobotContainer {
 
   // private final Climber climber;
   private final Drivetrain drivetrain;
-  // private final Vision vision;
+  private final Vision vision;
   private final Intake intake;
   private final Pixy2SubSystem pixy;
 
   // private final AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
-  // private final PointAtCargo pointAtCargo;
   // private final MoveArm intakeUpCommand;
   // private final MoveArm intakeDownCommand;
   private final RunIntake runIntakeCommand;
@@ -92,7 +91,7 @@ public class RobotContainer {
   public RobotContainer() {
     // climber = new Climber();
     drivetrain = new Drivetrain();
-    // vision = new Vision();
+    vision = new Vision();
     intake = new Intake();
 
     ps4 = new PS4Controller(CONTROLLER_ID);
@@ -101,7 +100,6 @@ public class RobotContainer {
 
     defaultDriveCommand = new Drive(drivetrain);
     // automatedClimb = new AutomatedClimb(climber);
-    // pointAtCargo = new PointAtCargo(drivetrain, vision);
     
     runIntakeCommand = new RunIntake(intake, ps4);
 
@@ -117,6 +115,8 @@ public class RobotContainer {
   }
 
   private void configureSmartDashboard() {
+    SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
+    SmartDashboard.putData("drivetrain", drivetrain);
     // SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     // SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
     // SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
