@@ -4,7 +4,6 @@
 
 package frc.robot.commands.intake;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Intake;
@@ -36,7 +35,7 @@ public class RunIntake extends CommandBase {
       intake.rightIntake(OUT_SPEED);
     } else {intake.rightIntake(0);}
     
-    if (ps4Controller.getTriangleButton()) {
+    if (ps4Controller.getCircleButton()) {
       intake.setArmUp();
     } else if (ps4Controller.getCrossButton()) {
       intake.setArmDown();
