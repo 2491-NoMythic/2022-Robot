@@ -46,11 +46,12 @@ public class Climber extends SubsystemBase {
         rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
 
 
-        rightWinchMotor.setInverted(InvertType.None);
+        rightWinchMotor.setInverted(InvertType.InvertMotorOutput);
         leftWinchMotor.setInverted(InvertType.None);
 
         rightWinchMotor.set(ControlMode.PercentOutput, 0);
         leftWinchMotor.set(ControlMode.PercentOutput, 0);
+        //negative percent output values bring climber in, positive bring it out.
 
         toggleLock();
     }
@@ -136,15 +137,15 @@ public class Climber extends SubsystemBase {
             return;
         }
 
-        double leftSpeed = -speed;
-        double rightSpeed = -speed;
+        double leftSpeed = speed;
+        double rightSpeed = speed;
         setMotorSpeed(leftSpeed, rightSpeed);
     }
 
     public boolean isClimberFullyOut()
     {
         // if not open(closed)
-        return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
+        return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
     }
     /**
      * use motors to move the climber into extended position
@@ -159,14 +160,14 @@ public class Climber extends SubsystemBase {
             return;
         }
 
-        double leftSpeed = speed;
-        double rightSpeed = speed;
+        double leftSpeed = -speed;
+        double rightSpeed = -speed;
 
         setMotorSpeed(leftSpeed, rightSpeed);
     }
 
 public boolean isClimberFullyIn(){
-    return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
+    return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
 }
 
     public void stop() {
