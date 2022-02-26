@@ -6,7 +6,6 @@ import frc.robot.subsystems.Climber;
 public class ClimberClimb extends CommandBase {
 
   Climber climber;
-  boolean stillRunning;
   ArmExtendState state;
 
   public enum ArmExtendState {
@@ -28,10 +27,6 @@ public class ClimberClimb extends CommandBase {
     state = armState;
   }
 
-  @Override
-  public void initialize() {
-    stillRunning = true;
-  }
 
   @Override
   public void execute() {
@@ -39,17 +34,24 @@ public class ClimberClimb extends CommandBase {
     switch (state) {
 
       case OUT:
-        stillRunning = climber.climberOut(.5);
+        climber.climberOut(.5);
         break;
       case IN:
-        stillRunning = climber.climberIn(.5);
+        climber.climberIn(.5);
         break;
     }
   }
 
   @Override
   public boolean isFinished() {
-    return !stillRunning;
+      switch (state){
+
+      case OUT:
+        return climber.isClimberFullyOut();
+      case IN:
+        return climber.isClimberFullyIn();
+      }
+      return false;
   }
 
   @Override

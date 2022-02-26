@@ -34,10 +34,6 @@ public final class Constants {
         public static final int LEFT_WINCH_ID = 5;
         public static final int RIGHT_WINCH_ID = 6;
 
-        public static final int TOP_RIGHT_LIMIT_SWITCH = 0;
-        public static final int BOTTOM_RIGHT_LIMIT_SWITCH = 1;
-        public static final int TOP_LEFT_LIMIT_SWITCH = 2;
-        public static final int BOTTOM_LEFT_LIMIT_SWITCH = 3;
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
     }
 

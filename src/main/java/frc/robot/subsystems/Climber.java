@@ -36,10 +36,6 @@ public class Climber extends SubsystemBase {
     private DoubleSolenoid armSolenoid;
     private WPI_TalonFX leftWinchMotor;
     private WPI_TalonFX rightWinchMotor;
-    private DigitalInput topRightLimitSwitch;
-    private DigitalInput bottomRightLimitSwitch;
-    private DigitalInput topLeftLimitSwitch;
-    private DigitalInput bottomLeftLimitSwitch;
 
     /** Creates a new climber. */
     public Climber() {
@@ -50,10 +46,6 @@ public class Climber extends SubsystemBase {
         leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
         rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
 
-        topRightLimitSwitch = new DigitalInput(TOP_RIGHT_LIMIT_SWITCH);
-        topLeftLimitSwitch = new DigitalInput(TOP_LEFT_LIMIT_SWITCH);
-        bottomRightLimitSwitch = new DigitalInput(BOTTOM_RIGHT_LIMIT_SWITCH);
-        bottomLeftLimitSwitch = new DigitalInput(BOTTOM_LEFT_LIMIT_SWITCH);
 
         rightWinchMotor.setInverted(InvertType.None);
         leftWinchMotor.setInverted(InvertType.None);
@@ -139,26 +131,22 @@ public class Climber extends SubsystemBase {
      * @return whether motors are still running or not
      * @note method must be called repeatedly so robot can accuratley check sensors
      */
-    public boolean climberOut(double speed) {
+    public void climberOut(double speed) {
         if (speed < 0) {
             setMotorSpeed(0, 0);
-            return false;
+            return;
         }
 
         double leftSpeed = -speed;
         double rightSpeed = -speed;
-
-        if (topLeftLimitSwitch.get()) {
-            leftSpeed = 0;
-        }
-        if (topRightLimitSwitch.get()) {
-            rightSpeed = 0;
-        }
         setMotorSpeed(leftSpeed, rightSpeed);
-
-        return leftSpeed != 0 || rightSpeed != 0;
     }
 
+    public boolean isClimberFullyOut()
+    {
+        // if not open(closed)
+        return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
+    }
     /**
      * use motors to move the climber into extended position
      * 
@@ -166,25 +154,21 @@ public class Climber extends SubsystemBase {
      * @return whether motors are still running or not
      * @note method must be called repeatedly so robot can accuratley check sensors
      */
-    public boolean climberIn(double speed) {
+    public void climberIn(double speed) {
         if (speed < 0) {
             setMotorSpeed(0, 0);
-            return false;
+            return;
         }
 
         double leftSpeed = speed;
         double rightSpeed = speed;
 
-        if (bottomLeftLimitSwitch.get()) {
-            leftSpeed = 0;
-        }
-        if (bottomRightLimitSwitch.get()) {
-            rightSpeed = 0;
-        }
         setMotorSpeed(leftSpeed, rightSpeed);
-
-        return leftSpeed != 0 || rightSpeed != 0;
     }
+
+public boolean isClimberFullyIn(){
+    return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
+}
 
     public void stop() {
         setMotorSpeed(0, 0);
