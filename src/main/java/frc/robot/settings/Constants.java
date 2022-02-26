@@ -50,6 +50,12 @@ public final class Constants {
         public static final int LIGHTS_BUTTON_ID = 6;   // todo
         public static final int INTAKEUP_BUTTON_ID = 4;
         public static final int INTAKEDOWN_BUTTON_ID = 2;
+        
+        public static final int RIGHT_IN_BUTTON_ID = 8;
+        public static final int RIGHT_OUT_BUTTON_ID = 6;
+        public static final int LEFT_IN_BUTTON_ID = 7;
+        public static final int LEFT_OUT_BUTTON_ID = 5;
+
     }
 
     /**
@@ -79,8 +85,8 @@ public final class Constants {
         public static final int ARM_REVERSE_CHANNEL = 1;
         public static final int LEFT_MOTOR_ID = 7;
         public static final int RIGHT_MOTOR_ID = 8;
-        public static final int IN_SPEED = 1;
-        public static final int OUT_SPEED = -1;
+        public static final double IN_SPEED = .5;
+        public static final double OUT_SPEED = -.5;
     }
 
 }

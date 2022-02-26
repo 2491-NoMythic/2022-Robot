@@ -61,13 +61,22 @@ public class RobotContainer {
   private final PointAtCargo pointAtCargo;
   private final MoveArm intakeUpCommand;
   private final MoveArm intakeDownCommand;
-  
-
+  // private final RunIntakeLeft intakeLeftInCommand;
+  //private final RunIntakeLeft intakeLeftOutCommand;
+  //private final RunIntakeLeft intakeLeftStopCommand;
+  // private final RunIntakeRight intakeRightInCommand;
+  //private final RunIntakeRight intakeRightOutCommand;
+  //private final RunIntakeRight intakeRightStopCommand;
   private final Joystick ps4;
   private JoystickButton climb;
 
   private JoystickButton intakeUp;
   private JoystickButton intakeDown;
+
+  private JoystickButton intakeLeftIn;
+  private JoystickButton intakeLeftOut;
+  private JoystickButton intakeRightIn;
+  private JoystickButton intakeRightOut;
 
   // private JoystickButton lightsToggle;
 
@@ -88,6 +97,12 @@ public class RobotContainer {
 
     intakeUpCommand = new MoveArm(intake, IntakeArmState.armUp);
     intakeDownCommand = new MoveArm(intake, IntakeArmState.armDown);
+    // intakeLeftInCommand = new RunIntakeLeft(intake, Direction.IN);
+    //intakeLeftOutCommand = new RunIntakeLeft(intake, Direction.OUT);
+    // intakeLeftStopCommand = new RunIntakeLeft(intake, Direction.STOP);
+    // intakeRightInCommand = new RunIntakeRight(intake, Direction.IN);
+    //intakeRightOutCommand = new RunIntakeRight(intake, Direction.OUT);
+    // intakeRightStopCommand = new RunIntakeRight(intake, Direction.STOP);
     ps4 = new Joystick(CONTROLLER_ID);
 
     drivetrain.setDefaultCommand(defaultDriveCommand);
@@ -106,8 +121,8 @@ public class RobotContainer {
     SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
     SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
-    SmartDashboard.putData("RightIntakeOut", new RunIntakeRight(intake, Direction.OUT));
-    SmartDashboard.putData("intakeIn", new RunIntakeLeft(intake, Direction.OUT));
+    // SmartDashboard.putData("RightIntakeOut", new RunIntakeRight(intake, Direction.OUT));
+    // SmartDashboard.putData("LeftIntakeIn", new RunIntakeLeft(intake, Direction.IN));
   }
 
   public void initTelemetry() {
@@ -125,10 +140,17 @@ public class RobotContainer {
     // lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
     // lightsToggle.whenPressed(new LightsSoftware(lights));
     intakeUp = new JoystickButton(ps4, INTAKEUP_BUTTON_ID);
-    intakeUp.whenPressed(intakeUpCommand, false);
+    intakeUp.whenPressed(intakeUpCommand);
     intakeDown = new JoystickButton(ps4, INTAKEDOWN_BUTTON_ID);
-    intakeDown.whenPressed(intakeDownCommand, false);
-    
+    intakeDown.whenPressed(intakeDownCommand);
+    intakeLeftIn = new JoystickButton(ps4, LEFT_IN_BUTTON_ID);
+    intakeLeftIn.whenHeld(new RunIntakeLeft(intake, Direction.IN));
+    intakeLeftOut = new JoystickButton(ps4, LEFT_OUT_BUTTON_ID);
+    intakeLeftOut.whenHeld(new RunIntakeLeft(intake, Direction.OUT));
+    intakeRightIn = new JoystickButton(ps4, RIGHT_IN_BUTTON_ID);
+    intakeRightIn.whenHeld(new RunIntakeRight(intake, Direction.IN));
+    intakeRightOut = new JoystickButton(ps4, RIGHT_OUT_BUTTON_ID);
+    intakeRightOut.whenHeld(new RunIntakeRight(intake, Direction.OUT));
     climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     climb.whenPressed(automatedClimb, false);
   }

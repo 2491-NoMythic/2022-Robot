@@ -6,19 +6,19 @@ import static frc.robot.settings.Constants.Intake.*;
 
 public class RunIntakeRight extends CommandBase {
     private Intake intake;
-    private Direction right;
+    private Direction direction;
 
 
 
-    public RunIntakeRight(Intake intake, Direction right) {
+    public RunIntakeRight(Intake intake, Direction direction) {
         this.intake = intake;
-        this.right = right;
+        this.direction = direction;
         addRequirements(intake);
     }
         
     @Override
     public void initialize() {
-        intake.rightIntake(convertSpeed(right));
+        intake.rightIntake(convertSpeed(direction));
     }
 
     private static double convertSpeed(Direction d){

@@ -18,9 +18,9 @@ public class Intake extends SubsystemBase {
         leftIntakeMotor = new CANSparkMax(LEFT_MOTOR_ID, MotorType.kBrushless);
         rightIntakeMotor = new CANSparkMax(RIGHT_MOTOR_ID, MotorType.kBrushless);
         leftIntakeMotor.setInverted(false);
-        leftIntakeMotor.setInverted(false);
+        rightIntakeMotor.setInverted(true);
         armDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
-        //TODO make motors operate independantly. 
+
     }
 
     public void leftIntake(double speed){
@@ -28,7 +28,7 @@ public class Intake extends SubsystemBase {
     }
 
     public void rightIntake(double speed){
-            rightIntakeMotor.set(speed);
+        rightIntakeMotor.set(speed);
     }
     public void setArmUp(){
         armDoubleSolenoid.set(Value.kForward);
