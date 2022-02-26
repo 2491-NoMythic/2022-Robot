@@ -12,11 +12,14 @@ public class AzureDrive extends CommandBase {
     
     double currentLeftSpeed = 0;
     double currentRightSpeed = 0;
-    Joystick driveStick = new Joystick(0);
+    Joystick driveStick;
+    
 
-    public AzureDrive(Drivetrain drivetrain)
+    public AzureDrive(Drivetrain drivetrain, Joystick driveStick)
     {
+      
         this.drivetrain = drivetrain;
+        this.driveStick = driveStick;
         addRequirements(drivetrain);
     }
 

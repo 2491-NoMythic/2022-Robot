@@ -4,6 +4,7 @@ package frc.robot.commands.drivetrain;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Drivetrain;
 
 public class Drive extends CommandBase {
@@ -14,12 +15,13 @@ public class Drive extends CommandBase {
     
     double currentLeftSpeed = 0;
     double currentRightSpeed = 0;
-    Joystick driveStick = new Joystick(0);
+    Joystick driveStick;
 
-    public Drive(Drivetrain drivetrain)
+    public Drive(Drivetrain drivetrain, Joystick driveStick)
     {
         addRequirements(drivetrain);
         this.drivetrain = drivetrain;
+        this.driveStick = driveStick;
     }
 
     @Override

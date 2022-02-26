@@ -37,6 +37,12 @@ public final class Constants {
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
     }
 
+    public final class Drivestick {
+      private Drivestick() {}
+      
+        public static final int JOYSTICK_ID = 0;
+    }
+
     public final class Ps4 {
         private Ps4() {
         }

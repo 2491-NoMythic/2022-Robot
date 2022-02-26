@@ -40,6 +40,7 @@ import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.commands.intake.Direction;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.settings.Constants.Drivestick;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -72,6 +73,7 @@ public class RobotContainer {
   // private final RunIntakeRight intakeRightInCommand;
   //private final RunIntakeRight intakeRightOutCommand;
   //private final RunIntakeRight intakeRightStopCommand;
+  private final Joystick joystick; 
   private final PS4Controller ps4;
   private JoystickButton climb;
 
@@ -95,11 +97,12 @@ public class RobotContainer {
     // vision = new Vision();
     intake = new Intake();
 
+    joystick = new Joystick(Drivestick.JOYSTICK_ID);
     ps4 = new PS4Controller(CONTROLLER_ID);
     // lights = new LightsHardware();
     pixy = new Pixy2SubSystem();
 
-    defaultDriveCommand = new Drive(drivetrain);
+    defaultDriveCommand = new Drive(drivetrain, joystick);
     // automatedClimb = new AutomatedClimb(climber);
     // pointAtCargo = new PointAtCargo(drivetrain, vision);
     
