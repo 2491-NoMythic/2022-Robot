@@ -44,8 +44,8 @@ public class Climber extends SubsystemBase {
     /** Creates a new climber. */
     public Climber() {
 
-        rungLockSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RUNG_LOCK_FORWARD_CHANNEL,
-                RUNG_LOCK_REVERSE_CHANNEL);
+        // rungLockSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RUNG_LOCK_FORWARD_CHANNEL,
+                // RUNG_LOCK_REVERSE_CHANNEL);
         armSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
         leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
         rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
@@ -65,31 +65,32 @@ public class Climber extends SubsystemBase {
     }
 
     public void toggleLock() {
-        switch (getLockState()) {
-            case Locked:
-                setLockState(RungLockState.Unlocked);
-                break;
-            case Unlocked:
-                setLockState(RungLockState.Locked);
-                break;
+        // switch (getLockState()) {
+        //     case Locked:
+        //         setLockState(RungLockState.Unlocked);
+        //         break;
+        //     case Unlocked:
+        //         setLockState(RungLockState.Locked);
+        //         break;
 
-        }
+        // }
     }
 
     public void setLockState(RungLockState lockState) {
-        rungLockSolenoid.set(lockState.getLockStateValue());
+        // rungLockSolenoid.set(lockState.getLockStateValue());
     }
 
     public RungLockState getLockState() {
-        switch (rungLockSolenoid.get()) {
-            case kForward:
-            case kOff:
-                return RungLockState.Unlocked;
-            case kReverse:
-            default:
-                return RungLockState.Locked;
+    //     switch (rungLockSolenoid.get()) {
+    //         case kForward:
+    //         case kOff:
+    //             return RungLockState.Unlocked;
+    //         case kReverse:
+    //         default:
+    //             return RungLockState.Locked;
 
-        }
+    //     }
+        return RungLockState.Unlocked;
     }
 
     public boolean isLockFullyUnlocked() {

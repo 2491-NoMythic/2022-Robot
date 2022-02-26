@@ -28,16 +28,16 @@ public final class Constants {
         public static final int RUNG_LOCK_FORWARD_CHANNEL = 0;
         public static final int RUNG_LOCK_REVERSE_CHANNEL = 0;
 
-        public static final int ARM_FORWARD_CHANNEL = 0;
-        public static final int ARM_REVERSE_CHANNEL = 0;
+        public static final int ARM_FORWARD_CHANNEL = 2;
+        public static final int ARM_REVERSE_CHANNEL = 3;
 
-        public static final int LEFT_WINCH_ID = 0;
-        public static final int RIGHT_WINCH_ID = 0;
+        public static final int LEFT_WINCH_ID = 5;
+        public static final int RIGHT_WINCH_ID = 6;
 
         public static final int TOP_RIGHT_LIMIT_SWITCH = 0;
-        public static final int BOTTOM_RIGHT_LIMIT_SWITCH = 0;
-        public static final int TOP_LEFT_LIMIT_SWITCH = 0;
-        public static final int BOTTOM_LEFT_LIMIT_SWITCH = 0;
+        public static final int BOTTOM_RIGHT_LIMIT_SWITCH = 1;
+        public static final int TOP_LEFT_LIMIT_SWITCH = 2;
+        public static final int BOTTOM_LEFT_LIMIT_SWITCH = 3;
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
     }
 
@@ -45,9 +45,11 @@ public final class Constants {
         private Ps4() {
         }
 
-        public static final int CONTROLLER_ID = 0;
+        public static final int CONTROLLER_ID = 1;
         public static final int CLIMB_BUTTON_ID = 5;    // todo
         public static final int LIGHTS_BUTTON_ID = 6;   // todo
+        public static final int INTAKEUP_BUTTON_ID = 4;
+        public static final int INTAKEDOWN_BUTTON_ID = 2;
     }
 
     /**
@@ -74,9 +76,9 @@ public final class Constants {
         }
 
         public static final int ARM_FORWARD_CHANNEL = 0;
-        public static final int ARM_REVERSE_CHANNEL = 0;
-        public static final int LEFT_MOTOR_ID = 0;
-        public static final int RIGHT_MOTOR_ID = 0;
+        public static final int ARM_REVERSE_CHANNEL = 1;
+        public static final int LEFT_MOTOR_ID = 7;
+        public static final int RIGHT_MOTOR_ID = 8;
         public static final int IN_SPEED = 1;
         public static final int OUT_SPEED = -1;
     }

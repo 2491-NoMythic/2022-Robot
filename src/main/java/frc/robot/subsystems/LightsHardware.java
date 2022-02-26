@@ -15,10 +15,10 @@ public class LightsHardware extends SubsystemBase{
     private FakePixie pixie;
         public LightsHardware(){
       // Must be a PWM header, not MXP or DIO
-      ballsensorLedsLeft = new AddressableLED(1);
-      ballsensorLedsRight = new AddressableLED(2);
-      decorLedsLeft = new AddressableLED(1);
-      decorLedsRight = new AddressableLED(2);
+      ballsensorLedsLeft = new AddressableLED(6);
+      ballsensorLedsRight = new AddressableLED(7);
+      decorLedsLeft = new AddressableLED(8);
+      decorLedsRight = new AddressableLED(9);
       // Reuse buffer
       // Length is expensive to set, so only set it once, then just update data
       ballsensorBufferLeft = new AddressableLEDBuffer(5);
