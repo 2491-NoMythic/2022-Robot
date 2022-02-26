@@ -30,6 +30,11 @@ public class Intake extends SubsystemBase {
     public void rightIntake(double speed){
         rightIntakeMotor.set(speed);
     }
+
+    public void runIntake(double speed){
+        leftIntake(speed);
+        rightIntake(speed);
+    }
     public void setArmUp(){
         armDoubleSolenoid.set(Value.kForward);
     }
