@@ -8,6 +8,7 @@ public class ForwardDistance extends CommandBase{
     private Timer timer;
     private double driveTime;
     private double power;
+    
   public ForwardDistance(Drivetrain base, double driveTime, double power){
     addRequirements(base);
     drivetrain = base;
