@@ -21,7 +21,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static frc.robot.settings.Constants.Ps4.*;
 
+import org.opencv.core.Point;
+
 import frc.robot.commands.PointAtCargo;
+import frc.robot.commands.climber.ArmPneumaticTipping;
 import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
@@ -38,6 +41,7 @@ import frc.robot.commands.intake.RunIntakeLeft;
 import frc.robot.commands.intake.RunIntakeRight;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.commands.intake.Direction;
+import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -54,13 +58,13 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final LightsHardware lights;
 
-  // private final Climber climber;
+  private final Climber climber;
   private final Drivetrain drivetrain;
   private final Vision vision;
   private final Intake intake;
   private final Pixy2SubSystem pixy;
-
-  // private final AutomatedClimb automatedClimb;
+  private final PointAtCargo pointAtCargo;
+  private final AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
   // private final MoveArm intakeUpCommand;
   // private final MoveArm intakeDownCommand;
@@ -89,7 +93,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    // climber = new Climber();
+    climber = new Climber();
     drivetrain = new Drivetrain();
     vision = new Vision();
     intake = new Intake();
@@ -99,7 +103,9 @@ public class RobotContainer {
     pixy = new Pixy2SubSystem();
 
     defaultDriveCommand = new Drive(drivetrain);
-    // automatedClimb = new AutomatedClimb(climber);
+    automatedClimb = new AutomatedClimb(climber, drivetrain);
+    pointAtCargo = new PointAtCargo(drivetrain, vision);
+    //automatedClimb = new AutomatedClimb(climber);
     
     runIntakeCommand = new RunIntake(intake, ps4);
 
@@ -117,13 +123,14 @@ public class RobotContainer {
   private void configureSmartDashboard() {
     SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
     SmartDashboard.putData("drivetrain", drivetrain);
-    // SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
-    // SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
-    // SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
-    // SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
-    // SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
-    // SmartDashboard.putData("RightIntakeOut", new RunIntakeRight(intake, Direction.OUT));
-    // SmartDashboard.putData("LeftIntakeIn", new RunIntakeLeft(intake, Direction.IN));
+    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
+    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+
+    SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
+    SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
+    //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
+    SmartDashboard.putData("tiltDown", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
+    SmartDashboard.putData("tiltUp", new  ArmPneumaticTipping(climber, ArmTipState.UP));
   }
 
   public void initTelemetry() {
