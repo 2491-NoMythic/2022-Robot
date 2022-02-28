@@ -2,6 +2,7 @@ package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
+import static frc.robot.settings.Constants.Climber.CLIMBER_SPEED;
 
 public class ClimberClimb extends CommandBase {
 
@@ -34,10 +35,10 @@ public class ClimberClimb extends CommandBase {
     switch (state) {
 
       case OUT:
-        climber.climberOut(.5);
+        climber.climberOut(CLIMBER_SPEED);
         break;
       case IN:
-        climber.climberIn(.5);
+        climber.climberIn(CLIMBER_SPEED);
         break;
     }
   }
