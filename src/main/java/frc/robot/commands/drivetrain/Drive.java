@@ -33,6 +33,11 @@ public class Drive extends CommandBase {
         drivetrain.setDrive(currentLeftSpeed * speedManager, currentRightSpeed * speedManager);
     }
 
+    @Override
+    public boolean isFinished() {
+        // TODO Auto-generated method stub
+        return super.isFinished();
+    }
 
 
 }

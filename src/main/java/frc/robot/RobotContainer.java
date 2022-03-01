@@ -124,13 +124,18 @@ public class RobotContainer {
     SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
     SmartDashboard.putData("drivetrain", drivetrain);
     SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
-    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, .5, .2));
+    SmartDashboard.putData("forwardOneSecond2", new ForwardDistance(drivetrain, .5, .2));
 
     SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
     SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("tiltDown", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("tiltUp", new  ArmPneumaticTipping(climber, ArmTipState.UP));
+ 
+    SmartDashboard.putData("ArmDown", new MoveArm(intake, IntakeArmState.armDown));
+    SmartDashboard.putData("ArmUp", new MoveArm(intake, IntakeArmState.armUp));
+
   }
 
   public void initTelemetry() {

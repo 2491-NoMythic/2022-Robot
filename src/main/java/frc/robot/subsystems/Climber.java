@@ -11,12 +11,17 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Climber.*;
 
 public class Climber extends SubsystemBase {
-
+    
+   // PowerDistribution examplePD = new PowerDistribution();
+    PowerDistribution examplePD = new PowerDistribution(1, ModuleType.kCTRE);
+    
     public enum RungLockState {
         Unlocked(Value.kForward),
         Locked(Value.kReverse);
@@ -49,6 +54,8 @@ public class Climber extends SubsystemBase {
 
         rightWinchMotor.setInverted(InvertType.InvertMotorOutput);
         leftWinchMotor.setInverted(InvertType.None);
+
+      //  leftWinchMotor.follow(rightWinchMotor);
 
         rightWinchMotor.set(ControlMode.PercentOutput, 0);
         leftWinchMotor.set(ControlMode.PercentOutput, 0);
@@ -124,8 +131,8 @@ public class Climber extends SubsystemBase {
     }
 
     private void setMotorSpeed(double leftSpeed, double rightSpeed) {
-        rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
-        leftWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
+        rightWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
+       leftWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
     }
 
     /**
@@ -149,7 +156,9 @@ public class Climber extends SubsystemBase {
     public boolean isClimberFullyOut()
     {
         // if not open(closed)
-        return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
+       // return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
+       return rightWinchMotor.isFwdLimitSwitchClosed() != 0;
+  
     }
     /**
      * use motors to move the climber into extended position
@@ -171,7 +180,8 @@ public class Climber extends SubsystemBase {
     }
 
 public boolean isClimberFullyIn(){
-    return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
+   // return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
+   return rightWinchMotor.isRevLimitSwitchClosed() != 0;
 }
 
     public void stop() {
