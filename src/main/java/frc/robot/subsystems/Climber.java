@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -51,6 +52,9 @@ public class Climber extends SubsystemBase {
 
         rightWinchMotor.set(ControlMode.PercentOutput, 0);
         leftWinchMotor.set(ControlMode.PercentOutput, 0);
+
+        rightWinchMotor.setNeutralMode(NeutralMode.Brake);
+        leftWinchMotor.setNeutralMode(NeutralMode.Brake);
         //negative percent output values bring climber in, positive bring it out.
 
         toggleLock();
