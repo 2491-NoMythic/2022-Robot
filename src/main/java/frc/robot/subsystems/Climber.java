@@ -9,6 +9,8 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import org.opencv.objdetect.CascadeClassifier;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -150,6 +152,21 @@ public class Climber extends SubsystemBase {
     {
         // if not open(closed)
         return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
+    }
+
+    public boolean isHallEffectSensorClosed(HallEffectSensorSelection sensor)
+    {
+        switch (sensor) {
+            case TopRight:
+                return rightWinchMotor.isFwdLimitSwitchClosed() != 0;
+            case BottomRight:
+                return rightWinchMotor.isRevLimitSwitchClosed() != 0;
+            case TopLeft:
+                return leftWinchMotor.isFwdLimitSwitchClosed() != 0;
+            case BottomLeft:
+                return leftWinchMotor.isRevLimitSwitchClosed() != 0;
+        }
+        return false;
     }
     /**
      * use motors to move the climber into extended position

@@ -37,6 +37,7 @@ public final class Constants {
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
 
         public static final double CLIMBER_SPEED = .2;
+        public static final double TESTING_CLIMBER_SPEED = .1;
     }
 
     public final class Ps4 {
