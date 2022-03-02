@@ -9,11 +9,15 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import org.opencv.objdetect.CascadeClassifier;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Climber.*;
+
+import javax.xml.crypto.dsig.keyinfo.RetrievalMethod;
 
 public class Climber extends SubsystemBase {
 
@@ -55,6 +59,9 @@ public class Climber extends SubsystemBase {
 
         rightWinchMotor.setNeutralMode(NeutralMode.Brake);
         leftWinchMotor.setNeutralMode(NeutralMode.Brake);
+
+        rightWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
+        leftWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
         //negative percent output values bring climber in, positive bring it out.
 
         toggleLock();
@@ -151,6 +158,31 @@ public class Climber extends SubsystemBase {
         // if not open(closed)
         return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
     }
+
+    public boolean isHallEffectSensorClosed(HallEffectSensorSelection sensor)
+    {
+        switch (sensor) {
+            case TopRight:
+                return rightWinchMotor.isFwdLimitSwitchClosed() != 0;
+            case BottomRight:
+                return rightWinchMotor.isRevLimitSwitchClosed() != 0;
+            case TopLeft:
+                return leftWinchMotor.isFwdLimitSwitchClosed() != 0;
+            case BottomLeft:
+                return leftWinchMotor.isRevLimitSwitchClosed() != 0;
+        }
+        return true;
+    }
+
+    public double getLeftArmPos()
+    {
+        return leftWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
+    }
+//1.65 1.25 - 26.5 in
+    public double getRightArmPos()
+    {
+        return rightWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
+    }
     /**
      * use motors to move the climber into extended position
      * 
@@ -170,9 +202,15 @@ public class Climber extends SubsystemBase {
         setMotorSpeed(leftSpeed, rightSpeed);
     }
 
-public boolean isClimberFullyIn(){
+    public boolean isClimberFullyIn(){
     return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
-}
+    }
+
+    public void resetEncoders(){
+        leftWinchMotor.setSelectedSensorPosition(0);
+        rightWinchMotor.setSelectedSensorPosition(0);
+
+    }
 
     public void stop() {
         setMotorSpeed(0, 0);

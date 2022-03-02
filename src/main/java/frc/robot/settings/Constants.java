@@ -37,6 +37,13 @@ public final class Constants {
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
 
         public static final double CLIMBER_SPEED = .2;
+        public static final double TESTING_CLIMBER_SPEED = .1;
+
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = 
+            (1/2048.0)*(1/23.73)*(1.25*Math.PI)*(1/24.0);
+        //nu> motor   >  spool  >    inches    > arm lengths
+
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE = ENCODER_TICKS_TO_ARMS_LENGTH / 1;
     }
 
     public final class Ps4 {

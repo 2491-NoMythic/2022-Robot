@@ -21,8 +21,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import static frc.robot.settings.Constants.Ps4.*;
 
-import org.opencv.core.Point;
-
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.climber.ArmPneumaticTipping;
 import frc.robot.commands.climber.AutomatedClimb;
@@ -32,6 +30,7 @@ import frc.robot.subsystems.Drivetrain;
 // import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
+import frc.robot.subsystems.HallEffectSensorSelection;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.commands.climber.ClimberClimb;
@@ -44,6 +43,7 @@ import frc.robot.commands.intake.Direction;
 import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -123,19 +123,33 @@ public class RobotContainer {
   private void configureSmartDashboard() {
     SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
     SmartDashboard.putData("drivetrain", drivetrain);
-    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
-    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+    //SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
+    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, .5, .2));
+    //SmartDashboard.putData("forwardOneSecond2", new ForwardDistance(drivetrain, .5, .2));
 
     SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
     SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("tiltDown", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("tiltUp", new  ArmPneumaticTipping(climber, ArmTipState.UP));
+
+    SmartDashboard.putData("ArmDown", new MoveArm(intake, IntakeArmState.armDown));
+    SmartDashboard.putData("ArmUp", new MoveArm(intake, IntakeArmState.armUp));
+
+    SmartDashboard.putData("ClimbTestingUp", new ClimberClimb(climber, ArmExtendState.OUT, true));
+    SmartDashboard.putData("ClimbTestingDown", new ClimberClimb(climber, ArmExtendState.IN,true));
+
   }
 
   public void initTelemetry() {
   }
 
+  void periodic() {
+    SmartDashboard.putBoolean("TopRight", climber.isHallEffectSensorClosed(HallEffectSensorSelection.TopRight));
+    SmartDashboard.putBoolean("TopLeft", climber.isHallEffectSensorClosed(HallEffectSensorSelection.TopLeft));
+    SmartDashboard.putBoolean("BottomRight", climber.isHallEffectSensorClosed(HallEffectSensorSelection.BottomRight));
+    SmartDashboard.putBoolean("BottomLeft", climber.isHallEffectSensorClosed(HallEffectSensorSelection.BottomLeft));
+  }
   /**
    * Use this method to define your button->command mappings. Buttons can be
    * created by
