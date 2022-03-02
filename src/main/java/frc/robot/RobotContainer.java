@@ -17,7 +17,7 @@ import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.RunIntake;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-// import frc.robot.commands.LightsSoftware;
+import frc.robot.commands.LightsSoftware;
 
 import static frc.robot.settings.Constants.Ps4.*;
 
@@ -29,7 +29,7 @@ import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
-// import frc.robot.subsystems.LightsHardware;
+import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
 import frc.robot.subsystems.Intake;
@@ -56,7 +56,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  // private final LightsHardware lights;
+  private final LightsHardware lights;
 
   private final Climber climber;
   private final Drivetrain drivetrain;
@@ -86,7 +86,7 @@ public class RobotContainer {
   private JoystickButton intakeRightIn;
   private JoystickButton intakeRightOut;
 
-  // private JoystickButton lightsToggle;
+   private JoystickButton lightsToggle;
 
   private Compressor pcmCompressor;
   /**
@@ -99,7 +99,7 @@ public class RobotContainer {
     intake = new Intake();
 
     ps4 = new PS4Controller(CONTROLLER_ID);
-    // lights = new LightsHardware();
+     lights = new LightsHardware();
     pixy = new Pixy2SubSystem();
 
     defaultDriveCommand = new Drive(drivetrain);
@@ -145,8 +145,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    // lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
-    // lightsToggle.whenPressed(new LightsSoftware(lights));
+     lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
+     lightsToggle.whenPressed(new LightsSoftware(lights));
     
     // climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     // climb.whenPressed(automatedClimb, false);
