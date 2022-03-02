@@ -44,7 +44,7 @@ public class ClimberClimb extends CommandBase {
 
   @Override
   public boolean isFinished() {
-      switch (state){
+    switch (state) {
 
       case OUT:
         return climber.isClimberFullyOut();

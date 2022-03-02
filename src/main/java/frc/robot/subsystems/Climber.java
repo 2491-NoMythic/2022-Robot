@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -51,6 +53,14 @@ public class Climber extends SubsystemBase {
 
         rightWinchMotor.set(ControlMode.PercentOutput, 0);
         leftWinchMotor.set(ControlMode.PercentOutput, 0);
+
+        /*
+        StatorCurrentLimitConfiguration currLimitCfg = new StatorCurrentLimitConfiguration(true, CURRENT_LIMIT, TRIGGER_THRESHOLD_CURRENT, TRIGGER_THRESHOLD_TIME);
+
+        rightWinchMotor.configStatorCurrentLimit(currLimitCfg);
+        leftWinchMotor.configStatorCurrentLimit(currLimitCfg);
+        */
+
         //negative percent output values bring climber in, positive bring it out.
 
         toggleLock();
@@ -118,6 +128,17 @@ public class Climber extends SubsystemBase {
 
         return false;
     }
+
+    public double getRightCurrent() {
+
+        return rightWinchMotor.getStatorCurrent();
+    }
+
+    public double getLeftCurrent() {
+
+        return leftWinchMotor.getStatorCurrent();
+    }
+
 
     private void setMotorSpeed(double leftSpeed, double rightSpeed) {
         rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
