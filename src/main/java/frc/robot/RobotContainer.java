@@ -24,6 +24,7 @@ import static frc.robot.settings.Constants.Ps4.*;
 import org.opencv.core.Point;
 
 import frc.robot.commands.PointAtCargo;
+import frc.robot.commands.Autos.AutononomousDrive;
 import frc.robot.commands.climber.ArmPneumaticTipping;
 import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.drivetrain.BurnIn;
@@ -131,6 +132,7 @@ public class RobotContainer {
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("armsTiltDown", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("armsTiltUp", new  ArmPneumaticTipping(climber, ArmTipState.UP));
+    SmartDashboard.putString("Things to remember", "The robot climbs backwards");
     
   }
 
@@ -160,7 +162,10 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return new ForwardDistance(drivetrain, 3.5, -.25);
+
+    // moves us off tarmack
+    return new AutononomousDrive(drivetrain);
+    // // An ExampleCommand will run in autonomous
+    // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
 }
