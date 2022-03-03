@@ -121,17 +121,19 @@ public class RobotContainer {
   }
 
   private void configureSmartDashboard() {
-    SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
+    // SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
     SmartDashboard.putData("drivetrain", drivetrain);
-    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
+    // SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
 
-    SmartDashboard.putData("climbUp", new ClimberClimb(climber, ArmExtendState.OUT));
-    SmartDashboard.putData("climbDown", new ClimberClimb(climber, ArmExtendState.IN));
+    SmartDashboard.putData("climbArmsOut", new ClimberClimb(climber, ArmExtendState.OUT));
+    SmartDashboard.putData("climbArmsIn", new ClimberClimb(climber, ArmExtendState.IN));
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
-    SmartDashboard.putData("tiltDown", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
-    SmartDashboard.putData("tiltUp", new  ArmPneumaticTipping(climber, ArmTipState.UP));
+    SmartDashboard.putData("armsTiltDown", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
+    SmartDashboard.putData("armsTiltUp", new  ArmPneumaticTipping(climber, ArmTipState.UP));
+    
   }
+
 
   public void initTelemetry() {
   }

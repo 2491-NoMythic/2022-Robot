@@ -23,6 +23,7 @@ public class ForwardDistance extends CommandBase{
     }
     @Override
     public void end(boolean interrupted) {
+        timer.reset();
         timer.stop();
         drivetrain.setDrive(ControlMode.PercentOutput, 0, 0);
     }
