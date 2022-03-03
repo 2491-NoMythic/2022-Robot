@@ -15,6 +15,7 @@ import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.RunIntake;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
  import frc.robot.commands.LightsSoftware;
@@ -24,6 +25,7 @@ import static frc.robot.settings.Constants.Ps4.*;
 import org.opencv.core.Point;
 
 import frc.robot.commands.PointAtCargo;
+import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
 import frc.robot.commands.climber.ArmPneumaticTipping;
 import frc.robot.commands.climber.AutomatedClimb;
@@ -67,6 +69,7 @@ public class RobotContainer {
   private final PointAtCargo pointAtCargo;
   private final AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
+  private final SendableChooser<Command> autoChooser;
   // private final MoveArm intakeUpCommand;
   // private final MoveArm intakeDownCommand;
   private final RunIntake runIntakeCommand;
@@ -99,6 +102,10 @@ public class RobotContainer {
     vision = new Vision();
     intake = new Intake();
 
+    autoChooser = new SendableChooser<>();
+    autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain));
+    autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, climber, intake));
+
     ps4 = new PS4Controller(CONTROLLER_ID);
      lights = new LightsHardware();
     pixy = new Pixy2SubSystem();
@@ -126,7 +133,7 @@ public class RobotContainer {
     SmartDashboard.putData("drivetrain", drivetrain);
     // SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
-
+    SmartDashboard.putData("Choose Auto", autoChooser);
     SmartDashboard.putData("climbArmsOut", new ClimberClimb(climber, ArmExtendState.OUT));
     SmartDashboard.putData("climbArmsIn", new ClimberClimb(climber, ArmExtendState.IN));
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
@@ -164,7 +171,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
 
     // moves us off tarmack
-    return new AutononomousDrive(drivetrain);
+    return autoChooser.getSelected();
     // // An ExampleCommand will run in autonomous
     // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
