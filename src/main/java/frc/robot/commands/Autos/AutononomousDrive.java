@@ -18,7 +18,7 @@ public class AutononomousDrive extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ForwardDistance(drivetrain, 3, .25)
+      new ForwardDistance(drivetrain, 2.3, .25)
 
 
 
