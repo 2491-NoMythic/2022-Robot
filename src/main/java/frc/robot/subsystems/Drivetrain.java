@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -35,6 +36,8 @@ public class Drivetrain extends SubsystemBase {
         rightFollowMotor.setInverted(InvertType.FollowMaster);
         leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
         leftFollowMotor.setInverted(InvertType.FollowMaster);
+
+     //   rightLeadMotor.setNeutralMode(NeutralMode.Brake);
 
         bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
         bbDriveSystem.setDeadband(0.04);
@@ -96,4 +99,13 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
         bbDriveSystem.feed();
     }
+
+   // @Override
+    // public void disabledInit()
+    // {
+    //     super.disabledInit();
+    // }
+
+    //Liam your work is here   
+    //public void 
 }
