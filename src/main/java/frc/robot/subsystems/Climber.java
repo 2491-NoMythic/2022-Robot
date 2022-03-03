@@ -102,12 +102,12 @@ public class Climber extends SubsystemBase {
     }
 
     public void setArmDown() {
-        armSolenoid.set(Value.kReverse);
+        armSolenoid.set(Value.kForward);
 
     }
 
     public void setArmUp() {
-        armSolenoid.set(Value.kForward);
+        armSolenoid.set(Value.kReverse);
 
     }
 
