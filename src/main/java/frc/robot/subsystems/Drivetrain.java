@@ -37,8 +37,6 @@ public class Drivetrain extends SubsystemBase {
         leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
         leftFollowMotor.setInverted(InvertType.FollowMaster);
 
-     //   rightLeadMotor.setNeutralMode(NeutralMode.Brake);
-
         bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
         bbDriveSystem.setDeadband(0.04);
         addChild("Diff Drive", bbDriveSystem);
@@ -99,6 +97,16 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
         bbDriveSystem.feed();
     }
+
+    private void setNeutralMode(NeutralMode mode) {
+        rightLeadMotor.setNeutralMode(mode);
+        leftLeadMotor.setNeutralMode(mode);
+        rightFollowMotor.setNeutralMode(mode);
+        leftFollowMotor.setNeutralMode(mode);
+    }
+
+    public void brakeMode() { setNeutralMode(NeutralMode.Brake); }
+    public void coastMode() { setNeutralMode(NeutralMode.Coast); }
 
    // @Override
     // public void disabledInit()
