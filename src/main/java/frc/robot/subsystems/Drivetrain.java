@@ -7,7 +7,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.settings.Variables;
+
 import static frc.robot.settings.Constants.Drivetrain.*;
 
 public class Drivetrain extends SubsystemBase {
@@ -27,16 +30,19 @@ public class Drivetrain extends SubsystemBase {
         rightFollowMotor = new WPI_TalonFX(RIGHT_FOLLOW_ID);
         leftMotors = new MotorControllerGroup(leftLeadMotor, leftFollowMotor);
         rightMotors = new MotorControllerGroup(rightLeadMotor, rightFollowMotor);
-
         leftFollowMotor.follow(leftLeadMotor);
         rightFollowMotor.follow(rightLeadMotor);
+        
+        leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
+        rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
 
+        
         // making right motors go right
         rightLeadMotor.setInverted(InvertType.None);
         rightFollowMotor.setInverted(InvertType.FollowMaster);
         leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
         leftFollowMotor.setInverted(InvertType.FollowMaster);
-
+        
         bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
         bbDriveSystem.setDeadband(0.04);
         addChild("Diff Drive", bbDriveSystem);
@@ -96,6 +102,11 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         bbDriveSystem.feed();
+        Variables.Drivetrain.ramp = SmartDashboard.getNumber("Ramp Rate", Variables.Drivetrain.ramp);
+        
+        leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
+        rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
+
     }
 
     private void setNeutralMode(NeutralMode mode) {
