@@ -43,6 +43,7 @@ import frc.robot.commands.climber.WedgePneumatic;
 import frc.robot.commands.intake.RunIntakeLeft;
 import frc.robot.commands.intake.RunIntakeRight;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
+import frc.robot.settings.Variables;
 import frc.robot.commands.intake.Direction;
 import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -103,7 +104,7 @@ public class RobotContainer {
     intake = new Intake();
 
     autoChooser = new SendableChooser<>();
-    autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain));
+    autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, climber, intake));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, climber, intake));
 
     ps4 = new PS4Controller(CONTROLLER_ID);
@@ -134,13 +135,14 @@ public class RobotContainer {
     // SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
     SmartDashboard.putData("Choose Auto", autoChooser);
+    SmartDashboard.putNumber("Ramp Rate", Variables.Drivetrain.ramp);
     SmartDashboard.putData("ArmsExtend", new ClimberClimb(climber, ArmExtendState.OUT));
     SmartDashboard.putData("ArmsRetract", new ClimberClimb(climber, ArmExtendState.IN));
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
-    SmartDashboard.putString("Things to remember", "The robot climbs backwards");
-
+    SmartDashboard.putString("Things to remember",
+     "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
   }
 
 
