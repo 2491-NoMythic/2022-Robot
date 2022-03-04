@@ -137,8 +137,8 @@ public class RobotContainer {
     SmartDashboard.putData("ArmsExtend", new ClimberClimb(climber, ArmExtendState.OUT));
     SmartDashboard.putData("ArmsRetract", new ClimberClimb(climber, ArmExtendState.IN));
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
-    SmartDashboard.putData("ArmsTiltIn", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
-    SmartDashboard.putData("ArmsTiltOut", new  ArmPneumaticTipping(climber, ArmTipState.UP));
+    SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
+    SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
     SmartDashboard.putString("Things to remember", "The robot climbs backwards");
 
   }
