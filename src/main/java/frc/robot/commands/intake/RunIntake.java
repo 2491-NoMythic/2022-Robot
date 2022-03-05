@@ -12,6 +12,7 @@ import static frc.robot.settings.Constants.Intake.*;
 public class RunIntake extends CommandBase {
   private PS4Controller ps4Controller;
   private Intake intake;
+
   /** Creates a new RunIntake. */
   public RunIntake(Intake intake, PS4Controller ps4Controller) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -27,14 +28,18 @@ public class RunIntake extends CommandBase {
       intake.leftIntake(IN_SPEED);
     } else if (ps4Controller.getL1Button()) {
       intake.leftIntake(OUT_SPEED);
-    } else {intake.leftIntake(0);}
+    } else {
+      intake.leftIntake(0);
+    }
 
     if (ps4Controller.getR2Button()) {
       intake.rightIntake(IN_SPEED);
     } else if (ps4Controller.getR1Button()) {
       intake.rightIntake(OUT_SPEED);
-    } else {intake.rightIntake(0);}
-    
+    } else {
+      intake.rightIntake(0);
+    }
+
     if (ps4Controller.getCircleButton()) {
       intake.setArmUp();
     } else if (ps4Controller.getCrossButton()) {

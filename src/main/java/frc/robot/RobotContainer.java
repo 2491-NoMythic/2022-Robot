@@ -131,7 +131,7 @@ public class RobotContainer {
 
   private void configureSmartDashboard() {
     // SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
-    SmartDashboard.putData("drivetrain", drivetrain);
+    // SmartDashboard.putData("drivetrain", drivetrain);
     // SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
     SmartDashboard.putData("Choose Auto", autoChooser);
@@ -141,8 +141,8 @@ public class RobotContainer {
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
-    SmartDashboard.putString("Things to remember",
-     "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
+    // SmartDashboard.putString("Things to remember",
+    //  "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
   }
 
 
