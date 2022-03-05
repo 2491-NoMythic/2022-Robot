@@ -1,14 +1,16 @@
 package frc.robot.commands.climber;
 
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.settings.Constants.Ps4;
 import frc.robot.subsystems.Climber;
 import static frc.robot.settings.Constants.Climber.CLIMBER_SPEED;
 
 public class ClimberClimb extends CommandBase {
-
+  private PS4Controller ps4controller;
   Climber climber;
   ArmExtendState state;
-
+  
   public enum ArmExtendState {
     IN,
     OUT
@@ -23,8 +25,8 @@ public class ClimberClimb extends CommandBase {
    */
   public ClimberClimb(Climber climber, ArmExtendState armState) {
     this.climber = climber;
+    this.ps4controller = ps4controller;
     addRequirements(climber);
-
     state = armState;
   }
 
@@ -41,7 +43,9 @@ public class ClimberClimb extends CommandBase {
         climber.climberIn(CLIMBER_SPEED);
         break;
     }
+
   }
+
 
   @Override
   public boolean isFinished() {
