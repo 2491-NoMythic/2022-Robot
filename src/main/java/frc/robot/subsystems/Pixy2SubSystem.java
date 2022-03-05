@@ -102,7 +102,7 @@ public class Pixy2SubSystem extends SubsystemBase {
 			blockRight = secondLargestBlock;
 			blockLeft = largestBlock;
 		}
-		SmartDashboard.putString("Ball Left", convert(blockLeft).toString());
-		SmartDashboard.putString("Ball Right", convert(blockRight).toString());
+		// SmartDashboard.putString("Ball Left", convert(blockLeft).toString());
+		// SmartDashboard.putString("Ball Right", convert(blockRight).toString());
 	}
 }

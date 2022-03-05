@@ -31,7 +31,7 @@ public class Drive extends CommandBase {
     public void execute()
     {
         double speedManager = 1-(driveStick.getRawAxis(3)+1)/2;
-        SmartDashboard.putNumber("Slider", speedManager);
+        // SmartDashboard.putNumber("Slider", speedManager);
         var robotTurnSpeed = driveStick.getZ();
         currentLeftSpeed = driveStick.getY() * -1 + robotTurnSpeed;
         currentRightSpeed = driveStick.getY() * -1 - robotTurnSpeed;
