@@ -29,8 +29,8 @@ public class AutonomousAll extends SequentialCommandGroup {
         new WaitCommand(2)
       ),
       new ForwardDistance(drivetrain, 2.3, -.25),
-      new ArmPneumaticTipping(climber, ArmTipState.DOWN),
-      new MoveArm(intake, IntakeArmState.armDown)
+      new ArmPneumaticTipping(climber, ArmTipState.DOWN)
+      // new MoveArm(intake, IntakeArmState.armDown)
     );
   }
 }
