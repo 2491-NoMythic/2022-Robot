@@ -37,10 +37,10 @@ public class ClimberClimb extends CommandBase {
     switch (state) {
 
       case OUT:
-        climber.climberOut(CLIMBER_SPEED_UP);
+        climber.climberOut(CLIMBER_SPEED_OUT);
         break;
       case IN:
-        climber.climberIn(CLIMBER_SPEED_DOWN);
+        climber.climberIn(CLIMBER_SPEED_IN);
         break;
     }
 
