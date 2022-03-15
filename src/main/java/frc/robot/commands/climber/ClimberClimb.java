@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.settings.Constants.Ps4;
 import frc.robot.subsystems.Climber;
-import static frc.robot.settings.Constants.Climber.CLIMBER_SPEED;
+import static frc.robot.settings.Constants.Climber.*;
 
 public class ClimberClimb extends CommandBase {
   private PS4Controller ps4controller;
@@ -37,10 +37,10 @@ public class ClimberClimb extends CommandBase {
     switch (state) {
 
       case OUT:
-        climber.climberOut(CLIMBER_SPEED);
+        climber.climberOut(CLIMBER_SPEED_UP);
         break;
       case IN:
-        climber.climberIn(CLIMBER_SPEED);
+        climber.climberIn(CLIMBER_SPEED_DOWN);
         break;
     }
 
