@@ -49,6 +49,7 @@ import frc.robot.commands.intake.Direction;
 import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -132,9 +133,9 @@ public class RobotContainer {
   }
 
   private void configureSmartDashboard() {
-    // SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
-    // SmartDashboard.putData("drivetrain", drivetrain);
-    // SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
+    SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
+    SmartDashboard.putData("drivetrain", drivetrain);
+    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
     SmartDashboard.putData("Choose Auto", autoChooser);
     SmartDashboard.putNumber("Ramp Rate", Variables.Drivetrain.ramp);
@@ -143,8 +144,8 @@ public class RobotContainer {
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
-    // SmartDashboard.putString("Things to remember",
-    //  "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
+    SmartDashboard.putString("Things to remember",
+     "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
   }
 
 
@@ -167,10 +168,10 @@ public class RobotContainer {
     // climb.whenPressed(automatedClimb, false);
 
 
-    JoystickButton OutButton = new JoystickButton(ps4, OUT_ARM_BUTTON_ID);
-    JoystickButton InButton = new JoystickButton(ps4, IN_ARM_BUTTON_ID);
-    JoystickButton ExtendButton = new JoystickButton(ps4, EXTEND_ARM_BUTTON_ID);
-    JoystickButton RetractButton = new JoystickButton(ps4, RETRACT_ARM_BUTTON_ID);
+    POVButton OutButton = new POVButton(ps4, OUT_ARM_BUTTON_ID);
+    POVButton InButton = new POVButton(ps4, IN_ARM_BUTTON_ID);
+    POVButton ExtendButton = new POVButton(ps4, EXTEND_ARM_BUTTON_ID);
+    POVButton RetractButton = new POVButton(ps4, RETRACT_ARM_BUTTON_ID);
     
     ArmPneumaticTipping armsTiltOut = new ArmPneumaticTipping(climber, ArmTipState.DOWN);
     ArmPneumaticTipping armsTiltIn = new ArmPneumaticTipping(climber, ArmTipState.UP);
@@ -181,6 +182,14 @@ public class RobotContainer {
     ExtendButton.whenPressed(armExtend);
     RetractButton.whenPressed(armRetract);
 
+  }
+
+  public void initDisable() {
+    drivetrain.coastMode();
+  }
+
+  public void initEnable() {
+    drivetrain.brakeMode();
   }
 
   /**
