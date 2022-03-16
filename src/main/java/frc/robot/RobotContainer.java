@@ -29,6 +29,7 @@ import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
 import frc.robot.commands.climber.ArmPneumaticTipping;
 import frc.robot.commands.climber.AutomatedClimb;
+import frc.robot.commands.climber.Climb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
@@ -74,6 +75,7 @@ public class RobotContainer {
   // private final MoveArm intakeUpCommand;
   // private final MoveArm intakeDownCommand;
   private final RunIntake runIntakeCommand;
+  private final Climb runClimbCommand;
   // private final RunIntakeLeft intakeLeftInCommand;
   //private final RunIntakeLeft intakeLeftOutCommand;
   //private final RunIntakeLeft intakeLeftStopCommand;
@@ -117,7 +119,7 @@ public class RobotContainer {
     //automatedClimb = new AutomatedClimb(climber);
     
     runIntakeCommand = new RunIntake(intake, ps4);
-
+    runClimbCommand = new Climb(climber, ps4);
     intake.setDefaultCommand(runIntakeCommand);
     drivetrain.setDefaultCommand(defaultDriveCommand);
     
@@ -163,6 +165,22 @@ public class RobotContainer {
     
     // climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     // climb.whenPressed(automatedClimb, false);
+
+
+    JoystickButton OutButton = new JoystickButton(ps4, OUT_ARM_BUTTON_ID);
+    JoystickButton InButton = new JoystickButton(ps4, IN_ARM_BUTTON_ID);
+    JoystickButton ExtendButton = new JoystickButton(ps4, EXTEND_ARM_BUTTON_ID);
+    JoystickButton RetractButton = new JoystickButton(ps4, RETRACT_ARM_BUTTON_ID);
+    
+    ArmPneumaticTipping armsTiltOut = new ArmPneumaticTipping(climber, ArmTipState.DOWN);
+    ArmPneumaticTipping armsTiltIn = new ArmPneumaticTipping(climber, ArmTipState.UP);
+    ClimberClimb armExtend = new ClimberClimb(climber, ArmExtendState.OUT);
+    ClimberClimb armRetract = new ClimberClimb(climber, ArmExtendState.IN);
+    OutButton.whenPressed(armsTiltOut);
+    InButton.whenPressed(armsTiltIn);
+    ExtendButton.whenPressed(armExtend);
+    RetractButton.whenPressed(armRetract);
+
   }
 
   /**
