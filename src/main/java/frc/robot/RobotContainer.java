@@ -56,7 +56,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-   private final LightsHardware lights;
+  private final LightsHardware lights;
 
   private final Climber climber;
   private final Drivetrain drivetrain;
