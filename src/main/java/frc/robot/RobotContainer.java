@@ -31,11 +31,11 @@ import frc.robot.commands.climber.ArmPneumaticTipping;
 import frc.robot.commands.climber.AutomatedClimb;
 import frc.robot.commands.climber.Climb;
 import frc.robot.commands.drivetrain.BurnIn;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.OldClimber;
 import frc.robot.subsystems.Drivetrain;
  import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
-import frc.robot.subsystems.Climber.RungLockState;
+import frc.robot.subsystems.OldClimber.RungLockState;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.commands.climber.ClimberClimb;
@@ -64,7 +64,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
    private final LightsHardware lights;
 
-  private final Climber climber;
+  private final OldClimber climber;
   private final Drivetrain drivetrain;
   private final Vision vision;
   private final Intake intake;
@@ -101,7 +101,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    climber = new Climber();
+    climber = new OldClimber();
     drivetrain = new Drivetrain();
     vision = new Vision();
     intake = new Intake();
@@ -139,8 +139,8 @@ public class RobotContainer {
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
     SmartDashboard.putData("Choose Auto", autoChooser);
     SmartDashboard.putNumber("Ramp Rate", Variables.Drivetrain.ramp);
-    SmartDashboard.putData("ArmsExtend", new ClimberClimb(climber, ArmExtendState.OUT));
-    SmartDashboard.putData("ArmsRetract", new ClimberClimb(climber, ArmExtendState.IN));
+    SmartDashboard.putData("ArmsExtend", new ClimberClimbMid(climber, ArmExtendState.OUT));
+    SmartDashboard.putData("ArmsRetract", new ClimberClimbMid(climber, ArmExtendState.IN));
     //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
@@ -175,8 +175,8 @@ public class RobotContainer {
     
     ArmPneumaticTipping armsTiltOut = new ArmPneumaticTipping(climber, ArmTipState.DOWN);
     ArmPneumaticTipping armsTiltIn = new ArmPneumaticTipping(climber, ArmTipState.UP);
-    ClimberClimb armExtend = new ClimberClimb(climber, ArmExtendState.OUT);
-    ClimberClimb armRetract = new ClimberClimb(climber, ArmExtendState.IN);
+    ClimberClimbMid armExtend = new ClimberClimbMid(climber, ArmExtendState.OUT);
+    ClimberClimbMid armRetract = new ClimberClimbMid(climber, ArmExtendState.IN);
     OutButton.whenPressed(armsTiltOut);
     InButton.whenPressed(armsTiltIn);
     ExtendButton.whenPressed(armExtend);

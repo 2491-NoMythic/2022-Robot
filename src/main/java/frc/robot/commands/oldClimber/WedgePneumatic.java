@@ -1,12 +1,12 @@
-package frc.robot.commands.climber;
+package frc.robot.commands.oldClimber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Climber.RungLockState;
+import frc.robot.subsystems.OldClimber;
+import frc.robot.subsystems.OldClimber.RungLockState;
 
 public class WedgePneumatic extends CommandBase {
 
-    private Climber climber;
+    private OldClimber climber;
     private RungLockState targetState;
 
     /**
@@ -17,7 +17,7 @@ public class WedgePneumatic extends CommandBase {
      * @param WedgeState
      * @param wedgeOut
      */
-    public WedgePneumatic(Climber climber, RungLockState pneumaticState) {
+    public WedgePneumatic(OldClimber climber, RungLockState pneumaticState) {
         this.climber = climber;
         addRequirements(climber);
 

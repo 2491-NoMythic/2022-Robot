@@ -2,15 +2,15 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.climber;
+package frc.robot.commands.oldClimber;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
-import frc.robot.commands.climber.ClimberClimb.ArmExtendState;
+import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
+import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Climber;
-import frc.robot.subsystems.Climber.RungLockState;
+import frc.robot.subsystems.OldClimber;
+import frc.robot.subsystems.OldClimber.RungLockState;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -18,7 +18,7 @@ import frc.robot.subsystems.Climber.RungLockState;
 public class AutomatedClimb extends SequentialCommandGroup {
   /** Creates a new AutomatedClimb. */
 
-  public AutomatedClimb(Climber climber, Drivetrain drivetrain) {
+  public AutomatedClimb(OldClimber climber, Drivetrain drivetrain) {
     // Add your commands in the addCommands() call, e.g.
     addCommands(
     new ClimberClimb(climber, ArmExtendState.OUT),
