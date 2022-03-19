@@ -15,6 +15,7 @@ import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.RunIntake;
+import frc.robot.commands.intake.FilterCargo;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -33,7 +34,7 @@ import frc.robot.commands.climber.Climb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
- import frc.robot.subsystems.LightsHardware;
+//  import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
 import frc.robot.subsystems.Intake;
@@ -62,7 +63,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-   private final LightsHardware lights;
+  //  private final LightsHardware lights;
 
   private final Climber climber;
   private final Drivetrain drivetrain;
@@ -76,6 +77,7 @@ public class RobotContainer {
   // private final MoveArm intakeUpCommand;
   // private final MoveArm intakeDownCommand;
   private final RunIntake runIntakeCommand;
+  private final FilterCargo filterCargoCommand;
   private final Climb runClimbCommand;
   // private final RunIntakeLeft intakeLeftInCommand;
   //private final RunIntakeLeft intakeLeftOutCommand;
@@ -111,7 +113,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, climber, intake));
 
     ps4 = new PS4Controller(CONTROLLER_ID);
-     lights = new LightsHardware();
+    //  lights = new LightsHardware();
     pixy = new Pixy2SubSystem();
 
     defaultDriveCommand = new Drive(drivetrain);
@@ -120,6 +122,7 @@ public class RobotContainer {
     //automatedClimb = new AutomatedClimb(climber);
     
     runIntakeCommand = new RunIntake(intake, ps4);
+    filterCargoCommand = new FilterCargo(intake, pixy);
     runClimbCommand = new Climb(climber, ps4);
     intake.setDefaultCommand(runIntakeCommand);
     drivetrain.setDefaultCommand(defaultDriveCommand);
@@ -134,6 +137,7 @@ public class RobotContainer {
 
   private void configureSmartDashboard() {
     SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
+    SmartDashboard.putData("filter cargo", new FilterCargo(intake, pixy));
     SmartDashboard.putData("drivetrain", drivetrain);
     SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
@@ -162,12 +166,13 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
-    lightsToggle.whenPressed(new LightsSoftware(lights));
+    // lightsToggle.whenPressed(new LightsSoftware(lights));
     
     // climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     // climb.whenPressed(automatedClimb, false);
 
-
+    JoystickButton cargoFilterButton = new JoystickButton(ps4, INTAKEFILTER_BUTTON_ID);
+    cargoFilterButton.whenHeld(filterCargoCommand);
     POVButton OutButton = new POVButton(ps4, OUT_ARM_BUTTON_ID);
     POVButton InButton = new POVButton(ps4, IN_ARM_BUTTON_ID);
     POVButton ExtendButton = new POVButton(ps4, EXTEND_ARM_BUTTON_ID);
@@ -181,7 +186,6 @@ public class RobotContainer {
     InButton.whenPressed(armsTiltIn);
     ExtendButton.whenPressed(armExtend);
     RetractButton.whenPressed(armRetract);
-
   }
 
   public void initDisable() {

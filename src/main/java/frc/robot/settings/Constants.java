@@ -45,11 +45,11 @@ public final class Constants {
         }
 
         public static final int CONTROLLER_ID = 1;
-        public static final int CLIMB_BUTTON_ID = 5;    // todo
-        public static final int LIGHTS_BUTTON_ID = 13;
+        public static final int CLIMB_BUTTON_ID = 5; // todo
+        public static final int LIGHTS_BUTTON_ID = 6; // todo
         public static final int INTAKEUP_BUTTON_ID = 4;
         public static final int INTAKEDOWN_BUTTON_ID = 2;
-
+        public static final int INTAKEFILTER_BUTTON_ID = 1;
         public static final int RIGHT_IN_BUTTON_ID = 8;
         public static final int RIGHT_OUT_BUTTON_ID = 6;
         public static final int LEFT_IN_BUTTON_ID = 7;
