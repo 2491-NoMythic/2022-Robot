@@ -13,7 +13,7 @@ public class LightsSoftware extends CommandBase{
    public void execute() {
       // Fill the buffer with the indicator
       lights.leftballindicator();
-      //lights.rightballindicator();
+      lights.rightballindicator();
       lights.prettylights();
    }     
 }
