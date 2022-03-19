@@ -27,6 +27,11 @@ public class Drivetrain extends SubsystemBase {
         leftMotors = new MotorControllerGroup(leftLeadMotor, leftFollowMotor);
         rightMotors = new MotorControllerGroup(rightLeadMotor, rightFollowMotor);
 
+        leftLeadMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_DISTANCE);
+        rightLeadMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_DISTANCE);
+        leftFollowMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_DISTANCE);
+        leftFollowMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_DISTANCE);
+
         leftFollowMotor.follow(leftLeadMotor);
         rightFollowMotor.follow(rightLeadMotor);
 
@@ -68,6 +73,7 @@ public class Drivetrain extends SubsystemBase {
      * Controls motors with control mode. (Left, Right)
      * Also, never gonna give you up, never gonna let you down, never going to annoy
      * Liam by typing this comment. :)
+     * Ha! I put more stuff here --Ben
      */
     public void setDrive(ControlMode mode, double leftSpeed, double rightSpeed) {
         setDriveLeft(mode, leftSpeed);
@@ -95,5 +101,24 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
         bbDriveSystem.feed();
+    }
+
+    public void resetEncoders() {
+        leftLeadMotor.setSelectedSensorPosition(0);
+        rightLeadMotor.setSelectedSensorPosition(0);
+        leftFollowMotor.setSelectedSensorPosition(0);
+        rightFollowMotor.setSelectedSensorPosition(0);
+    }
+
+    public double getLeftEncoderValue(){
+        return leftLeadMotor.getSelectedSensorPosition();
+    }
+
+    public double getRightEncoderValue(){
+        return rightLeadMotor.getSelectedSensorPosition();
+    }
+
+    public double convertInchesToTicks(double inches){
+        return inches * ENCODER_TICKS_TO_DISTANCE;
     }
 }

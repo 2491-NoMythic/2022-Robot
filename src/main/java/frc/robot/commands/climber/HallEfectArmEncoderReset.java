@@ -31,6 +31,8 @@ public class HallEfectArmEncoderReset extends CommandBase {
   public boolean isFinished() {
 
 
+    
+
     return climber.isClimberFullyIn();
   }
 }

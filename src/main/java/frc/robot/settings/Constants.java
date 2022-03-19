@@ -76,6 +76,10 @@ public final class Constants {
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
 
+        public static final double ENCODER_TICKS_TO_DISTANCE = 
+        (1/2048)*(8/1)*(2*Math.PI);
+        //Units, ChainRatio, WheelSize
+        //1/2048, 8:1, 2pi
     }
 
     /**
