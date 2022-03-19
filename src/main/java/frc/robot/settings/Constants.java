@@ -36,7 +36,8 @@ public final class Constants {
 
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
 
-        public static final double CLIMBER_SPEED = .2;
+        public static final double CLIMBER_SPEED_OUT = .5;
+        public static final double CLIMBER_SPEED_IN = .7;
     }
 
     public final class Ps4 {
@@ -44,15 +45,26 @@ public final class Constants {
         }
 
         public static final int CONTROLLER_ID = 1;
+<<<<<<< HEAD
         public static final int CLIMB_BUTTON_ID = 5;    // todo
         public static final int LIGHTS_BUTTON_ID = 3;   // todo
+=======
+        public static final int CLIMB_BUTTON_ID = 5; // todo
+        public static final int LIGHTS_BUTTON_ID = 6; // todo
+>>>>>>> e4241f6c645896d70d08222b0eae27c5b21df0f7
         public static final int INTAKEUP_BUTTON_ID = 4;
         public static final int INTAKEDOWN_BUTTON_ID = 2;
-        
+
         public static final int RIGHT_IN_BUTTON_ID = 8;
         public static final int RIGHT_OUT_BUTTON_ID = 6;
         public static final int LEFT_IN_BUTTON_ID = 7;
         public static final int LEFT_OUT_BUTTON_ID = 5;
+
+        public static final int OUT_ARM_BUTTON_ID = 270;
+        public static final int IN_ARM_BUTTON_ID = 90;
+        public static final int EXTEND_ARM_BUTTON_ID = 0;
+        public static final int RETRACT_ARM_BUTTON_ID = 180
+        ;
 
     }
 

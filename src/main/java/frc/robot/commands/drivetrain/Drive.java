@@ -23,6 +23,11 @@ public class Drive extends CommandBase {
     }
 
     @Override
+    public void initialize() {
+        drivetrain.brakeMode();
+    }
+
+    @Override
     public void execute()
     {
         double speedManager = 1-(driveStick.getRawAxis(3)+1)/2;

@@ -38,7 +38,7 @@ public class AzureDrive extends CommandBase {
         {
           drive_SpeedManager = drive_SpeedManager*2;
         }
-          SmartDashboard.putNumber("Slider", drive_SpeedManager);
+        //  SmartDashboard.putNumber("Slider", drive_SpeedManager);
         //SmartDashboard.
         drivetrain.curvatureDrive(driveStick.getY()*drive_SpeedManager, driveStick.getZ()*drive_SpeedManager, driveStick.getRawButton(1));
       }

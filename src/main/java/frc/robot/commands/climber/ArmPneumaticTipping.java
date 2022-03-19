@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climber;
 import frc.robot.settings.Constants;
+import frc.robot.settings.Constants.Ps4;
 
 public class ArmPneumaticTipping extends CommandBase {
 

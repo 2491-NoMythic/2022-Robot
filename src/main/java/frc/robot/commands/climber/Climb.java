@@ -6,7 +6,7 @@ import frc.robot.settings.Constants.Ps4;
 import frc.robot.subsystems.Climber;
 import static frc.robot.settings.Constants.Climber.*;
 
-public class ClimberClimb extends CommandBase {
+public class Climb extends CommandBase {
   private PS4Controller ps4controller;
   Climber climber;
   ArmExtendState state;
@@ -23,39 +23,40 @@ public class ClimberClimb extends CommandBase {
    * @param ArmExtendState
    *
    */
-  public ClimberClimb(Climber climber, ArmExtendState armState) {
+  public Climb(Climber climber, PS4Controller ps4controller) {
     this.climber = climber;
     this.ps4controller = ps4controller;
     addRequirements(climber);
-    state = armState;
+    
   }
 
 
   @Override
   public void execute() {
-
-    switch (state) {
-
-      case OUT:
-        climber.climberOut(CLIMBER_SPEED_OUT);
-        break;
-      case IN:
-        climber.climberIn(CLIMBER_SPEED_IN);
-        break;
-    }
-
+    // if (ps4controller.getPOV() == 0) { // raise arms
+    //   if (climber.isClimberFullyOut()) {
+    //     return;
+    //   } else climber.climberOut(CLIMBER_SPEED_OUT);
+    // }
+    // if (ps4controller.getPOV() == 180) { // retract arms
+    //   if (climber.isClimberFullyIn()) {
+    //     return;
+    //   } else climber.climberIn(CLIMBER_SPEED_IN);
+    // }
+    // switch (state) {
+    //   case OUT:
+    //     climber.climberOut(CLIMBER_SPEED);
+    //     break;
+    //   case IN:
+    //     climber.climberIn(CLIMBER_SPEED);
+    //     break;
   }
+
+  
 
 
   @Override
   public boolean isFinished() {
-      switch (state){
-
-      case OUT:
-        return climber.isClimberFullyOut();
-      case IN:
-        return climber.isClimberFullyIn();
-      }
       return false;
   }
 

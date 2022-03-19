@@ -8,26 +8,25 @@ public class RunIntakeLeft extends CommandBase {
     private Intake intake;
     private Direction direction;
 
-
     public RunIntakeLeft(Intake intake, Direction direction) {
         this.intake = intake;
         this.direction = direction;
         addRequirements(intake);
     }
-        
+
     @Override
     public void initialize() {
         intake.leftIntake(convertSpeed(direction));
     }
 
-    private static double convertSpeed(Direction d){
-        switch (d){
+    private static double convertSpeed(Direction d) {
+        switch (d) {
             case IN:
-            return IN_SPEED;
+                return IN_SPEED;
             case OUT:
-            return OUT_SPEED;
+                return OUT_SPEED;
             case STOP:
-            return 0;
+                return 0;
         }
         return 0;
     }
