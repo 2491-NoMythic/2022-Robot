@@ -46,10 +46,10 @@ public final class Constants {
 
         public static final double CLARM_SPEED_OUT = .5;
         public static final double CLARM_SPEED_IN = .7;
-        public static final double MID_CLARM_SPEED_UP = .5;
-        public static final double MID_CLARM_SPEED_DOWN = .7;
-        public static final double TRAVERSE_CLARM_SPEED_UP = .5;
-        public static final double TRAVERSE_CLARM_SPEED_DOWN = .7;
+        public static final double MID_CLARM_SPEED_IN = .5;
+        public static final double MID_CLARM_SPEED_OUT = .7;
+        public static final double TRAVERSE_CLARM_SPEED_IN = .5;
+        public static final double TRAVERSE_CLARM_SPEED_OUT = .7;
         //clarm means climber arm
         //this has the constants for both the new and old climbers together
     }

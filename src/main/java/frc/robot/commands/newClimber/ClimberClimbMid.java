@@ -33,10 +33,10 @@ public class ClimberClimbMid extends CommandBase {
     switch (state) {
 
       case OUT:
-        climber.midClimberArmDown(TRAVERSE_CLARM_SPEED_DOWN);
+        climber.midClimberArmDown(TRAVERSE_CLARM_SPEED_OUT);
         break;
       case IN:
-        climber.midClimberArmUp(TRAVERSE_CLARM_SPEED_UP);
+        climber.midClimberArmUp(TRAVERSE_CLARM_SPEED_IN);
         break;
     }
 
