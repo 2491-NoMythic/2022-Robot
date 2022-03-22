@@ -32,7 +32,7 @@ public class Vision extends SubsystemBase {
     }
 
 
-    public double getHorizontalPos(){
+    public double getHorizontalAngle(){
         double angle = tx.getDouble(0);
         return angle;
     }

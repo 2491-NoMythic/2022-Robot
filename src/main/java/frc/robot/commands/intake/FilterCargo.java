@@ -4,14 +4,12 @@
 
 package frc.robot.commands.intake;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.CargoState;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pixy2SubSystem;
-import frc.robot.settings.Constants;
 import static frc.robot.settings.Constants.Intake.*;
 
 public class FilterCargo extends CommandBase {

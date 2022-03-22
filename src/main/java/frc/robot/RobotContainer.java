@@ -74,17 +74,11 @@ public class RobotContainer {
   private final AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
   private final SendableChooser<Command> autoChooser;
-  // private final MoveArm intakeUpCommand;
-  // private final MoveArm intakeDownCommand;
+
   private final RunIntake runIntakeCommand;
   private final FilterCargo filterCargoCommand;
   private final Climb runClimbCommand;
-  // private final RunIntakeLeft intakeLeftInCommand;
-  //private final RunIntakeLeft intakeLeftOutCommand;
-  //private final RunIntakeLeft intakeLeftStopCommand;
-  // private final RunIntakeRight intakeRightInCommand;
-  //private final RunIntakeRight intakeRightOutCommand;
-  //private final RunIntakeRight intakeRightStopCommand;
+
   private final PS4Controller ps4;
   private JoystickButton climb;
 

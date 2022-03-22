@@ -27,15 +27,12 @@ public final class Constants {
 
         public static final int RUNG_LOCK_FORWARD_CHANNEL = 0;
         public static final int RUNG_LOCK_REVERSE_CHANNEL = 0;
-
         public static final int ARM_FORWARD_CHANNEL = 2;
         public static final int ARM_REVERSE_CHANNEL = 3;
-
         public static final int LEFT_WINCH_ID = 5;
         public static final int RIGHT_WINCH_ID = 6;
 
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
-
         public static final double CLIMBER_SPEED_OUT = .5;
         public static final double CLIMBER_SPEED_IN = .7;
     }
@@ -43,10 +40,12 @@ public final class Constants {
     public final class Ps4 {
         private Ps4() {
         }
-
         public static final int CONTROLLER_ID = 1;
-        public static final int CLIMB_BUTTON_ID = 5; // todo
+
         public static final int LIGHTS_BUTTON_ID = 6; // todo
+        public static final int CLIMB_BUTTON_ID = 5; // todo
+
+        // Intake
         public static final int INTAKEUP_BUTTON_ID = 4;
         public static final int INTAKEDOWN_BUTTON_ID = 2;
         public static final int INTAKEFILTER_BUTTON_ID = 1;
@@ -55,6 +54,7 @@ public final class Constants {
         public static final int LEFT_IN_BUTTON_ID = 7;
         public static final int LEFT_OUT_BUTTON_ID = 5;
 
+        // Climber
         public static final int OUT_ARM_BUTTON_ID = 270;
         public static final int IN_ARM_BUTTON_ID = 90;
         public static final int EXTEND_ARM_BUTTON_ID = 0;
@@ -75,7 +75,6 @@ public final class Constants {
         public static final int LEFT_FOLLOW_ID = 3;
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
-
     }
 
     /**

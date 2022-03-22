@@ -5,11 +5,8 @@ package frc.robot.settings;
  */
 public class Variables {
 
-
     public static class Drivetrain {
 
-
         public static double ramp = .5;
-
     } 
 }

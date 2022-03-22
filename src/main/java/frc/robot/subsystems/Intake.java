@@ -20,7 +20,6 @@ public class Intake extends SubsystemBase {
         leftIntakeMotor.setInverted(false);
         rightIntakeMotor.setInverted(true);
         armDoubleSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, ARM_FORWARD_CHANNEL, ARM_REVERSE_CHANNEL);
-
     }
 
     public void leftIntake(double speed){
@@ -41,12 +40,5 @@ public class Intake extends SubsystemBase {
 
     public void setArmDown() {
         armDoubleSolenoid.set(Value.kReverse);
-    }
-
-    public double getSensors() {
-        // stub
-        // TODO put sensors in here.
-        double value = .2491;
-        return value;
     }
 }

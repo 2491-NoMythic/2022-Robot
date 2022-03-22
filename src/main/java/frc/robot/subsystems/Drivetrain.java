@@ -26,22 +26,20 @@ public class Drivetrain extends SubsystemBase {
 
         leftLeadMotor = new WPI_TalonFX(LEFT_LEAD_ID);
         leftFollowMotor = new WPI_TalonFX(LEFT_FOLLOW_ID);
-        rightLeadMotor = new WPI_TalonFX(RIGHT_LEAD_ID);
-        rightFollowMotor = new WPI_TalonFX(RIGHT_FOLLOW_ID);
-        leftMotors = new MotorControllerGroup(leftLeadMotor, leftFollowMotor);
-        rightMotors = new MotorControllerGroup(rightLeadMotor, rightFollowMotor);
         leftFollowMotor.follow(leftLeadMotor);
-        rightFollowMotor.follow(rightLeadMotor);
-        
-        leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
-        rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
-
-        
-        // making right motors go right
-        rightLeadMotor.setInverted(InvertType.None);
-        rightFollowMotor.setInverted(InvertType.FollowMaster);
         leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
         leftFollowMotor.setInverted(InvertType.FollowMaster);
+        leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
+        
+        rightLeadMotor = new WPI_TalonFX(RIGHT_LEAD_ID);
+        rightFollowMotor = new WPI_TalonFX(RIGHT_FOLLOW_ID);
+        rightFollowMotor.follow(rightLeadMotor);
+        rightLeadMotor.setInverted(InvertType.None);
+        rightFollowMotor.setInverted(InvertType.FollowMaster);
+        rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
+
+        leftMotors = new MotorControllerGroup(leftLeadMotor, leftFollowMotor);
+        rightMotors = new MotorControllerGroup(rightLeadMotor, rightFollowMotor);
         
         bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
         bbDriveSystem.setDeadband(0.04);
