@@ -8,14 +8,14 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.climber.ArmPneumaticTipping;
-import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
+import frc.robot.commands.oldClimber.ArmPneumaticTipping;
+import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.intake.Direction;
 import frc.robot.commands.intake.DoubleIntake;
 import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.OldClimber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -24,7 +24,7 @@ import frc.robot.subsystems.Intake;
 public class AutononomousDrive extends SequentialCommandGroup {
 
   /** Creates a new AutononomousDrive. Moves forward for 3 seconds at .25 power. */
-  public AutononomousDrive(Drivetrain drivetrain, Climber climber, Intake intake) {
+  public AutononomousDrive(Drivetrain drivetrain, OldClimber climber, Intake intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(

@@ -1,14 +1,11 @@
-package frc.robot.commands.climber;
+package frc.robot.commands.newClimber;
 
-import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.settings.Constants.Ps4;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.NewClimber;
 import static frc.robot.settings.Constants.Climber.*;
 
-public class ClimberClimb extends CommandBase {
-  private PS4Controller ps4controller;
-  Climber climber;
+public class ClimberClimbTraverse extends CommandBase {
+  NewClimber climber;
   ArmExtendState state;
   
   public enum ArmExtendState {
@@ -23,9 +20,8 @@ public class ClimberClimb extends CommandBase {
    * @param ArmExtendState
    *
    */
-  public ClimberClimb(Climber climber, ArmExtendState armState) {
+  public ClimberClimbTraverse(NewClimber climber, ArmExtendState armState) {
     this.climber = climber;
-    this.ps4controller = ps4controller;
     addRequirements(climber);
     state = armState;
   }
@@ -37,10 +33,10 @@ public class ClimberClimb extends CommandBase {
     switch (state) {
 
       case OUT:
-        climber.climberOut(CLIMBER_SPEED_OUT);
+        climber.midClimberArmDown(MID_CLARM_SPEED_OUT);
         break;
       case IN:
-        climber.climberIn(CLIMBER_SPEED_IN);
+        climber.midClimberArmUp(MID_CLARM_SPEED_IN);
         break;
     }
 
@@ -61,7 +57,7 @@ public class ClimberClimb extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    climber.stop();
+    climber.stopMid();
   }
 
 }

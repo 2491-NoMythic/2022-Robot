@@ -8,20 +8,20 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.climber.ArmPneumaticTipping;
-import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
+import frc.robot.commands.oldClimber.ArmPneumaticTipping;
+import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.intake.Direction;
 import frc.robot.commands.intake.DoubleIntake;
 import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.OldClimber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 
 public class AutonomousAll extends SequentialCommandGroup {
   /** Creates a new AutonomousAll. */
-  public AutonomousAll(Drivetrain drivetrain, Climber climber, Intake intake) {
+  public AutonomousAll(Drivetrain drivetrain, OldClimber climber, Intake intake) {
     addCommands(
       new InstantCommand(drivetrain::brakeMode, drivetrain),
       new ParallelRaceGroup(

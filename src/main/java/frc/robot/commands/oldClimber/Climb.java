@@ -1,14 +1,14 @@
-package frc.robot.commands.climber;
+package frc.robot.commands.oldClimber;
 
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.settings.Constants.Ps4;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.OldClimber;
 import static frc.robot.settings.Constants.Climber.*;
 
 public class Climb extends CommandBase {
   private PS4Controller ps4controller;
-  Climber climber;
+  OldClimber climber;
   ArmExtendState state;
   
   public enum ArmExtendState {
@@ -23,7 +23,7 @@ public class Climb extends CommandBase {
    * @param ArmExtendState
    *
    */
-  public Climb(Climber climber, PS4Controller ps4controller) {
+  public Climb(OldClimber climber, PS4Controller ps4controller) {
     this.climber = climber;
     this.ps4controller = ps4controller;
     addRequirements(climber);

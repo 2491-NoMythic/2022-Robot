@@ -30,14 +30,28 @@ public final class Constants {
 
         public static final int ARM_FORWARD_CHANNEL = 2;
         public static final int ARM_REVERSE_CHANNEL = 3;
+        public static final int MID_ARM_FORWARD_CHANNEL = 2;
+        public static final int MID_ARM_REVERSE_CHANNEL = 3;
+        public static final int TRAVERSE_ARM_FORWARD_CHANNEL = 0;
+        public static final int TRAVERSE_ARM_REVERSE_CHANNEL = 0;
 
         public static final int LEFT_WINCH_ID = 5;
         public static final int RIGHT_WINCH_ID = 6;
+        public static final int MID_WINCH_ID = 5;
+        public static final int TRAVERSE_WINCH_ID = 6;
 
+        public static final double TIME_FOR_MID_ARM_TO_GO_UP = 2;
+        public static final double TIME_FOR_TRAVERSE_ARM_TO_GO_UP = 2;
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
 
-        public static final double CLIMBER_SPEED_OUT = .5;
-        public static final double CLIMBER_SPEED_IN = .7;
+        public static final double CLARM_SPEED_OUT = .5;
+        public static final double CLARM_SPEED_IN = .7;
+        public static final double MID_CLARM_SPEED_IN = .5;
+        public static final double MID_CLARM_SPEED_OUT = .7;
+        public static final double TRAVERSE_CLARM_SPEED_IN = .5;
+        public static final double TRAVERSE_CLARM_SPEED_OUT = .7;
+        //clarm means climber arm
+        //this has the constants for both the new and old climbers together
     }
 
     public final class Ps4 {
