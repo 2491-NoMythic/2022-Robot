@@ -28,26 +28,27 @@ import org.opencv.core.Point;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
-import frc.robot.commands.climber.ArmPneumaticTipping;
-import frc.robot.commands.climber.AutomatedClimb;
-import frc.robot.commands.climber.Climb;
+import frc.robot.commands.oldClimber.ArmPneumaticTipping;
+import frc.robot.commands.oldClimber.AutomatedClimb;
+import frc.robot.commands.oldClimber.Climb;
 import frc.robot.commands.drivetrain.BurnIn;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.OldClimber;
+import frc.robot.subsystems.NewClimber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
-import frc.robot.subsystems.Climber.RungLockState;
+//import frc.robot.subsystems.OldClimber.RungLockState;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pixy2SubSystem;
-import frc.robot.commands.climber.ClimberClimb;
-import frc.robot.commands.climber.ClimberClimb.ArmExtendState;
-import frc.robot.commands.climber.WedgePneumatic;
+import frc.robot.commands.oldClimber.ClimberClimb;
+import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
+//import frc.robot.commands.oldClimber.WedgePneumatic;
 import frc.robot.commands.intake.RunIntakeLeft;
 import frc.robot.commands.intake.RunIntakeRight;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.settings.Variables;
 import frc.robot.commands.intake.Direction;
-import frc.robot.commands.climber.ArmPneumaticTipping.ArmTipState;
+import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -65,7 +66,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
     private final LightsHardware lights;
 
-  private final Climber climber;
+  private final OldClimber climber;
   private final Drivetrain drivetrain;
   private final Vision vision;
   private final Intake intake;
@@ -103,7 +104,7 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    climber = new Climber();
+    climber = new OldClimber();
     drivetrain = new Drivetrain();
     vision = new Vision();
     intake = new Intake();
