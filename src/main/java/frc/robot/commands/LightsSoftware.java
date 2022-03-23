@@ -12,8 +12,15 @@ public class LightsSoftware extends CommandBase{
    @Override
    public void execute() {
       // Fill the buffer with the indicator
+      lights.prettyleftlights();
       lights.leftballindicator();
       lights.rightballindicator();
-      lights.prettylights();
+      lights.prettyrightlights();
+      lights.dataSetter();
    }     
+   @Override
+   public void end(boolean interrupted) {
+      lights.lightsout();
+      lights.dataSetter();
+   }
 }

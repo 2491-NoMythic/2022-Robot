@@ -34,7 +34,7 @@ import frc.robot.commands.climber.Climb;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
-//  import frc.robot.subsystems.LightsHardware;
+import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climber.RungLockState;
 import frc.robot.subsystems.Intake;
@@ -63,7 +63,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  //  private final LightsHardware lights;
+    private final LightsHardware lights;
 
   private final Climber climber;
   private final Drivetrain drivetrain;
@@ -113,7 +113,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, climber, intake));
 
     ps4 = new PS4Controller(CONTROLLER_ID);
-    //  lights = new LightsHardware();
+    lights = new LightsHardware();
     pixy = new Pixy2SubSystem();
 
     defaultDriveCommand = new Drive(drivetrain);
@@ -166,7 +166,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
-    // lightsToggle.whenPressed(new LightsSoftware(lights));
+    lightsToggle.toggleWhenPressed(new LightsSoftware(lights));
+    
     
     // climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     // climb.whenPressed(automatedClimb, false);
