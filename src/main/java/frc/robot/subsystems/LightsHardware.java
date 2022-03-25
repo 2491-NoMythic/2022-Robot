@@ -3,12 +3,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.FakePixie;
+import frc.robot.CargoState;
 
 public class LightsHardware extends SubsystemBase {
   private final AddressableLED adressableLedsOnly;
   private AddressableLEDBuffer onlyBuffer;
-  private FakePixie pixie;
 
   public LightsHardware() {
     // Must be a PWM header, not MXP or DIO
@@ -21,7 +20,6 @@ public class LightsHardware extends SubsystemBase {
     adressableLedsOnly.start();
     // I would just like to say that I had 'We don't talk about Bruno' stuck in my
     // head while I was coding this.
-    pixie = new FakePixie();
   }
 
   public void dataSetter() {
@@ -35,12 +33,12 @@ public class LightsHardware extends SubsystemBase {
     }
   }
 
-  public void leftballindicator() {
+  public void leftballindicator(CargoState ballColor) {
     // System.out.println("Left side go");
     for (var leftsensorlights = 30; leftsensorlights < onlyBuffer.getLength(); leftsensorlights++) {
-      if (pixie.isLeftBallRed()) {
+      if (ballColor == CargoState.Red) {
         onlyBuffer.setRGB(leftsensorlights, 255, 0, 0);
-      } else if (pixie.isLeftBallBlue()) {
+      } else if (ballColor == CargoState.Blue) {
         onlyBuffer.setRGB(leftsensorlights, 0, 0, 255);
       } else {
         onlyBuffer.setRGB(leftsensorlights, 0, 0, 0);
@@ -48,12 +46,12 @@ public class LightsHardware extends SubsystemBase {
     }
   }
 
-  public void rightballindicator() {
+  public void rightballindicator(CargoState ballColor) {
     // System.out.println("Right side go");
     for (var rightsensorlights = 60; rightsensorlights < onlyBuffer.getLength(); rightsensorlights++) {
-      if (pixie.isRightBallRed()) {
+      if (ballColor == CargoState.Red) {
         onlyBuffer.setRGB(rightsensorlights, 255, 0, 0);
-      } else if (pixie.isRightBallBlue()) {
+      } else if (ballColor == CargoState.Blue) {
         onlyBuffer.setRGB(rightsensorlights, 0, 0, 255);
       } else {
         onlyBuffer.setRGB(rightsensorlights, 0, 0, 0);

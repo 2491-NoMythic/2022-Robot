@@ -167,7 +167,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
-    lightsToggle.toggleWhenPressed(new LightsSoftware(lights));
+    lightsToggle.toggleWhenPressed(new LightsSoftware(lights, pixy));
     
     
     // climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
