@@ -27,14 +27,12 @@ public class LightsHardware extends SubsystemBase {
   }
 
   public void prettyleftlights() {
-    // System.out.println("Light it up");
     for (var leftdecorlights = 0; leftdecorlights < onlyBuffer.getLength(); leftdecorlights++) {
       onlyBuffer.setRGB(leftdecorlights, 50, 0, 50);
     }
   }
 
   public void leftballindicator(CargoState ballColor) {
-    // System.out.println("Left side go");
     for (var leftsensorlights = 30; leftsensorlights < onlyBuffer.getLength(); leftsensorlights++) {
       if (ballColor == CargoState.Red) {
         onlyBuffer.setRGB(leftsensorlights, 255, 0, 0);
@@ -47,7 +45,6 @@ public class LightsHardware extends SubsystemBase {
   }
 
   public void rightballindicator(CargoState ballColor) {
-    // System.out.println("Right side go");
     for (var rightsensorlights = 60; rightsensorlights < onlyBuffer.getLength(); rightsensorlights++) {
       if (ballColor == CargoState.Red) {
         onlyBuffer.setRGB(rightsensorlights, 255, 0, 0);
@@ -55,7 +52,6 @@ public class LightsHardware extends SubsystemBase {
         onlyBuffer.setRGB(rightsensorlights, 0, 0, 255);
       } else {
         onlyBuffer.setRGB(rightsensorlights, 0, 0, 0);
-        // The redlinks are because I used placeholder code for the sensors.
       }
     }
   }
