@@ -56,6 +56,14 @@ public class OldClimber extends SubsystemBase {
         rightWinchMotor.setNeutralMode(NeutralMode.Brake);
         leftWinchMotor.setNeutralMode(NeutralMode.Brake);
 
+        rightWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
+        rightWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
+        rightWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
+        leftWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
+        leftWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
+        leftWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
+        
+        resetEncoders();
         // is this an alternative to magnetic encoders?
         // rightWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
         // leftWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
@@ -66,6 +74,11 @@ public class OldClimber extends SubsystemBase {
 
     }
 
+    public void setArmPostion (double armLength) {
+        rightWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
+        leftWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
+        // well too bad because Augie's at the keyboard so have a random comment that makes no sense if you weren't in the programming room on 3/26/2022 at 11:40AM.
+    }
     public void setArmUp() {
         armSolenoid.set(Value.kReverse);
 
@@ -88,6 +101,7 @@ public class OldClimber extends SubsystemBase {
         rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
         leftWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
     }
+
 
     /**
      * use motors to move the climber into extended position
