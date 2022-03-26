@@ -11,10 +11,12 @@ import static frc.robot.settings.Constants.Climber.*;
 
 public class calibrateClimber extends CommandBase {
   OldClimber climber;
-  
+
   /** Creates a new calibrateClimber. */
-  public calibrateClimber() {
-    // Use addRequirements() here to declare subsystem dependencies.
+  public calibrateClimber(OldClimber climber) {
+    this.climber = climber;
+    
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
@@ -23,15 +25,21 @@ public class calibrateClimber extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    climber.climberIn(CLARM_SPEED_CALIBRATE);
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    climber.stop();
+    climber.resetEncoders();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return climber.isClimberFullyIn();
   }
 }

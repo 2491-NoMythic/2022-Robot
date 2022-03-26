@@ -30,6 +30,7 @@ import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.commands.oldClimber.ClimberClimb;
+import frc.robot.commands.oldClimber.calibrateClimber;
 import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.intake.RunIntakeLeft;
 import frc.robot.commands.intake.RunIntakeRight;
@@ -113,6 +114,7 @@ public class RobotContainer {
     SmartDashboard.putData("ArmsRetract", new ClimberClimb(climber, ArmExtendState.IN));
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
+    SmartDashboard.putData("Calibrate Climber", new calibrateClimber(climber));
     SmartDashboard.putString("Things to remember",
      "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
   }
