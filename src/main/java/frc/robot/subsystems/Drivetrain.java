@@ -119,6 +119,25 @@ public class Drivetrain extends SubsystemBase {
     public void brakeMode() { setNeutralMode(NeutralMode.Brake); }
     public void coastMode() { setNeutralMode(NeutralMode.Coast); }
 
+    public void resetEncoders() {
+        leftLeadMotor.setSelectedSensorPosition(0);
+        rightLeadMotor.setSelectedSensorPosition(0);
+        leftFollowMotor.setSelectedSensorPosition(0);
+        rightFollowMotor.setSelectedSensorPosition(0);
+    }
+
+    public double getLeftEncoderValue(){
+        return leftLeadMotor.getSelectedSensorPosition();
+    }
+
+    public double getRightEncoderValue(){
+        return rightLeadMotor.getSelectedSensorPosition();
+    }
+
+    public double convertInchesToTicks(double inches){
+        return inches * ENCODER_TICKS_TO_DISTANCE;
+    }
+    
    // @Override
     // public void disabledInit()
     // {

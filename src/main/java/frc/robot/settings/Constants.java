@@ -52,6 +52,12 @@ public final class Constants {
         public static final double TRAVERSE_CLARM_SPEED_OUT = .7;
         //clarm means climber arm
         //this has the constants for both the new and old climbers together
+
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = 
+            (1/2048.0)*(1/23.73)*(1.25*Math.PI)*(1/24.0);
+        //nu> motor   >  spool  >    inches    > arm lengths
+
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE = ENCODER_TICKS_TO_ARMS_LENGTH / 1;
     }
 
     public final class Ps4 {
@@ -90,6 +96,10 @@ public final class Constants {
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
 
+        public static final double ENCODER_TICKS_TO_DISTANCE = 
+        (1/2048)*(8/1)*(2*Math.PI);
+        //Units, ChainRatio, WheelSize
+        //1/2048, 8:1, 2pi
     }
 
     /**

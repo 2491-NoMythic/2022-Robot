@@ -55,50 +55,10 @@ public class OldClimber extends SubsystemBase {
 
         rightWinchMotor.setNeutralMode(NeutralMode.Brake);
         leftWinchMotor.setNeutralMode(NeutralMode.Brake);
-        //negative percent output values bring climber in, positive bring it out.
 
-        toggleLock();
-    }
-
-    public void toggleLock() {
-        // switch (getLockState()) {
-        //     case Locked:
-        //         setLockState(RungLockState.Unlocked);
-        //         break;
-        //     case Unlocked:
-        //         setLockState(RungLockState.Locked);
-        //         break;
-
-        // }
-    }
-
-    public void setLockState(RungLockState lockState) {
-        // rungLockSolenoid.set(lockState.getLockStateValue());
-    }
-
-    public RungLockState getLockState() {
-    //     switch (rungLockSolenoid.get()) {
-    //         case kForward:
-    //         case kOff:
-    //             return RungLockState.Unlocked;
-    //         case kReverse:
-    //         default:
-    //             return RungLockState.Locked;
-
-    //     }
-        return RungLockState.Unlocked;
-    }
-
-    public boolean isLockFullyUnlocked() {
-        // TODO sensor things. return bool if sensors say
-
-        return false;
-    }
-
-    public boolean isLockFullyLocked() {
-        // TODO sensor things. return bool if sensors say
-
-        return false;
+        // is this an alternative to magnetic encoders?
+        // rightWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
+        // leftWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
     }
 
     public void setArmDown() {
@@ -123,6 +83,7 @@ public class OldClimber extends SubsystemBase {
         return false;
     }
 
+    //negative percent output values bring climber in, positive bring it out.
     private void setMotorSpeed(double leftSpeed, double rightSpeed) {
         rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
         leftWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
@@ -178,11 +139,21 @@ public boolean isClimberFullyIn(){
         setMotorSpeed(0, 0);
     }
 
-    /*
-     * TODO :
-     * - ask about motors
-     * - ask about sensors
-     */
+    public double getLeftArmPos() {
+        return leftWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
+    }
+
+    //1.65 1.25 - 26.5 in (what is this?)
+    public double getRightArmPos() {
+        return rightWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
+    }
+
+    // Sets the encoders to 0 no matter where the physical hardware is
+    public void resetEncoders(){
+        leftWinchMotor.setSelectedSensorPosition(0);
+        rightWinchMotor.setSelectedSensorPosition(0);
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run

@@ -4,25 +4,16 @@
 
 package frc.robot;
 
-import edu.wpi.first.networktables.NetworkTablesJNI;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.drivetrain.ForwardDistance;
-import frc.robot.commands.intake.MoveArm;
-import frc.robot.commands.intake.RunIntake;
-import frc.robot.commands.intake.FilterCargo;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import frc.robot.commands.LightsSoftware;
 import static frc.robot.settings.Constants.Ps4.*;
-
-import org.opencv.core.Point;
 
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
@@ -36,12 +27,10 @@ import frc.robot.subsystems.NewClimber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.Vision;
-//import frc.robot.subsystems.OldClimber.RungLockState;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.commands.oldClimber.ClimberClimb;
 import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
-//import frc.robot.commands.oldClimber.WedgePneumatic;
 import frc.robot.commands.intake.RunIntakeLeft;
 import frc.robot.commands.intake.RunIntakeRight;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
@@ -51,6 +40,10 @@ import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.ForwardDistance;
+import frc.robot.commands.intake.FilterCargo;
+import frc.robot.commands.intake.RunIntake;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -69,31 +62,11 @@ public class RobotContainer {
   private final Vision vision;
   private final Intake intake;
   private final Pixy2SubSystem pixy;
-  private final PointAtCargo pointAtCargo;
-  private final AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
   private final SendableChooser<Command> autoChooser;
-  // private final MoveArm intakeUpCommand;
-  // private final MoveArm intakeDownCommand;
   private final RunIntake runIntakeCommand;
   private final FilterCargo filterCargoCommand;
-  private final Climb runClimbCommand;
-  // private final RunIntakeLeft intakeLeftInCommand;
-  //private final RunIntakeLeft intakeLeftOutCommand;
-  //private final RunIntakeLeft intakeLeftStopCommand;
-  // private final RunIntakeRight intakeRightInCommand;
-  //private final RunIntakeRight intakeRightOutCommand;
-  //private final RunIntakeRight intakeRightStopCommand;
   private final PS4Controller ps4;
-  private JoystickButton climb;
-
-  private JoystickButton intakeUp;
-  private JoystickButton intakeDown;
-
-  private JoystickButton intakeLeftIn;
-  private JoystickButton intakeLeftOut;
-  private JoystickButton intakeRightIn;
-  private JoystickButton intakeRightOut;
   private JoystickButton lightsToggle;
   private Compressor pcmCompressor;
   /**
@@ -114,13 +87,9 @@ public class RobotContainer {
     pixy = new Pixy2SubSystem();
 
     defaultDriveCommand = new Drive(drivetrain);
-    automatedClimb = new AutomatedClimb(climber, drivetrain);
-    pointAtCargo = new PointAtCargo(drivetrain, vision);
-    //automatedClimb = new AutomatedClimb(climber);
     
     runIntakeCommand = new RunIntake(intake, ps4);
     filterCargoCommand = new FilterCargo(intake, pixy);
-    runClimbCommand = new Climb(climber, ps4);
     intake.setDefaultCommand(runIntakeCommand);
     drivetrain.setDefaultCommand(defaultDriveCommand);
     
@@ -142,7 +111,6 @@ public class RobotContainer {
     SmartDashboard.putNumber("Ramp Rate", Variables.Drivetrain.ramp);
     SmartDashboard.putData("ArmsExtend", new ClimberClimb(climber, ArmExtendState.OUT));
     SmartDashboard.putData("ArmsRetract", new ClimberClimb(climber, ArmExtendState.IN));
-    //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
     SmartDashboard.putString("Things to remember",
@@ -202,7 +170,6 @@ public class RobotContainer {
 
     // moves us off tarmack
     return autoChooser.getSelected();
-    // // An ExampleCommand will run in autonomous
     // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
 }
