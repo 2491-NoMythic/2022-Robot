@@ -65,19 +65,19 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
    private final LightsHardware lights;
 
-  private final OldClimber climber;
+  private OldClimber climber;
   private final Drivetrain drivetrain;
   private final Vision vision;
   private final Intake intake;
   private final Pixy2SubSystem pixy;
   private final PointAtCargo pointAtCargo;
-  private final AutomatedClimb automatedClimb;
+  private AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
-  private final SendableChooser<Command> autoChooser;
+  private SendableChooser<Command> autoChooser;
   // private final MoveArm intakeUpCommand;
   // private final MoveArm intakeDownCommand;
   private final RunIntake runIntakeCommand;
-  private final Climb runClimbCommand;
+  private Climb runClimbCommand;
   // private final RunIntakeLeft intakeLeftInCommand;
   //private final RunIntakeLeft intakeLeftOutCommand;
   //private final RunIntakeLeft intakeLeftStopCommand;
@@ -98,30 +98,32 @@ public class RobotContainer {
   private JoystickButton lightsToggle;
 
   private Compressor pcmCompressor;
+
+  private ClimberType state;
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
+  public enum ClimberType{
+    OLD,
+    NEW;
+  }
+
   public RobotContainer() {
-    climber = new OldClimber();
+
     drivetrain = new Drivetrain();
     vision = new Vision();
     intake = new Intake();
-
-    autoChooser = new SendableChooser<>();
-    autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, climber, intake));
-    autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, climber, intake));
 
     ps4 = new PS4Controller(CONTROLLER_ID);
      lights = new LightsHardware();
     pixy = new Pixy2SubSystem();
 
     defaultDriveCommand = new Drive(drivetrain);
-    automatedClimb = new AutomatedClimb(climber, drivetrain);
     pointAtCargo = new PointAtCargo(drivetrain, vision);
     //automatedClimb = new AutomatedClimb(climber);
     
     runIntakeCommand = new RunIntake(intake, ps4);
-    runClimbCommand = new Climb(climber, ps4);
     intake.setDefaultCommand(runIntakeCommand);
     drivetrain.setDefaultCommand(defaultDriveCommand);
     
@@ -131,7 +133,19 @@ public class RobotContainer {
 
     configureButtonBindings();
     configureSmartDashboard();
+    
+    switch (state) {
+
+      case OLD:
+        oldClimberInit();
+        break;
+      case NEW:
+       newClimberInit();
+        break;
+    }
   }
+
+
 
   private void configureSmartDashboard() {
     SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
@@ -140,11 +154,6 @@ public class RobotContainer {
     SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
     SmartDashboard.putData("Choose Auto", autoChooser);
     SmartDashboard.putNumber("Ramp Rate", Variables.Drivetrain.ramp);
-    SmartDashboard.putData("ArmsExtend", new ClimberClimb(climber, ArmExtendState.OUT));
-    SmartDashboard.putData("ArmsRetract", new ClimberClimb(climber, ArmExtendState.IN));
-    //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
-    SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
-    SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
     SmartDashboard.putString("Things to remember",
      "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
   }
@@ -168,7 +177,32 @@ public class RobotContainer {
     // climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     // climb.whenPressed(automatedClimb, false);
 
+  }
 
+  public void initDisable() {
+    drivetrain.coastMode();
+  }
+
+  public void initEnable() {
+    drivetrain.brakeMode();
+  }
+
+  public void newClimberInit(){
+
+  }
+
+  public void oldClimberInit(){
+
+    climber = new OldClimber();
+
+    autoChooser = new SendableChooser<>();
+    autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, climber, intake));
+    autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, climber, intake));
+
+    automatedClimb = new AutomatedClimb(climber, drivetrain);
+    runClimbCommand = new Climb(climber, ps4);
+
+    //button bindings
     POVButton OutButton = new POVButton(ps4, OUT_ARM_BUTTON_ID);
     POVButton InButton = new POVButton(ps4, IN_ARM_BUTTON_ID);
     POVButton ExtendButton = new POVButton(ps4, EXTEND_ARM_BUTTON_ID);
@@ -183,15 +217,13 @@ public class RobotContainer {
     ExtendButton.whenPressed(armExtend);
     RetractButton.whenPressed(armRetract);
 
+    SmartDashboard.putData("ArmsExtend", new ClimberClimb(climber, ArmExtendState.OUT));
+    SmartDashboard.putData("ArmsRetract", new ClimberClimb(climber, ArmExtendState.IN));
+    //SmartDashboard.putData("armLock", new WedgePneumatic(climber, RungLockState.Locked));
+    SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
+    SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(climber, ArmTipState.UP));
   }
 
-  public void initDisable() {
-    drivetrain.coastMode();
-  }
-
-  public void initEnable() {
-    drivetrain.brakeMode();
-  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
