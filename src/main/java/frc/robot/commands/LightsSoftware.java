@@ -6,16 +6,25 @@ import frc.robot.subsystems.Pixy2SubSystem;
 public class LightsSoftware extends CommandBase{
    private LightsHardware lights;
    private Pixy2SubSystem pixie;
+
    public LightsSoftware(LightsHardware lights, Pixy2SubSystem pixie){
       this.lights=lights;
       this.pixie=pixie;
    }
 
    @Override
-   public void execute() {
+   public void execute() { 
       // Fill the buffer with the indicator
+      lights.prettyleftlights();
       lights.leftballindicator(pixie.getLeftCargoState());
       lights.rightballindicator(pixie.getRightCargoState());
-      lights.prettylights();
+      lights.prettyrightlights();
+      lights.dataSetter();
    }     
+
+   @Override
+   public void end(boolean interrupted) {
+      lights.lightsout();
+      lights.dataSetter();
+   }
 }

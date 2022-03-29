@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Climber.*;
 
-public class Climber extends SubsystemBase {
+public class OldClimber extends SubsystemBase {
 
     public enum RungLockState {
         Unlocked(Value.kForward),
@@ -32,13 +32,13 @@ public class Climber extends SubsystemBase {
         }
     }
 
-    private DoubleSolenoid rungLockSolenoid;
+    //private DoubleSolenoid rungLockSolenoid;
     private DoubleSolenoid armSolenoid;
     private WPI_TalonFX leftWinchMotor;
     private WPI_TalonFX rightWinchMotor;
 
     /** Creates a new climber. */
-    public Climber() {
+    public OldClimber() {
 
         // rungLockSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RUNG_LOCK_FORWARD_CHANNEL,
                 // RUNG_LOCK_REVERSE_CHANNEL);
@@ -102,12 +102,12 @@ public class Climber extends SubsystemBase {
     }
 
     public void setArmDown() {
-        armSolenoid.set(Value.kReverse);
+        armSolenoid.set(Value.kForward);
 
     }
 
     public void setArmUp() {
-        armSolenoid.set(Value.kForward);
+        armSolenoid.set(Value.kReverse);
 
     }
 

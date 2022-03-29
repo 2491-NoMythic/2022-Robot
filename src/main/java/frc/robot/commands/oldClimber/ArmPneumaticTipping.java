@@ -1,13 +1,14 @@
-package frc.robot.commands.climber;
+package frc.robot.commands.oldClimber;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climber;
+import frc.robot.subsystems.OldClimber;
 import frc.robot.settings.Constants;
+import frc.robot.settings.Constants.Ps4;
 
 public class ArmPneumaticTipping extends CommandBase {
 
-    Climber climber;
+    OldClimber climber;
     Timer timer;
     ArmTipState targetState;
 
@@ -22,7 +23,7 @@ public class ArmPneumaticTipping extends CommandBase {
      * @param armTipState
      */
 
-    public ArmPneumaticTipping(Climber climber, ArmTipState armTipState) {
+    public ArmPneumaticTipping(OldClimber climber, ArmTipState armTipState) {
         this.climber = climber;
         timer = new Timer();
         addRequirements(climber);

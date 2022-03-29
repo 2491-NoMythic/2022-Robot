@@ -1,14 +1,13 @@
-package frc.robot.commands.climber;
+package frc.robot.commands.newClimber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climber;
-import static frc.robot.settings.Constants.Climber.CLIMBER_SPEED;
+import frc.robot.subsystems.NewClimber;
+import static frc.robot.settings.Constants.Climber.*;
 
-public class ClimberClimb extends CommandBase {
-
-  Climber climber;
+public class ClimberClimbTraverse extends CommandBase {
+  NewClimber climber;
   ArmExtendState state;
-
+  
   public enum ArmExtendState {
     IN,
     OUT
@@ -21,10 +20,9 @@ public class ClimberClimb extends CommandBase {
    * @param ArmExtendState
    *
    */
-  public ClimberClimb(Climber climber, ArmExtendState armState) {
+  public ClimberClimbTraverse(NewClimber climber, ArmExtendState armState) {
     this.climber = climber;
     addRequirements(climber);
-
     state = armState;
   }
 
@@ -35,13 +33,15 @@ public class ClimberClimb extends CommandBase {
     switch (state) {
 
       case OUT:
-        climber.climberOut(CLIMBER_SPEED);
+        climber.midClimberArmDown(MID_CLARM_SPEED_OUT);
         break;
       case IN:
-        climber.climberIn(CLIMBER_SPEED);
+        climber.midClimberArmUp(MID_CLARM_SPEED_IN);
         break;
     }
+
   }
+
 
   @Override
   public boolean isFinished() {
@@ -57,7 +57,7 @@ public class ClimberClimb extends CommandBase {
 
   @Override
   public void end(boolean interrupted) {
-    climber.stop();
+    climber.stopMid();
   }
 
 }
