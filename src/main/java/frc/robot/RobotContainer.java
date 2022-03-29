@@ -19,8 +19,7 @@ import frc.robot.commands.intake.FilterCargo;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
- import frc.robot.commands.LightsSoftware;
-
+import frc.robot.commands.LightsSoftware;
 import static frc.robot.settings.Constants.Ps4.*;
 
 import org.opencv.core.Point;
@@ -64,8 +63,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-    private final LightsHardware lights;
-
+  private final LightsHardware lights;
   private final OldClimber climber;
   private final Drivetrain drivetrain;
   private final Vision vision;
@@ -96,9 +94,7 @@ public class RobotContainer {
   private JoystickButton intakeLeftOut;
   private JoystickButton intakeRightIn;
   private JoystickButton intakeRightOut;
-
   private JoystickButton lightsToggle;
-
   private Compressor pcmCompressor;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -168,7 +164,6 @@ public class RobotContainer {
   private void configureButtonBindings() {
     lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
     lightsToggle.toggleWhenPressed(new LightsSoftware(lights, pixy));
-    
     
     // climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     // climb.whenPressed(automatedClimb, false);
