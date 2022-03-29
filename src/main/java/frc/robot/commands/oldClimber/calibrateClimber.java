@@ -26,7 +26,7 @@ public class calibrateClimber extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.climberIn(CLARM_SPEED_CALIBRATE);
+    climber.climberIn(ARM_SPEED_CALIBRATE);
 
   }
 
