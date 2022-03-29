@@ -135,7 +135,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double convertInchesToTicks(double inches){
-        return inches * ENCODER_TICKS_TO_DISTANCE;
+        return inches * ENCODER_TICKS_TO_INCHES;
     }
     
    // @Override

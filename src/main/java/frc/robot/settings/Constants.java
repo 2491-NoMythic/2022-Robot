@@ -54,9 +54,9 @@ public final class Constants {
         // clarm means climber arm
         // this has the constants for both the new and old climbers together
 
-        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = (1 / 2048.0) * (1 / 23.73) * (1.25 * Math.PI)
-                * (1 / 24.0);
-        // nu> motor > spool > inches > arm lengths
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = 
+            (1/2048.0)*(1/23.73)*(1.25*Math.PI)*(1/24.0);
+        //nu> motor   >  spool  >    inches    > arm lengths
 
         public static final double ARM_LENGTHS_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_ARMS_LENGTH;
 
@@ -100,9 +100,9 @@ public final class Constants {
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
 
-        public static final double ENCODER_TICKS_TO_DISTANCE = (1.0 / 2048) * (8.0 / 1) * (2 * Math.PI);
-        // Units, ChainRatio, WheelSize
-        // 1/2048, 8:1, 2pi
+        public static final double ENCODER_TICKS_TO_INCHES =
+            (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); //TODO: find effective diameter of the wheels.
+        //nu>  motor     >   wheel   >    inches
     }
 
     /**
