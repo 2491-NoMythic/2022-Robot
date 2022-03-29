@@ -96,7 +96,9 @@ public class OldClimber extends SubsystemBase {
         return false;
     }
 
-    //negative percent output values bring climber in, positive bring it out.
+    /**
+     * negative percent output values bring climber in, positive bring it out.
+     */
     private void setMotorSpeed(double leftSpeed, double rightSpeed) {
         rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
         leftWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
@@ -145,19 +147,24 @@ public class OldClimber extends SubsystemBase {
         setMotorSpeed(leftSpeed, rightSpeed);
     }
 
-public boolean isClimberFullyIn(){
-    return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
-}
+    public boolean isClimberFullyIn(){
+        return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
+    }
 
     public void stop() {
         setMotorSpeed(0, 0);
     }
 
+    /**
+     * Get the left arm position as a percentage of the total arm range. (0 is fully retracted, 1 is fully extended)
+     */
     public double getLeftArmPos() {
         return leftWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
     }
 
-    //1.65 1.25 - 26.5 in (what is this?)
+    /**
+     * Get the right arm position as a percentage of the total arm range. (0 is fully retracted, 1 is fully extended)
+     */
     public double getRightArmPos() {
         return rightWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
     }
