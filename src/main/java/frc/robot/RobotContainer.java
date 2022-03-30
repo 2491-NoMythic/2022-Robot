@@ -51,6 +51,7 @@ import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.commands.newClimber.OneButtonClimb;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -78,6 +79,7 @@ public class RobotContainer {
   private final RunIntake runIntakeCommand;
   private final FilterCargo filterCargoCommand;
   private final Climb runClimbCommand;
+  private OneButtonClimb runOneButtonClimb;
   // private final RunIntakeLeft intakeLeftInCommand;
   //private final RunIntakeLeft intakeLeftOutCommand;
   //private final RunIntakeLeft intakeLeftStopCommand;
@@ -95,6 +97,7 @@ public class RobotContainer {
   private JoystickButton intakeRightIn;
   private JoystickButton intakeRightOut;
   private JoystickButton lightsToggle;
+  private JoystickButton onebClimber;
   private Compressor pcmCompressor;
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -167,7 +170,8 @@ public class RobotContainer {
     
     // climb = new JoystickButton(ps4, CLIMB_BUTTON_ID);
     // climb.whenPressed(automatedClimb, false);
-
+    //onebClimber = new JoystickButton(ps4, SINGLE_BUTTON_CLIMB);
+    //onebClimber.whenPressed(runOneButtonClimb);
     JoystickButton cargoFilterButton = new JoystickButton(ps4, INTAKEFILTER_BUTTON_ID);
     cargoFilterButton.whenHeld(filterCargoCommand);
     POVButton OutButton = new POVButton(ps4, OUT_ARM_BUTTON_ID);
