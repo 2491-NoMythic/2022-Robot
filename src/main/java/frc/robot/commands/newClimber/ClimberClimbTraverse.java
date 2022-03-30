@@ -6,7 +6,7 @@ import static frc.robot.settings.Constants.Climber.*;
 
 public class ClimberClimbTraverse extends CommandBase {
   NewClimber climber;
-  ArmExtendState state;
+  frc.robot.commands.newClimber.ClimberClimbMid.ArmExtendState state;
   
   public enum ArmExtendState {
     IN,
@@ -20,10 +20,10 @@ public class ClimberClimbTraverse extends CommandBase {
    * @param ArmExtendState
    *
    */
-  public ClimberClimbTraverse(NewClimber climber, ArmExtendState armState) {
+  public ClimberClimbTraverse(NewClimber climber, frc.robot.commands.newClimber.ClimberClimbMid.ArmExtendState out) {
     this.climber = climber;
     addRequirements(climber);
-    state = armState;
+    state = out;
   }
 
 

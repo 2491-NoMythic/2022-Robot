@@ -60,7 +60,7 @@ public final class Constants {
 
         public static final int CONTROLLER_ID = 1;
         public static final int CLIMB_BUTTON_ID = 5; // todo
-        public static final int LIGHTS_BUTTON_ID = 13; // todo
+        public static final int LIGHTS_BUTTON_ID = 13;
         public static final int INTAKEUP_BUTTON_ID = 4;
         public static final int INTAKEDOWN_BUTTON_ID = 2;
         public static final int INTAKEFILTER_BUTTON_ID = 1;
@@ -72,8 +72,7 @@ public final class Constants {
         public static final int OUT_ARM_BUTTON_ID = 270;
         public static final int IN_ARM_BUTTON_ID = 90;
         public static final int EXTEND_ARM_BUTTON_ID = 0;
-        public static final int RETRACT_ARM_BUTTON_ID = 180
-        ;
+        public static final int RETRACT_ARM_BUTTON_ID = 180;
 
     }
 
