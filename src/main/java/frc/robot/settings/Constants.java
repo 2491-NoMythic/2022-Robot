@@ -44,14 +44,25 @@ public final class Constants {
         public static final double TIME_FOR_TRAVERSE_ARM_TO_GO_UP = 2;
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
 
-        public static final double CLARM_SPEED_OUT = .5;
-        public static final double CLARM_SPEED_IN = .7;
-        public static final double MID_CLARM_SPEED_IN = .5;
-        public static final double MID_CLARM_SPEED_OUT = .7;
-        public static final double TRAVERSE_CLARM_SPEED_IN = .5;
-        public static final double TRAVERSE_CLARM_SPEED_OUT = .7;
-        //clarm means climber arm
-        //this has the constants for both the new and old climbers together
+        public static final double ARM_SPEED_OUT = .5;
+        public static final double ARM_SPEED_IN = .7;
+        public static final double MID_ARM_SPEED_IN = .5;
+        public static final double MID_ARM_SPEED_OUT = .7;
+        public static final double TRAVERSE_ARM_SPEED_IN = .5;
+        public static final double TRAVERSE_ARM_SPEED_OUT = .7;
+        public static final double ARM_SPEED_CALIBRATE = .3;
+        // clarm means climber arm
+        // this has the constants for both the new and old climbers together
+
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = 
+            (1/2048.0)*(1/23.73)*(1.25*Math.PI)*(1/24.0);
+        //nu> motor   >  spool  >    inches    > arm lengths
+
+        public static final double ARM_LENGTHS_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_ARMS_LENGTH;
+
+        public static final double CLIMBER_MOTOR_KP = 0.75;
+        public static final double CLIMBER_MOTOR_KD = 0.05;
+        public static final double CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
     }
 
     public final class Ps4 {
@@ -89,6 +100,9 @@ public final class Constants {
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
 
+        public static final double ENCODER_TICKS_TO_INCHES =
+            (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); //TODO: find effective diameter of the wheels.
+        //nu>  motor     >   wheel   >    inches
     }
 
     /**

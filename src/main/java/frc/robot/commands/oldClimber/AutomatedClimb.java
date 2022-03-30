@@ -5,12 +5,11 @@
 package frc.robot.commands.oldClimber;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
-import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OldClimber;
-import frc.robot.subsystems.OldClimber.RungLockState;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -24,11 +23,9 @@ public class AutomatedClimb extends SequentialCommandGroup {
     new ClimberClimb(climber, ArmExtendState.OUT),
     new ForwardDistance(drivetrain, 3, 0.3),
     new ClimberClimb(climber, ArmExtendState.IN), 
-    new WedgePneumatic(climber, RungLockState.Locked),
     new ArmPneumaticTipping(climber, ArmTipState.DOWN),
     new ClimberClimb(climber, ArmExtendState.OUT),
     new ArmPneumaticTipping(climber, ArmTipState.UP),
-    new WedgePneumatic(climber, RungLockState.Unlocked),
     new ClimberClimb(climber, ArmExtendState.IN)
     );
   }
