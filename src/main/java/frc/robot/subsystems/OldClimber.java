@@ -77,8 +77,8 @@ public class OldClimber extends SubsystemBase {
     public void setArmPostion (double armLength) {
         rightWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
         leftWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
-        // well too bad because Augie's at the keyboard so have a random comment that makes no sense if you weren't in the programming room on 3/26/2022 at 11:40AM.
     }
+
     public void setArmUp() {
         armSolenoid.set(Value.kReverse);
 
