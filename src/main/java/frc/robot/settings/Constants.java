@@ -68,7 +68,7 @@ public final class Constants {
         public static final int RIGHT_OUT_BUTTON_ID = 6;
         public static final int LEFT_IN_BUTTON_ID = 7;
         public static final int LEFT_OUT_BUTTON_ID = 5;
-        public static final int LIGHTS_OFF_BUTTON_ID = 14;
+        public static final int SINGLE_BUTTON_CLIMB = 14;
         public static final int OUT_ARM_BUTTON_ID = 270;
         public static final int IN_ARM_BUTTON_ID = 90;
         public static final int EXTEND_ARM_BUTTON_ID = 0;
