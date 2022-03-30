@@ -55,7 +55,7 @@ def includeDesktopSupport = false
 // Also defines JUnit 4.
 dependencies {
     implementation 'pw.otake.pseudoresonance:pixy2-java-api:1.4.1'
-
+   
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
 

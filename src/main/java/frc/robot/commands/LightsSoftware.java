@@ -6,7 +6,7 @@ import frc.robot.subsystems.Pixy2SubSystem;
 public class LightsSoftware extends CommandBase{
    private LightsHardware lights;
    private Pixy2SubSystem pixie;
-   
+
    public LightsSoftware(LightsHardware lights, Pixy2SubSystem pixie){
       this.lights=lights;
       this.pixie=pixie;
@@ -21,6 +21,7 @@ public class LightsSoftware extends CommandBase{
       lights.prettyrightlights();
       lights.dataSetter();
    }     
+
    @Override
    public void end(boolean interrupted) {
       lights.lightsout();
