@@ -111,7 +111,8 @@ public class RobotContainer {
   private JoystickButton onebClimber;
   private Compressor pcmCompressor;
 
-  private ClimberType state;
+  // Change this to switch climbers in use. Rebuild/deploy necessary until changed to use preferences.
+  private final ClimberType climberType = ClimberType.OLD;
 
   public enum ClimberType {
     OLD,
@@ -148,7 +149,7 @@ public class RobotContainer {
     configureButtonBindings();
     configureSmartDashboard();
     
-    switch (state) {
+    switch (climberType) {
       case OLD:
         oldClimberInit();
         break;
