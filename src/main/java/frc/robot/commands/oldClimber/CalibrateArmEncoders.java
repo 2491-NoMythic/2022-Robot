@@ -9,11 +9,11 @@ import frc.robot.subsystems.OldClimber;
 import static frc.robot.settings.Constants.Climber.*;
 
 
-public class calibrateClimber extends CommandBase {
+public class CalibrateArmEncoders extends CommandBase {
   OldClimber climber;
 
   /** Creates a new calibrateClimber. */
-  public calibrateClimber(OldClimber climber) {
+  public CalibrateArmEncoders(OldClimber climber) {
     this.climber = climber;
     
     addRequirements(climber);

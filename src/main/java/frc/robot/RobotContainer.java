@@ -34,9 +34,10 @@ import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.newClimber.OneButtonClimb;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
+import frc.robot.commands.oldClimber.Automate.FullClimbPhase1;
 import frc.robot.commands.oldClimber.ClimberClimb;
 import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
-import frc.robot.commands.oldClimber.calibrateClimber;
+import frc.robot.commands.oldClimber.CalibrateArmEncoders;
 import frc.robot.settings.Variables;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -123,7 +124,8 @@ public class RobotContainer {
     SmartDashboard.putData("ArmsRetract", new ClimberClimb(climber, ArmExtendState.IN));
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new ArmPneumaticTipping(climber, ArmTipState.UP));
-    SmartDashboard.putData("Calibrate Climber", new calibrateClimber(climber));
+    SmartDashboard.putData("Calibrate Climber", new CalibrateArmEncoders(climber));
+    SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(climber));
     SmartDashboard.putString("Things to remember",
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
   }
