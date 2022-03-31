@@ -3,15 +3,12 @@ package frc.robot.commands.newClimber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.NewClimber;
 import static frc.robot.settings.Constants.Climber.*;
+import frc.robot.ArmExtendState;
 
 public class ClimberClimbMid extends CommandBase {
-  NewClimber climber;
-  ArmExtendState state;
-  
-  public enum ArmExtendState {
-    IN,
-    OUT
-  }
+  private NewClimber climber;
+  private ArmExtendState state;
+ 
 
   /**
    * 
@@ -32,10 +29,10 @@ public class ClimberClimbMid extends CommandBase {
 
     switch (state) {
 
-      case OUT:
+      case UP:
         climber.midClimberArmDown(TRAVERSE_CLARM_SPEED_OUT);
         break;
-      case IN:
+      case DOWN:
         climber.midClimberArmUp(TRAVERSE_CLARM_SPEED_IN);
         break;
     }
@@ -47,9 +44,9 @@ public class ClimberClimbMid extends CommandBase {
   public boolean isFinished() {
       switch (state){
 
-      case OUT:
+      case UP:
         return climber.isClimberFullyOut();
-      case IN:
+      case DOWN:
         return climber.isClimberFullyIn();
       }
       return false;

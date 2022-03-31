@@ -2,19 +2,15 @@ package frc.robot.commands.oldClimber;
 
 //import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.ArmExtendState;
 //import frc.robot.settings.Constants.Ps4;
 import frc.robot.subsystems.OldClimber;
 import static frc.robot.settings.Constants.Climber.*;
 
 public class ClimberClimb extends CommandBase {
   //private PS4Controller ps4controller;
-  OldClimber climber;
-  ArmExtendState state;
-  
-  public enum ArmExtendState {
-    IN,
-    OUT
-  }
+  private OldClimber climber;
+  private ArmExtendState state;
 
   /**
    * 
@@ -36,10 +32,10 @@ public class ClimberClimb extends CommandBase {
 
     switch (state) {
 
-      case OUT:
+      case UP:
         climber.climberOut(CLARM_SPEED_OUT);
         break;
-      case IN:
+      case DOWN:
         climber.climberIn(CLARM_SPEED_IN);
         break;
     }

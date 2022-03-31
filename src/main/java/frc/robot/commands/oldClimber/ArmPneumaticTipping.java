@@ -3,19 +3,14 @@ package frc.robot.commands.oldClimber;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.OldClimber;
+import frc.robot.ArmTipState;
 import frc.robot.settings.Constants;
-import frc.robot.settings.Constants.Ps4;
 
 public class ArmPneumaticTipping extends CommandBase {
 
-    OldClimber climber;
-    Timer timer;
-    ArmTipState targetState;
-
-    public enum ArmTipState {
-        UP,
-        DOWN
-    }
+    private OldClimber climber;
+    private Timer timer;
+    private ArmTipState targetState;
 
     /**
      * 
@@ -36,15 +31,14 @@ public class ArmPneumaticTipping extends CommandBase {
         timer.start();
         switch (targetState) {
 
-            case UP:
+            case IN:
                 climber.setArmUp();
                 break;
 
-            case DOWN:
+            case OUT:
                 climber.setArmDown();
                 break;
         }
-
     }
 
     @Override
