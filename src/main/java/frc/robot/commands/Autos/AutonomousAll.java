@@ -12,7 +12,6 @@ import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.intake.Direction;
 import frc.robot.commands.intake.DoubleIntake;
 import frc.robot.commands.intake.MoveArm;
-import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.commands.newClimber.ArmPneumaticTippingMid;
 import frc.robot.commands.newClimber.ArmPneumaticTippingTraverse;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
@@ -37,7 +36,7 @@ public class AutonomousAll extends SequentialCommandGroup {
     );
   }
     
-    public AutonomousAll(Drivetrain drivetrain, NewClimber climber, Intake intake, Object ArmTipState) {
+    public AutonomousAll(Drivetrain drivetrain, NewClimber climber, Intake intake) {
     addCommands(
       new InstantCommand(drivetrain::brakeMode, drivetrain),
       new ParallelRaceGroup(
