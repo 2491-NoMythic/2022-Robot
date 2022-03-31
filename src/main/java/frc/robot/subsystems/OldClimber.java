@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Climber.*;
 
@@ -175,8 +176,18 @@ public class OldClimber extends SubsystemBase {
         rightWinchMotor.setSelectedSensorPosition(0);
     }
 
+    public double[] getCurrent(){
+        return new double[] {
+            leftWinchMotor.getStatorCurrent(),
+            rightWinchMotor.getStatorCurrent()
+        };
+    }
+
     @Override
     public void periodic() {
+        SmartDashboard.putNumberArray("Climber Voltage Indicator", getCurrent());
+        SmartDashboard.putNumber("Left Arm Position", getLeftArmPos());
+        SmartDashboard.putNumber("Right Arm Position", getRightArmPos());
         // This method will be called once per scheduler run
     }
 }
