@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Variables;
+import com.ctre.phoenix.sensors.Pigeon2;
 
 import static frc.robot.settings.Constants.Drivetrain.*;
 
@@ -18,9 +19,10 @@ public class Drivetrain extends SubsystemBase {
     private WPI_TalonFX leftFollowMotor;
     private WPI_TalonFX rightLeadMotor;
     private WPI_TalonFX rightFollowMotor;
-    private DifferentialDrive bbDriveSystem;
+   // private DifferentialDrive bbDriveSystem;
     private MotorControllerGroup leftMotors;
     private MotorControllerGroup rightMotors;
+    Pigeon2 gyroBirib;
 
     public Drivetrain() {
 
@@ -36,6 +38,10 @@ public class Drivetrain extends SubsystemBase {
         leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
         rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
 
+       gyroBirib = new Pigeon2(GYRO_ID);
+
+
+
         
         // making right motors go right
         rightLeadMotor.setInverted(InvertType.None);
@@ -43,9 +49,12 @@ public class Drivetrain extends SubsystemBase {
         leftLeadMotor.setInverted(InvertType.InvertMotorOutput);
         leftFollowMotor.setInverted(InvertType.FollowMaster);
         
-        bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
-        bbDriveSystem.setDeadband(0.04);
-        addChild("Diff Drive", bbDriveSystem);
+       // bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
+      //  bbDriveSystem.setDeadband(0.04);
+      //  addChild("Diff Drive", bbDriveSystem);
+
+        LeftSideLead();
+
     }
 
     public void setDrive(ControlMode mode, double speed) {
@@ -96,12 +105,12 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void curvatureDrive(double xSpeed, double zRotation, boolean allowTurnInPlace) {
-        bbDriveSystem.curvatureDrive(xSpeed, zRotation, allowTurnInPlace);
+       // bbDriveSystem.curvatureDrive(xSpeed, zRotation, allowTurnInPlace);
     }
 
     @Override
     public void periodic() {
-        bbDriveSystem.feed();
+     //   bbDriveSystem.feed();
         Variables.Drivetrain.ramp = SmartDashboard.getNumber("Ramp Rate", Variables.Drivetrain.ramp);
         
         leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
@@ -137,13 +146,18 @@ public class Drivetrain extends SubsystemBase {
     public double convertInchesToTicks(double inches){
         return inches * ENCODER_TICKS_TO_INCHES;
     }
-    
-   // @Override
-    // public void disabledInit()
-    // {
-    //     super.disabledInit();
-    // }
 
-    //Liam your work is here   
-    //public void 
+
+    public double getYaw()
+    {
+        return gyroBirib.getYaw();
+    }
+
+   public void LeftSideLead()
+    {
+        //TODO CHECK THIS
+        rightLeadMotor.follow(leftLeadMotor);
+        rightLeadMotor.setInverted(InvertType.OpposeMaster);
+
+    }
 }
