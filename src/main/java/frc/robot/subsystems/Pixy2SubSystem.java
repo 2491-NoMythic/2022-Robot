@@ -25,6 +25,7 @@ public class Pixy2SubSystem extends SubsystemBase {
 	public Pixy2SubSystem() {
 		pixy = Pixy2.createInstance(new SPILink()); // Creates a new Pixy2 camera using SPILink
 		pixy.init();
+		pixy.setLamp((byte) 1, (byte) 1);
 	}
 
 	public void turnOnLights() {

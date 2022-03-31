@@ -13,31 +13,27 @@ public class ClimberClimbTraverse extends CommandBase {
    * 
    * Moves arm up and down
    * 
-   * @param ArmExtendState
-   *
+   * @param climber subsystem
+   * @param armExtendState choose moving arm up or down
    */
-  public ClimberClimbTraverse(NewClimber climber, ArmExtendState armState) {
+  public ClimberClimbTraverse(NewClimber climber, ArmExtendState out) {
     this.climber = climber;
     addRequirements(climber);
-    state = armState;
+    state = out;
   }
-
 
   @Override
   public void execute() {
 
     switch (state) {
-
       case UP:
-        climber.midClimberArmDown(MID_CLARM_SPEED_OUT);
+        climber.midClimberArmDown(MID_ARM_SPEED_OUT);
         break;
       case DOWN:
-        climber.midClimberArmUp(MID_CLARM_SPEED_IN);
+        climber.midClimberArmUp(MID_ARM_SPEED_IN);
         break;
     }
-
   }
-
 
   @Override
   public boolean isFinished() {

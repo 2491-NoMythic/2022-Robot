@@ -15,9 +15,6 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Climber.*;
 
-//TODO:
-//check robotcontainer changes
-
 public class NewClimber extends SubsystemBase {
 
     private DoubleSolenoid midArmSolenoid;
@@ -162,9 +159,9 @@ public class NewClimber extends SubsystemBase {
         setTraverseMotorSpeed(speed);
     }
 
-public boolean isClimberFullyIn(){
-    return midWinchMotor.isRevLimitSwitchClosed() != 0 && traverseWinchMotor.isRevLimitSwitchClosed() != 0;
-}
+    public boolean isClimberFullyIn(){
+        return midWinchMotor.isRevLimitSwitchClosed() != 0 && traverseWinchMotor.isRevLimitSwitchClosed() != 0;
+    }
 
     public void stopMid() {
         setMidMotorSpeed(0);
@@ -176,11 +173,6 @@ public boolean isClimberFullyIn(){
     
     }
 
-    /*
-     * TODO :
-     * - ask about motors
-     * - ask about sensors
-     */
     @Override
     public void periodic() {
         // This method will be called once per scheduler run

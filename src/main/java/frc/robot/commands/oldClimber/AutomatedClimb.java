@@ -10,7 +10,6 @@ import frc.robot.ArmTipState;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OldClimber;
-import frc.robot.subsystems.OldClimber.RungLockState;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -24,11 +23,9 @@ public class AutomatedClimb extends SequentialCommandGroup {
       new ClimberClimb(climber, ArmExtendState.UP),
       new ForwardDistance(drivetrain, 3, 0.3),
       new ClimberClimb(climber, ArmExtendState.DOWN), 
-      new WedgePneumatic(climber, RungLockState.Locked),
       new ArmPneumaticTipping(climber, ArmTipState.OUT),
       new ClimberClimb(climber, ArmExtendState.UP),
       new ArmPneumaticTipping(climber, ArmTipState.IN),
-      new WedgePneumatic(climber, RungLockState.Unlocked),
       new ClimberClimb(climber, ArmExtendState.DOWN)
     );
   }

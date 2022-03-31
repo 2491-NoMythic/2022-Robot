@@ -2,7 +2,7 @@ import edu.wpi.first.gradlerio.deploy.roborio.RoboRIO
 
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2022.3.1"
+    id "edu.wpi.first.GradleRIO" version "2022.4.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -55,7 +55,7 @@ def includeDesktopSupport = false
 // Also defines JUnit 4.
 dependencies {
     implementation 'pw.otake.pseudoresonance:pixy2-java-api:1.4.1'
-
+   
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
 

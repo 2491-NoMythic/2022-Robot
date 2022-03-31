@@ -55,55 +55,28 @@ public class OldClimber extends SubsystemBase {
 
         rightWinchMotor.setNeutralMode(NeutralMode.Brake);
         leftWinchMotor.setNeutralMode(NeutralMode.Brake);
-        //negative percent output values bring climber in, positive bring it out.
 
-        toggleLock();
-    }
-
-    public void toggleLock() {
-        // switch (getLockState()) {
-        //     case Locked:
-        //         setLockState(RungLockState.Unlocked);
-        //         break;
-        //     case Unlocked:
-        //         setLockState(RungLockState.Locked);
-        //         break;
-
-        // }
-    }
-
-    public void setLockState(RungLockState lockState) {
-        // rungLockSolenoid.set(lockState.getLockStateValue());
-    }
-
-    public RungLockState getLockState() {
-    //     switch (rungLockSolenoid.get()) {
-    //         case kForward:
-    //         case kOff:
-    //             return RungLockState.Unlocked;
-    //         case kReverse:
-    //         default:
-    //             return RungLockState.Locked;
-
-    //     }
-        return RungLockState.Unlocked;
-    }
-
-    public boolean isLockFullyUnlocked() {
-        // TODO sensor things. return bool if sensors say
-
-        return false;
-    }
-
-    public boolean isLockFullyLocked() {
-        // TODO sensor things. return bool if sensors say
-
-        return false;
+        rightWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
+        rightWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
+        rightWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
+        leftWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
+        leftWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
+        leftWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
+        
+        resetEncoders();
+        // is this an alternative to magnetic encoders?
+        // rightWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
+        // leftWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
     }
 
     public void setArmDown() {
         armSolenoid.set(Value.kForward);
 
+    }
+
+    public void setArmPostion (double armLength) {
+        rightWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
+        leftWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
     }
 
     public void setArmUp() {
@@ -123,10 +96,14 @@ public class OldClimber extends SubsystemBase {
         return false;
     }
 
+    /**
+     * negative percent output values bring climber in, positive bring it out.
+     */
     private void setMotorSpeed(double leftSpeed, double rightSpeed) {
         rightWinchMotor.set(ControlMode.PercentOutput, leftSpeed);
         leftWinchMotor.set(ControlMode.PercentOutput, rightSpeed);
     }
+
 
     /**
      * use motors to move the climber into extended position
@@ -170,19 +147,34 @@ public class OldClimber extends SubsystemBase {
         setMotorSpeed(leftSpeed, rightSpeed);
     }
 
-public boolean isClimberFullyIn(){
-    return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
-}
+    public boolean isClimberFullyIn(){
+        return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
+    }
 
     public void stop() {
         setMotorSpeed(0, 0);
     }
 
-    /*
-     * TODO :
-     * - ask about motors
-     * - ask about sensors
+    /**
+     * Get the left arm position as a percentage of the total arm range. (0 is fully retracted, 1 is fully extended)
      */
+    public double getLeftArmPos() {
+        return leftWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
+    }
+
+    /**
+     * Get the right arm position as a percentage of the total arm range. (0 is fully retracted, 1 is fully extended)
+     */
+    public double getRightArmPos() {
+        return rightWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
+    }
+
+    // Sets the encoders to 0 no matter where the physical hardware is
+    public void resetEncoders(){
+        leftWinchMotor.setSelectedSensorPosition(0);
+        rightWinchMotor.setSelectedSensorPosition(0);
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run

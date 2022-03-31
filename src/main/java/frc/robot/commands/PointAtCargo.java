@@ -31,10 +31,19 @@ public class PointAtCargo extends CommandBase {
   @Override
   public void execute() {
     double hPos = vision.getHorizontalPos();
-
-    double throttle = hPos / 50;
-    drivetrain.setDrive(-throttle, throttle);
+    
+    double abshPos = Math.abs(hPos);
+    if (hPos!= 0 && abshPos>3) {
+      // double throttle = hPos / 100;
+      double throttle = (hPos / abshPos) * Math.log10(.2 * abshPos + 1) * .2 + .00001 * Math.pow(hPos,3);
+      // \frac{x}{\operatorname{abs}\left(x\right)}\cdot\log\left(.5\operatorname{abs}\left(x\right)+1\right)\cdot.7
+      drivetrain.setDrive(throttle, -throttle);
+      SmartDashboard.putNumber("visionThrottle", throttle);
+    } else {
+      drivetrain.setDrive(0);
+    }
     SmartDashboard.putNumber("hAngle", hPos);
+
 
   }
 

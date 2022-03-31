@@ -30,7 +30,6 @@ public class ArmPneumaticTipping extends CommandBase {
         timer.reset();
         timer.start();
         switch (targetState) {
-
             case IN:
                 climber.setArmUp();
                 break;
