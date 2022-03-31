@@ -45,6 +45,8 @@ import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.OldClimber;
 import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.subsystems.Vision;
+import frc.robot.settings.Variables.Drivetrain.Gyro;
+import frc.robot.settings.Variables.Drivetrain.Gyro.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -128,6 +130,11 @@ public class RobotContainer {
     SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(climber));
     SmartDashboard.putString("Things to remember",
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
+
+        SmartDashboard.putNumber("GyroKp",Gyro.kP);
+        SmartDashboard.putNumber("GyroKI",Gyro.kI);
+        SmartDashboard.putNumber("GyroKD",Gyro.kD);
+
   }
 
   public void initTelemetry() {
