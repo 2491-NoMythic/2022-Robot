@@ -38,6 +38,7 @@ import frc.robot.commands.oldClimber.Automate.FullClimbPhase1;
 import frc.robot.commands.oldClimber.ClimberClimb;
 import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.oldClimber.CalibrateArmEncoders;
+import frc.robot.commands.oldClimber.Climb;
 import frc.robot.settings.Variables;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -165,8 +166,8 @@ public class RobotContainer {
 
     ArmPneumaticTipping armsTiltOut = new ArmPneumaticTipping(climber, ArmTipState.DOWN);
     ArmPneumaticTipping armsTiltIn = new ArmPneumaticTipping(climber, ArmTipState.UP);
-    ClimberClimb armExtend = new ClimberClimb(climber, ArmExtendState.OUT);
-    ClimberClimb armRetract = new ClimberClimb(climber, ArmExtendState.IN);
+    Climb armExtend = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.OUT);
+    Climb armRetract = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.IN);
     OutButton.whenPressed(armsTiltOut);
     InButton.whenPressed(armsTiltIn);
     ExtendButton.whenPressed(armExtend);
