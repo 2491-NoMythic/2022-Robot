@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -38,6 +39,8 @@ public class OldClimber extends SubsystemBase {
     private WPI_TalonFX leftWinchMotor;
     private WPI_TalonFX rightWinchMotor;
 
+    private double prevCurrentLimit = 0;
+
     /** Creates a new climber. */
     public OldClimber() {
 
@@ -63,7 +66,8 @@ public class OldClimber extends SubsystemBase {
         leftWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
         leftWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
         leftWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
-        
+        SmartDashboard.putNumber("Climb Current Limit", 30);
+
         resetEncoders();
         // is this an alternative to magnetic encoders?
         // rightWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
@@ -185,6 +189,13 @@ public class OldClimber extends SubsystemBase {
 
     @Override
     public void periodic() {
+        double currentLimit = SmartDashboard.getNumber("Climb Current Limit", 30);
+        if (prevCurrentLimit != currentLimit) {
+            StatorCurrentLimitConfiguration cfg = new StatorCurrentLimitConfiguration(true, currentLimit, currentLimit, 0);
+            leftWinchMotor.configStatorCurrentLimit(cfg);
+            rightWinchMotor.configStatorCurrentLimit(cfg);
+            prevCurrentLimit = currentLimit;
+        }
         SmartDashboard.putNumberArray("Climber Voltage Indicator", getCurrent());
         SmartDashboard.putNumber("Left Arm Position", getLeftArmPos());
         SmartDashboard.putNumber("Right Arm Position", getRightArmPos());
