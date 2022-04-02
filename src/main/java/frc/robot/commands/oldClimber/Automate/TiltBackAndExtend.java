@@ -9,7 +9,12 @@ import frc.robot.subsystems.OldClimber;
 
 public class TiltBackAndExtend extends CommandBase {
   OldClimber climber;
-  /** Creates a new TiltBackAndExtend. */
+  
+  /** 
+   * Tilts the arms back while simultaniously extending them. 
+   * 
+   * @return When the arms have extended fully.
+   */
   public TiltBackAndExtend(OldClimber climber) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.climber = climber;

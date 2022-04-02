@@ -16,7 +16,13 @@ import frc.robot.subsystems.OldClimber;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FullClimbPhase1 extends SequentialCommandGroup {
-  /** Creates a new FullClimbPhase1. */
+  /**
+   * Climb Phase 1:
+   * <p>
+   * 1. Tilts the arms back while extending them.
+   * <p>
+   * 2. Tilts the arms forward.
+   */
   public FullClimbPhase1(OldClimber climber) {
 
     addCommands(
