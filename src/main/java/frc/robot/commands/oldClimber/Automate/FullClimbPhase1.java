@@ -4,12 +4,9 @@
 
 package frc.robot.commands.oldClimber.Automate;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
-import frc.robot.commands.oldClimber.ClimberClimb;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
-import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
 import frc.robot.subsystems.OldClimber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
