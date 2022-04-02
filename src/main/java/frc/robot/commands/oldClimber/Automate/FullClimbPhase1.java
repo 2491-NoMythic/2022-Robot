@@ -18,13 +18,9 @@ import frc.robot.subsystems.OldClimber;
 public class FullClimbPhase1 extends SequentialCommandGroup {
   /** Creates a new FullClimbPhase1. */
   public FullClimbPhase1(OldClimber climber) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+
     addCommands(
-      new ParallelCommandGroup(
-        new ArmPneumaticTipping(climber, ArmTipState.DOWN),
-        new ClimberClimb(climber, ArmExtendState.OUT)
-      ),
+      new TiltBackAndExtend(climber),
       new ArmPneumaticTipping(climber, ArmTipState.UP)
     );
   }
