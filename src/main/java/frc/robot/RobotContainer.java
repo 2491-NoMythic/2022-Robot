@@ -12,7 +12,11 @@ import static frc.robot.settings.Constants.Ps4.LIGHTS_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.OUT_ARM_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.RETRACT_ARM_BUTTON_ID;
 
+import java.util.ResourceBundle.Control;
+import java.util.function.Function;
+
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Controller;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -58,6 +62,14 @@ import frc.robot.settings.Variables.Drivetrain.Gyro.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+  
+public enum ControllerSelect{
+  CLIMB_MODE,
+  DRIVE_MODE,
+  TEST_MODE
+}
+
   // The robot's subsystems and commands are defined here...
   private final LightsHardware lights;
   private final OldClimber climber;
@@ -81,6 +93,7 @@ public class RobotContainer {
   private JoystickButton lightsToggle;
   private JoystickButton onebClimber;
   private Compressor pcmCompressor;
+  private ControllerSelect select;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -112,6 +125,9 @@ public class RobotContainer {
 
     configureButtonBindings();
     configureSmartDashboard();
+
+    select = ControllerSelect.TEST_MODE;
+
   }
 
   private void configureSmartDashboard() {
@@ -149,6 +165,42 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+      switch (select) {
+          case TEST_MODE:
+              ConfigureTestButtons();
+          case DRIVE_MODE:
+              ConfigureDriveButtons();
+          case CLIMB_MODE:
+              ConfigureClimbButtons();
+      }
+  }
+
+  public void initDisable() {
+    drivetrain.coastMode();
+  }
+
+  public void initEnable() {
+    drivetrain.brakeMode();
+  }
+
+  /**
+   * Use this to pass the autonomous command to the main {@link Robot} class.
+   *
+   * @return the command to run in autonomous
+   */
+  public Command getAutonomousCommand() {
+
+    // moves us off tarmack
+    return autoChooser.getSelected();
+    // return new ForwardDistance(drivetrain, 3.5, -.25);
+  }
+
+
+
+
+  private void ConfigureTestButtons()
+  {
     lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
     lightsToggle.toggleWhenPressed(new LightsSoftware(lights, pixy));
 
@@ -173,23 +225,15 @@ public class RobotContainer {
     RetractButton.whenPressed(armRetract);
   }
 
-  public void initDisable() {
-    drivetrain.coastMode();
+
+  private void ConfigureDriveButtons()
+  {
+
   }
 
-  public void initEnable() {
-    drivetrain.brakeMode();
-  }
+  private void ConfigureClimbButtons()
+  {
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-
-    // moves us off tarmack
-    return autoChooser.getSelected();
-    // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
 }
+
