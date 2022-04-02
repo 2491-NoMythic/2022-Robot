@@ -62,9 +62,21 @@ public final class Constants {
 
         public static final double ARM_LENGTHS_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_ARMS_LENGTH;
 
-        public static final double CLIMBER_MOTOR_KP = 0.75;
-        public static final double CLIMBER_MOTOR_KD = 0.05;
-        public static final double CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
+        public static final int SUM_SLOT = 0;
+        public static final double SUM_KP = 0.75;
+        public static final double SUM_KI = 0;
+        public static final double SUM_KD = 0.05;
+        public static final double SUM_KF = 0;
+        public static final double SUM_IZ = 0;
+        public static final double SUM_ALLOWED_ERR_NATIVE_UNITS = 300;
+
+        public static final int DIFF_SLOT = 1;
+        public static final double DIFF_KP = 0;
+        public static final double DIFF_KI = 0;
+        public static final double DIFF_KD = 0;
+        public static final double DIFF_KF = 0;
+        public static final double DIFF_IZ = 0;
+        public static final double DIFF_ALLOWED_ERR_NATIVE_UNITS = 0;
     }
 
     public final class Ps4 {
