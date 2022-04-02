@@ -38,6 +38,7 @@ import frc.robot.commands.oldClimber.Automate.FullClimbPhase1;
 import frc.robot.commands.oldClimber.ClimberClimb;
 import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
 import frc.robot.commands.oldClimber.CalibrateArmEncoders;
+import frc.robot.commands.oldClimber.Climb;
 import frc.robot.settings.Variables;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -45,6 +46,8 @@ import frc.robot.subsystems.LightsHardware;
 import frc.robot.subsystems.OldClimber;
 import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.subsystems.Vision;
+import frc.robot.settings.Variables.Drivetrain.Gyro;
+import frc.robot.settings.Variables.Drivetrain.Gyro.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -128,6 +131,11 @@ public class RobotContainer {
     SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(climber));
     SmartDashboard.putString("Things to remember",
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
+
+        SmartDashboard.putNumber("GyroKp",Gyro.kP);
+        SmartDashboard.putNumber("GyroKI",Gyro.kI);
+        SmartDashboard.putNumber("GyroKD",Gyro.kD);
+
   }
 
   public void initTelemetry() {
@@ -158,8 +166,8 @@ public class RobotContainer {
 
     ArmPneumaticTipping armsTiltOut = new ArmPneumaticTipping(climber, ArmTipState.DOWN);
     ArmPneumaticTipping armsTiltIn = new ArmPneumaticTipping(climber, ArmTipState.UP);
-    ClimberClimb armExtend = new ClimberClimb(climber, ArmExtendState.OUT);
-    ClimberClimb armRetract = new ClimberClimb(climber, ArmExtendState.IN);
+    Climb armExtend = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.OUT);
+    Climb armRetract = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.IN);
     OutButton.whenPressed(armsTiltOut);
     InButton.whenPressed(armsTiltIn);
     ExtendButton.whenPressed(armExtend);

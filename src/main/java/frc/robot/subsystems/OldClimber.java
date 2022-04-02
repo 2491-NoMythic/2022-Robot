@@ -78,15 +78,19 @@ public class OldClimber extends SubsystemBase {
         armSolenoid.set(Value.kForward);
 
     }
+    
+     public void setArmUp() {
+        armSolenoid.set(Value.kReverse);
 
+    }
+
+    /**
+     * @param armLength double 0-1.
+     * 0 is fully retracted, 1 is fully extended.
+     */
     public void setArmPostion (double armLength) {
         rightWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
         leftWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
-    }
-
-    public void setArmUp() {
-        armSolenoid.set(Value.kReverse);
-
     }
 
     public boolean isArmFullyDown() {
@@ -134,7 +138,7 @@ public class OldClimber extends SubsystemBase {
         return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
     }
     /**
-     * use motors to move the climber into extended position
+     * use motors to move the climber into retracted position
      * 
      * @param speed 0-1 speed
      * @return whether motors are still running or not
@@ -146,7 +150,7 @@ public class OldClimber extends SubsystemBase {
             return;
         }
 
-        double leftSpeed = -speed;
+        double leftSpeed = -speed; // negative speed in order to retract the arms.
         double rightSpeed = -speed;
 
         setMotorSpeed(leftSpeed, rightSpeed);
@@ -156,6 +160,9 @@ public class OldClimber extends SubsystemBase {
         return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
     }
 
+    /** 
+     * Stops the climber winch motors 
+     */
     public void stop() {
         setMotorSpeed(0, 0);
     }
@@ -174,7 +181,9 @@ public class OldClimber extends SubsystemBase {
         return rightWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
     }
 
-    // Sets the encoders to 0 no matter where the physical hardware is
+    /** 
+     * Sets the encoders to 0 no matter where the physical hardware is 
+     */ 
     public void resetEncoders(){
         leftWinchMotor.setSelectedSensorPosition(0);
         rightWinchMotor.setSelectedSensorPosition(0);

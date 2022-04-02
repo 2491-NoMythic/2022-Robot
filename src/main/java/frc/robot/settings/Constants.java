@@ -1,5 +1,7 @@
 package frc.robot.settings;
 
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+
 /**
  * <p>
  * Robot system constants. Solenoids have a CHANNEL, motor controllers have an
@@ -103,6 +105,8 @@ public final class Constants {
         public static final double ENCODER_TICKS_TO_INCHES =
             (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); //TODO: find effective diameter of the wheels.
         //nu>  motor     >   wheel   >    inches
+
+        public static final int GYRO_ID = 1;
     }
 
     /**

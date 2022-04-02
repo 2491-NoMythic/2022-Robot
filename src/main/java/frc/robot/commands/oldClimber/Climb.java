@@ -1,13 +1,11 @@
 package frc.robot.commands.oldClimber;
 
-import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.settings.Constants.Ps4;
 import frc.robot.subsystems.OldClimber;
 import static frc.robot.settings.Constants.Climber.*;
 
 public class Climb extends CommandBase {
-  private PS4Controller ps4controller;
+
   OldClimber climber;
   ArmExtendState state;
   
@@ -17,46 +15,42 @@ public class Climb extends CommandBase {
   }
 
   /**
-   * 
-   * Moves arm up and down
+   * Moves arms up and down.
+   * <p>
+   * NOTE: This command does not stop automatically. Use {@link ClimberClimb} instead.
    * 
    * @param ArmExtendState
    *
    */
-  public Climb(OldClimber climber, PS4Controller ps4controller) {
+  public Climb(OldClimber climber, ArmExtendState armState) {
     this.climber = climber;
-    this.ps4controller = ps4controller;
+   
     addRequirements(climber);
-    
+    state = armState;
   }
 
 
   @Override
   public void execute() {
-    // if (ps4controller.getPOV() == 0) { // raise arms
-    //   if (climber.isClimberFullyOut()) {
-    //     return;
-    //   } else climber.climberOut(CLIMBER_SPEED_OUT);
-    // }
-    // if (ps4controller.getPOV() == 180) { // retract arms
-    //   if (climber.isClimberFullyIn()) {
-    //     return;
-    //   } else climber.climberIn(CLIMBER_SPEED_IN);
-    // }
-    // switch (state) {
-    //   case OUT:
-    //     climber.climberOut(CLIMBER_SPEED);
-    //     break;
-    //   case IN:
-    //     climber.climberIn(CLIMBER_SPEED);
-    //     break;
-  }
 
-  
+    switch (state) {
+
+      case OUT:
+        climber.climberOut(ARM_SPEED_OUT);
+        // climber.setArmPostion(1.0);
+        break;
+      case IN:
+        climber.climberIn(ARM_SPEED_IN);
+        // climber.setArmPostion(0.005);
+        break;
+    }
+
+  }
 
 
   @Override
   public boolean isFinished() {
+
       return false;
   }
 
