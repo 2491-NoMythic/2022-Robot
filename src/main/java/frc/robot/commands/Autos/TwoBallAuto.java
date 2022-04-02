@@ -17,6 +17,7 @@ import frc.robot.commands.intake.DoubleIntake;
 import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
+import frc.robot.commands.oldClimber.CalibrateArmEncoders;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -30,6 +31,7 @@ public class TwoBallAuto extends SequentialCommandGroup {
 
       new ParallelRaceGroup(
         new DoubleIntake(intake, Direction.OUT, Direction.OUT),
+        new CalibrateArmEncoders(climber),
         new WaitCommand(2)
       ),
       new TurnInDegrees(drivetrain, 180),
