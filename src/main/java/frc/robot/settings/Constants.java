@@ -46,8 +46,8 @@ public final class Constants {
         public static final double TIME_FOR_TRAVERSE_ARM_TO_GO_UP = 2;
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
 
-        public static final double ARM_SPEED_OUT = .5;
-        public static final double ARM_SPEED_IN = .7;
+        public static final double ARM_SPEED_OUT = .8;
+        public static final double ARM_SPEED_IN = .8;
         public static final double MID_ARM_SPEED_IN = .5;
         public static final double MID_ARM_SPEED_OUT = .7;
         public static final double TRAVERSE_ARM_SPEED_IN = .5;

@@ -36,7 +36,9 @@ public class CalibrateArmEncoders extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     climber.stop();
-    climber.resetEncoders();
+    if (!interrupted) {
+      climber.resetEncoders();
+    }
   }
 
   // Returns true when the command should end.

@@ -159,19 +159,21 @@ public class RobotContainer {
     // onebClimber.whenPressed(runOneButtonClimb);
     JoystickButton cargoFilterButton = new JoystickButton(ps4, INTAKEFILTER_BUTTON_ID);
     cargoFilterButton.whenHeld(filterCargoCommand);
-    POVButton OutButton = new POVButton(ps4, OUT_ARM_BUTTON_ID);
-    POVButton InButton = new POVButton(ps4, IN_ARM_BUTTON_ID);
+    POVButton Phase1Button = new POVButton(ps4, OUT_ARM_BUTTON_ID);
+    POVButton CalibrateButton = new POVButton(ps4, IN_ARM_BUTTON_ID);
     POVButton ExtendButton = new POVButton(ps4, EXTEND_ARM_BUTTON_ID);
     POVButton RetractButton = new POVButton(ps4, RETRACT_ARM_BUTTON_ID);
 
-    ArmPneumaticTipping armsTiltOut = new ArmPneumaticTipping(climber, ArmTipState.DOWN);
+    // ArmPneumaticTipping armsTiltOut = new ArmPneumaticTipping(climber, ArmTipState.DOWN);
     ArmPneumaticTipping armsTiltIn = new ArmPneumaticTipping(climber, ArmTipState.UP);
     Climb armExtend = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.OUT);
     Climb armRetract = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.IN);
-    OutButton.whenPressed(armsTiltOut);
-    InButton.whenPressed(armsTiltIn);
-    ExtendButton.whenPressed(armExtend);
-    RetractButton.whenPressed(armRetract);
+    FullClimbPhase1 phase1 = new FullClimbPhase1(climber);
+    CalibrateArmEncoders calibrateClimberArms = new CalibrateArmEncoders(climber);
+    Phase1Button.whenPressed(phase1);
+    CalibrateButton.whenPressed(calibrateClimberArms);
+    ExtendButton.whileHeld(armExtend);
+    RetractButton.whileHeld(armRetract);
   }
 
   public void initDisable() {

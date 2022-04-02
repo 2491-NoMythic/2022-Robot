@@ -50,6 +50,8 @@ public class OldClimber extends SubsystemBase {
         leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
         rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
 
+        rightWinchMotor.configFactoryDefault();
+        leftWinchMotor.configFactoryDefault();
 
         rightWinchMotor.setInverted(InvertType.InvertMotorOutput);
         leftWinchMotor.setInverted(InvertType.None);
