@@ -14,6 +14,7 @@ import frc.robot.commands.drivetrain.GoForwardInInches;
 import frc.robot.commands.drivetrain.TurnInDegrees;
 import frc.robot.commands.intake.Direction;
 import frc.robot.commands.intake.DoubleIntake;
+import frc.robot.commands.intake.FilterCargo;
 import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
@@ -22,11 +23,15 @@ import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OldClimber;
+import frc.robot.subsystems.Pixy2SubSystem;
+import io.github.pseudoresonance.pixy2api.Pixy2;
 
-public class TwoBallAuto extends SequentialCommandGroup {
+public class TwoBallAuto extends ParallelRaceGroup {
   /** Creates a new AutonomousAll. */
-  public TwoBallAuto(Drivetrain drivetrain, OldClimber climber, Intake intake) {
+  public TwoBallAuto(Drivetrain drivetrain, OldClimber climber, Intake intake, Pixy2SubSystem pixy) {
     addCommands(
+  new SequentialCommandGroup(
+
       new InstantCommand(drivetrain::brakeMode, drivetrain),
 
       new ParallelRaceGroup(
@@ -41,7 +46,7 @@ public class TwoBallAuto extends SequentialCommandGroup {
         new GoForwardInInches(drivetrain, .5, 350),
         new DoubleIntake(intake, Direction.IN, Direction.IN)
       ),
-      new ParallelRaceGroup(
+      new ParallelCommandGroup(
         new TurnInDegrees(drivetrain, 180),
         new MoveArm(intake, IntakeArmState.armUp)
         //TODO if we want to add the limelight we can use it here
@@ -55,6 +60,8 @@ public class TwoBallAuto extends SequentialCommandGroup {
 
       new GoForwardInInches(drivetrain, -.5, 350),
       new MoveArm(intake, IntakeArmState.armUp) 
+      )
     );
+    new FilterCargo(intake, pixy);
   }
 }
