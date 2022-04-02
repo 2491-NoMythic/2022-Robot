@@ -12,7 +12,9 @@ import static frc.robot.settings.Constants.Climber.*;
 public class CalibrateArmEncoders extends CommandBase {
   OldClimber climber;
 
-  /** Creates a new calibrateClimber. */
+  /**
+   * Moves the climber arms down to the bottom hall-effect sensors, then zeroes out the encoders.
+  */
   public CalibrateArmEncoders(OldClimber climber) {
     this.climber = climber;
     

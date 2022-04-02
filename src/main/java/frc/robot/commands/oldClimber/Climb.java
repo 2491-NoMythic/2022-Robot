@@ -15,8 +15,9 @@ public class Climb extends CommandBase {
   }
 
   /**
-   * 
-   * Moves arm up and down
+   * Moves arms up and down.
+   * <p>
+   * NOTE: This command does not stop automatically. Use {@link ClimberClimb} instead.
    * 
    * @param ArmExtendState
    *
@@ -49,7 +50,7 @@ public class Climb extends CommandBase {
 
   @Override
   public boolean isFinished() {
-   
+
       return false;
   }
 
