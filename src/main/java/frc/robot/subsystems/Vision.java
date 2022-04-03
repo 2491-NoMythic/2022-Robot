@@ -9,6 +9,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+// this is how to change the limelight settings:
+// NetworkTableInstance.getDefault().getTable("limelight").getEntry("<variablename>").setNumber(<value>);
 /** Add your docs here. */
 public class Vision extends SubsystemBase {
 
@@ -31,14 +33,38 @@ public class Vision extends SubsystemBase {
         getpipe = visionTable.getEntry("getpipe"); // get current pipeline number
     }
 
-
+    /**
+     * horizontal offset from crosshair to target 
+     * @return (-27 to 27 degrees)
+     */
     public double getHorizontalPos(){
         double angle = tx.getDouble(0);
         return angle;
     }
 
+    /**
+     * Turn lights on or off.
+     * @param enabled true if lights should be turned on.
+     */
+    public void toggleLights(boolean enabled) {
+        if (enabled) {
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); // lights on
+        } else {
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); // lights off
+        }
+    }
 
-    
+    /**
+     * Turn on drive camera mode. Drive camera mode *disables vision processing*, so that the camera can display frames faster.
+     * @param enabled boolian
+     */
+    public void toggleDriveCamera(boolean enabled) {
+        if (enabled) {
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1); // enable drive camera mode.
+        } else {
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(2); // resume vision processing.
+        }
+    }
 
 
 
