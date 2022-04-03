@@ -107,6 +107,13 @@ public final class Constants {
         //nu>  motor     >   wheel   >    inches
 
         public static final int GYRO_ID = 1;
+
+        public static final double NORMAL_SPEED = 1;
+        public static final double SLOW_SPEED = .5;
+        public static final int SLOW_BUTTON_ID = 2;
+        //TODO check this with drivers
+            
+        
     }
 
     /**
