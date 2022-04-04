@@ -12,11 +12,21 @@ import static frc.robot.settings.Constants.Ps4.LIGHTS_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.OUT_ARM_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.RETRACT_ARM_BUTTON_ID;
 
+import java.util.Map;
+
+import com.ctre.phoenix.sensors.Pigeon2;
+
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,6 +39,8 @@ import frc.robot.commands.Autos.AutononomousDrive;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
+import frc.robot.commands.drivetrain.GoForwardInInches;
+import frc.robot.commands.drivetrain.TurnInDegrees;
 import frc.robot.commands.intake.FilterCargo;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.newClimber.OneButtonClimb;
@@ -135,6 +147,34 @@ public class RobotContainer {
         SmartDashboard.putNumber("GyroKp",Gyro.kP);
         SmartDashboard.putNumber("GyroKI",Gyro.kI);
         SmartDashboard.putNumber("GyroKD",Gyro.kD);
+
+
+
+    ShuffleboardTab testTab = Shuffleboard.getTab("Commands");
+    ShuffleboardLayout testTurning = testTab
+      .getLayout("TestTurning", BuiltInLayouts.kList)
+      .withSize(3, 4);
+
+    Pigeon2 gyroBirib = new Pigeon2(1);
+
+    testTurning.add("gyro", gyroBirib);
+    NetworkTableEntry degrees = testTurning.add("degrees", 0.0)
+      .withWidget(BuiltInWidgets.kNumberSlider)
+      .withProperties(Map.of("min", -390, "max", 360, "Block Increment", 10))
+      .withSize(3, 1)
+      .getEntry(); 
+    testTurning.add("turn in degrees", new TurnInDegrees(drivetrain, degrees.getDouble(0)));
+
+    ShuffleboardLayout testDrive = testTab
+      .getLayout("TestDrive", BuiltInLayouts.kList)
+      .withSize(2, 2);
+    NetworkTableEntry inches = testDrive.add("inches", 0.0)
+      .withWidget(BuiltInWidgets.kNumberSlider)
+      .withProperties(Map.of("min", -60, "max", 60, "Block Increment", 1))
+      .withSize(2, 1)
+      .getEntry(); 
+    testDrive.add("drive in inches", new GoForwardInInches(drivetrain, .2, inches.getDouble(0)));
+
 
   }
 
