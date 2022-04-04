@@ -55,14 +55,14 @@ public class Vision extends SubsystemBase {
     }
 
     /**
-     * Turn on drive camera mode. Drive camera mode *disables vision processing*, so that the camera can display frames faster.
-     * @param enabled boolian
+     * Enable/Disable vision processing. When disabled, frames can be delivered faster and exposure is increased. Best for when being used as a driver camera.
+     * @param enabled true if vision processing should be enabled.
      */
-    public void toggleDriveCamera(boolean enabled) {
+    public void toggleVisionProcessing(boolean enabled) {
         if (enabled) {
-            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1); // enable drive camera mode.
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(2); // enable vision processing.
         } else {
-            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(2); // resume vision processing.
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1); // disable vision processing.
         }
     }
 
