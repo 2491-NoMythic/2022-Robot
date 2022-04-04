@@ -31,6 +31,10 @@ public class Vision extends SubsystemBase {
         thor = visionTable.getEntry("thor"); // horizontal sidelength of detection (0-320 pixels)
         tvert = visionTable.getEntry("tvert"); // vertical sidelength of detection (0-320 pixels)
         getpipe = visionTable.getEntry("getpipe"); // get current pipeline number
+
+        // turn off lights and processing by default
+        toggleLights(false);
+        toggleVisionProcessing(false);
     }
 
     /**
