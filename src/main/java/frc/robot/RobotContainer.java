@@ -7,9 +7,9 @@ package frc.robot;
 import static frc.robot.settings.Constants.Ps4.CONTROLLER_ID;
 import static frc.robot.settings.Constants.Ps4.EXTEND_ARM_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.INTAKEFILTER_BUTTON_ID;
-import static frc.robot.settings.Constants.Ps4.IN_ARM_BUTTON_ID;
+import static frc.robot.settings.Constants.Ps4.CALIBRATE_ARMS_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.LIGHTS_BUTTON_ID;
-import static frc.robot.settings.Constants.Ps4.OUT_ARM_BUTTON_ID;
+import static frc.robot.settings.Constants.Ps4.PHASE_1_CLIMB_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.RETRACT_ARM_BUTTON_ID;
 
 import edu.wpi.first.wpilibj.Compressor;
@@ -159,8 +159,8 @@ public class RobotContainer {
     // onebClimber.whenPressed(runOneButtonClimb);
     JoystickButton cargoFilterButton = new JoystickButton(ps4, INTAKEFILTER_BUTTON_ID);
     cargoFilterButton.whenHeld(filterCargoCommand);
-    POVButton Phase1Button = new POVButton(ps4, OUT_ARM_BUTTON_ID);
-    POVButton CalibrateButton = new POVButton(ps4, IN_ARM_BUTTON_ID);
+    POVButton Phase1Button = new POVButton(ps4, PHASE_1_CLIMB_BUTTON_ID);
+    POVButton CalibrateButton = new POVButton(ps4, CALIBRATE_ARMS_BUTTON_ID);
     POVButton ExtendButton = new POVButton(ps4, EXTEND_ARM_BUTTON_ID);
     POVButton RetractButton = new POVButton(ps4, RETRACT_ARM_BUTTON_ID);
 
