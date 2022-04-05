@@ -23,6 +23,7 @@ public class Drivetrain extends SubsystemBase {
     private MotorControllerGroup leftMotors;
     private MotorControllerGroup rightMotors;
     Pigeon2 gyroBirib;
+    private double speedManager;
 
     public Drivetrain() {
 
@@ -41,7 +42,7 @@ public class Drivetrain extends SubsystemBase {
        gyroBirib = new Pigeon2(GYRO_ID);
 
 
-
+        SetNormalSpeedMode();
         
         // making right motors go right
         rightLeadMotor.setInverted(InvertType.None);
@@ -159,5 +160,21 @@ public class Drivetrain extends SubsystemBase {
         rightLeadMotor.follow(leftLeadMotor);
         rightLeadMotor.setInverted(InvertType.OpposeMaster);
 
+    }
+
+
+    public void SetSlowSpeedMode()
+    {
+        speedManager = SLOW_SPEED;
+    }
+
+    public void SetNormalSpeedMode()
+    {
+        speedManager = NORMAL_SPEED;
+    }
+
+    public double GetSpeedManager()
+    {
+        return speedManager;
     }
 }
