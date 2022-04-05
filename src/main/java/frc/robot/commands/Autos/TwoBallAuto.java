@@ -36,8 +36,7 @@ public class TwoBallAuto extends ParallelRaceGroup {
 
       new ParallelRaceGroup(
         new DoubleIntake(intake, Direction.OUT, Direction.OUT),
-        new CalibrateArmEncoders(climber),
-        new WaitCommand(2)
+        new CalibrateArmEncoders(climber)
       ),
       new TurnInDegrees(drivetrain, 180),
       new MoveArm(intake, IntakeArmState.armDown),
@@ -49,7 +48,6 @@ public class TwoBallAuto extends ParallelRaceGroup {
       new ParallelCommandGroup(
         new TurnInDegrees(drivetrain, 180),
         new MoveArm(intake, IntakeArmState.armUp)
-        //TODO if we want to add the limelight we can use it here
       ),
       new GoForwardInInches(drivetrain, .5, 180),
 
