@@ -14,9 +14,10 @@ public class ClimberClimb extends CommandBase {
     OUT
   }
 
-  /**
-   * 
-   * Moves arm up and down
+ /**
+   * Moves arms up and down.
+   * <p>
+   * NOTE: This command stops when the arms have finished moving. Use {@link Climb} instead.
    * 
    * @param ArmExtendState
    *
@@ -40,7 +41,7 @@ public class ClimberClimb extends CommandBase {
         break;
       case IN:
         // climber.climberIn(CLARM_SPEED_IN);
-        climber.setArmPostion(0.005);
+        climber.setArmPostion(0.0);
         break;
     }
 

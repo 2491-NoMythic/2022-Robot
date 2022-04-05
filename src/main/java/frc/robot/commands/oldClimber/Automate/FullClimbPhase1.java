@@ -4,27 +4,26 @@
 
 package frc.robot.commands.oldClimber.Automate;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
-import frc.robot.commands.oldClimber.ClimberClimb;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
-import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
 import frc.robot.subsystems.OldClimber;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class FullClimbPhase1 extends SequentialCommandGroup {
-  /** Creates a new FullClimbPhase1. */
+  /**
+   * Climb Phase 1:
+   * <p>
+   * 1. Tilts the arms back while extending them.
+   * <p>
+   * 2. Tilts the arms forward.
+   */
   public FullClimbPhase1(OldClimber climber) {
-    // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+
     addCommands(
-      new ParallelCommandGroup(
-        new ArmPneumaticTipping(climber, ArmTipState.DOWN),
-        new ClimberClimb(climber, ArmExtendState.OUT)
-      ),
+      new TiltBackAndExtend(climber),
       new ArmPneumaticTipping(climber, ArmTipState.UP)
     );
   }
