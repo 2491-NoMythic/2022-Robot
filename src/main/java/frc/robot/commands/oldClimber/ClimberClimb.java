@@ -41,7 +41,7 @@ public class ClimberClimb extends CommandBase {
         break;
       case IN:
         // climber.climberIn(CLARM_SPEED_IN);
-        climber.setArmPostion(0.005);
+        climber.setArmPostion(0.0);
         break;
     }
 

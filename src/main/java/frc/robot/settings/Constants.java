@@ -46,8 +46,8 @@ public final class Constants {
         public static final double TIME_FOR_TRAVERSE_ARM_TO_GO_UP = 2;
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
 
-        public static final double ARM_SPEED_OUT = .5;
-        public static final double ARM_SPEED_IN = .7;
+        public static final double ARM_SPEED_OUT = .8;
+        public static final double ARM_SPEED_IN = .8;
         public static final double MID_ARM_SPEED_IN = .5;
         public static final double MID_ARM_SPEED_OUT = .7;
         public static final double TRAVERSE_ARM_SPEED_IN = .5;
@@ -82,8 +82,8 @@ public final class Constants {
         public static final int LEFT_IN_BUTTON_ID = 7;
         public static final int LEFT_OUT_BUTTON_ID = 5;
         public static final int SINGLE_BUTTON_CLIMB = 14;
-        public static final int OUT_ARM_BUTTON_ID = 270;
-        public static final int IN_ARM_BUTTON_ID = 90;
+        public static final int PHASE_1_CLIMB_BUTTON_ID = 270;
+        public static final int CALIBRATE_ARMS_BUTTON_ID = 90;
         public static final int EXTEND_ARM_BUTTON_ID = 0;
         public static final int RETRACT_ARM_BUTTON_ID = 180;
 
