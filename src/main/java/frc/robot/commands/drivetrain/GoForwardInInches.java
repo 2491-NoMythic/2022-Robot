@@ -21,6 +21,7 @@ public class GoForwardInInches extends CommandBase{
     @Override
     public void initialize() {
       ticksTraveled = drivetrain.getLeftEncoderValue();
+      //TODO check that the encoder is reset each time the command runs 
       drivetrain.setDrive(ControlMode.PercentOutput, power, power);      
     }
     @Override
