@@ -1,6 +1,7 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import static frc.robot.settings.Variables.Drivetrain.Gyro.*;
@@ -17,11 +18,14 @@ public class TurnInDegrees extends CommandBase{
     // Use addRequirements() here to declare subsystem dependencies.
     this.drivetrain = drivetrain;
     this.degrees = degrees;
+    SmartDashboard.putNumber("kP", kP);
+    SmartDashboard.putNumber("kI", kI);
+    SmartDashboard.putNumber("kD", kD);
   }
 
   @Override
   public void initialize() {
-    pid = new PIDController(kP, kI, kD);
+    pid = new PIDController(SmartDashboard.getNumber("kP", kP), SmartDashboard.getNumber("kI", kI), SmartDashboard.getNumber("kD", kD));
     pid.setTolerance(1,10);
     pid.setSetpoint(drivetrain.getYaw() + degrees);
   }
