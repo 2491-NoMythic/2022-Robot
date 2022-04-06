@@ -5,9 +5,7 @@
 package frc.robot;
 
 import static frc.robot.settings.Constants.Ps4.CONTROLLER_ID;
-import static frc.robot.settings.Constants.Ps4.EXTEND_ARM_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.INTAKEFILTER_BUTTON_ID;
-import static frc.robot.settings.Constants.Ps4.CALIBRATE_ARMS_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.LIGHTS_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.PHASE_1_CLIMB_BUTTON_ID;
 import static frc.robot.settings.Constants.Ps4.RETRACT_ARM_BUTTON_ID;
@@ -17,6 +15,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -26,6 +28,8 @@ import frc.robot.commands.LightsSoftware;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
+import frc.robot.commands.Limelight.VisionModeEnable;
+import frc.robot.commands.Limelight.DriveModeEnable;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
@@ -132,10 +136,16 @@ public class RobotContainer {
     SmartDashboard.putString("Things to remember",
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
 
-        SmartDashboard.putNumber("GyroKp",Gyro.kP);
-        SmartDashboard.putNumber("GyroKI",Gyro.kI);
-        SmartDashboard.putNumber("GyroKD",Gyro.kD);
+    SmartDashboard.putNumber("GyroKp",Gyro.kP);
+    SmartDashboard.putNumber("GyroKI",Gyro.kI);
+    SmartDashboard.putNumber("GyroKD",Gyro.kD);
 
+    ShuffleboardLayout limelightLayout = Shuffleboard.getTab("SmartDashboard")
+      .getLayout("Limelight", BuiltInLayouts.kList)
+      .withSize(1, 2);
+    limelightLayout.add(new DriveModeEnable(vision));
+    limelightLayout.add(new VisionModeEnable(vision));
+ 
   }
 
   public void initTelemetry() {
@@ -160,19 +170,11 @@ public class RobotContainer {
     JoystickButton cargoFilterButton = new JoystickButton(ps4, INTAKEFILTER_BUTTON_ID);
     cargoFilterButton.whenHeld(filterCargoCommand);
     POVButton Phase1Button = new POVButton(ps4, PHASE_1_CLIMB_BUTTON_ID);
-    POVButton CalibrateButton = new POVButton(ps4, CALIBRATE_ARMS_BUTTON_ID);
-    POVButton ExtendButton = new POVButton(ps4, EXTEND_ARM_BUTTON_ID);
     POVButton RetractButton = new POVButton(ps4, RETRACT_ARM_BUTTON_ID);
 
-    // ArmPneumaticTipping armsTiltOut = new ArmPneumaticTipping(climber, ArmTipState.DOWN);
-    ArmPneumaticTipping armsTiltIn = new ArmPneumaticTipping(climber, ArmTipState.UP);
-    Climb armExtend = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.OUT);
     Climb armRetract = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.IN);
     FullClimbPhase1 phase1 = new FullClimbPhase1(climber);
-    CalibrateArmEncoders calibrateClimberArms = new CalibrateArmEncoders(climber);
     Phase1Button.whenPressed(phase1);
-    CalibrateButton.whenPressed(calibrateClimberArms);
-    ExtendButton.whileHeld(armExtend);
     RetractButton.whileHeld(armRetract);
   }
 

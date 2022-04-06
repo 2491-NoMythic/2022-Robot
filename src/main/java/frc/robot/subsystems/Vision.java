@@ -9,6 +9,8 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+// this is how to change the limelight settings:
+// NetworkTableInstance.getDefault().getTable("limelight").getEntry("<variablename>").setNumber(<value>);
 /** Add your docs here. */
 public class Vision extends SubsystemBase {
 
@@ -29,16 +31,44 @@ public class Vision extends SubsystemBase {
         thor = visionTable.getEntry("thor"); // horizontal sidelength of detection (0-320 pixels)
         tvert = visionTable.getEntry("tvert"); // vertical sidelength of detection (0-320 pixels)
         getpipe = visionTable.getEntry("getpipe"); // get current pipeline number
+
+        // turn off lights and processing by default
+        toggleLights(false);
+        toggleVisionProcessing(false);
     }
 
-
+    /**
+     * horizontal offset from crosshair to target 
+     * @return (-27 to 27 degrees)
+     */
     public double getHorizontalPos(){
         double angle = tx.getDouble(0);
         return angle;
     }
 
+    /**
+     * Turn lights on or off.
+     * @param enabled true if lights should be turned on.
+     */
+    public void toggleLights(boolean enabled) {
+        if (enabled) {
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3); // lights on
+        } else {
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1); // lights off
+        }
+    }
 
-    
+    /**
+     * Enable/Disable vision processing. When disabled, frames can be delivered faster and exposure is increased. Best for when being used as a driver camera.
+     * @param enabled true if vision processing should be enabled.
+     */
+    public void toggleVisionProcessing(boolean enabled) {
+        if (enabled) {
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(2); // enable vision processing.
+        } else {
+            NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1); // disable vision processing.
+        }
+    }
 
 
 
