@@ -83,8 +83,6 @@ public final class Constants {
         public static final int LEFT_OUT_BUTTON_ID = 5;
         public static final int SINGLE_BUTTON_CLIMB = 14;
         public static final int PHASE_1_CLIMB_BUTTON_ID = 270;
-        public static final int CALIBRATE_ARMS_BUTTON_ID = 90;
-        public static final int EXTEND_ARM_BUTTON_ID = 0;
         public static final int RETRACT_ARM_BUTTON_ID = 180;
 
     }
