@@ -53,11 +53,10 @@ public class TwoBallAuto extends ParallelRaceGroup {
         new DoubleIntake(intake, Direction.OUT, Direction.OUT),
         new WaitCommand(2)
       ),
-
+      new ArmPneumaticTipping(climber, ArmTipState.DOWN),
       new ParallelCommandGroup(
         new GoForwardInInches(drivetrain, .5, -350),
         new MoveArm(intake, IntakeArmState.armUp),
-        new ArmPneumaticTipping(climber, ArmTipState.DOWN),
         new CalibrateArmEncoders(climber)
       )
       )
