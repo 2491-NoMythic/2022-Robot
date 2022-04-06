@@ -65,6 +65,7 @@ public final class Constants {
         public static final double CLIMBER_MOTOR_KP = 0.75;
         public static final double CLIMBER_MOTOR_KD = 0.05;
         public static final double CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
+        public static final double FORWARD_LIMIT_THRESHOLD = 285000;
     }
 
     public final class Ps4 {

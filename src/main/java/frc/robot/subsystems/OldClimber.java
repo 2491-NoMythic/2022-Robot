@@ -72,8 +72,11 @@ public class OldClimber extends SubsystemBase {
 
         resetEncoders();
         // is this an alternative to magnetic encoders?
-        // rightWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
-        // leftWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
+        rightWinchMotor.configReverseSoftLimitThreshold(0);
+        leftWinchMotor.configReverseSoftLimitThreshold(0);
+
+         rightWinchMotor.configForwardSoftLimitThreshold(FORWARD_LIMIT_THRESHOLD);
+         leftWinchMotor.configForwardSoftLimitThreshold(FORWARD_LIMIT_THRESHOLD);
     }
 
     public void setArmDown() {
