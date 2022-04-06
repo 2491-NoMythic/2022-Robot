@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.CargoState;
 
@@ -65,6 +66,15 @@ public class LightsHardware extends SubsystemBase {
   public void lightsout() {
     for (var allthelights = 0; allthelights < onlyBuffer.getLength(); allthelights++) {
       onlyBuffer.setRGB(allthelights, 0, 0, 0);
+    }
+  }
+
+  public void climbinglights(int firstpixelvalue) {
+    //each pixel
+    for (var i = 0; i < onlyBuffer.getLength(); i++) {
+      final var value = 50 + (firstpixelvalue + ( i* 205 / onlyBuffer.getLength())) % 205;
+      
+      onlyBuffer.setHSV(i, 150, 200, value);
     }
   }
 }
