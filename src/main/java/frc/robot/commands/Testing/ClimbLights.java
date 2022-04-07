@@ -26,7 +26,8 @@ public class ClimbLights extends CommandBase {
   public void execute() {
     lights.climbinglights(startingPixel);
     lights.dataSetter();
-    startingPixel = (startingPixel + 4) % (1 << 20);
+    startingPixel = (startingPixel + 1) % (1 << 20); // mod stops the number from getting too big.
+    //Loops the starting pixel past the last one
   }
 
   // Called once the command ends or is interrupted.
