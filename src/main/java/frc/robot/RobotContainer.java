@@ -152,6 +152,7 @@ public class RobotContainer {
   public void initTelemetry() {
   }
 
+
   /**
    * Use this method to define your button->command mappings. Buttons can be
    * created by
@@ -182,11 +183,15 @@ public class RobotContainer {
   public void initDisable() {
     drivetrain.coastMode();
   }
-
+  
   public void initEnable() {
     drivetrain.brakeMode();
   }
-
+  
+  public void initTeleop() {
+    new LightsSoftware(lights, pixy);
+  }
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -198,4 +203,5 @@ public class RobotContainer {
     return autoChooser.getSelected();
     // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
+
 }
