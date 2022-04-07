@@ -23,7 +23,7 @@ public class CalibrateArmEncoders extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-  climber.setBottomSoftLimit(false);
+  //climber.setBottomSoftLimit(false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -41,7 +41,7 @@ public class CalibrateArmEncoders extends CommandBase {
       climber.resetEncoders();
     }
 
-    climber.setBottomSoftLimit(true);
+   // climber.setBottomSoftLimit(true);
   }
 
   // Returns true when the command should end.
