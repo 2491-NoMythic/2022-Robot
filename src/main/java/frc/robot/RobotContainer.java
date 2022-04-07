@@ -33,6 +33,7 @@ import frc.robot.commands.Limelight.DriveModeEnable;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
+import frc.robot.commands.drivetrain.TurnInDegrees;
 import frc.robot.commands.intake.FilterCargo;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.newClimber.OneButtonClimb;
@@ -139,7 +140,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("GyroKp",Gyro.kP);
     SmartDashboard.putNumber("GyroKI",Gyro.kI);
     SmartDashboard.putNumber("GyroKD",Gyro.kD);
-
+    SmartDashboard.putData("turn in degrees", new TurnInDegrees(drivetrain, 90));
     ShuffleboardLayout limelightLayout = Shuffleboard.getTab("SmartDashboard")
       .getLayout("Limelight", BuiltInLayouts.kList)
       .withSize(1, 2);
