@@ -53,7 +53,7 @@ public class OldClimber extends SubsystemBase {
         rightWinchMotor.configFactoryDefault();
         leftWinchMotor.configFactoryDefault();
 
-        rightWinchMotor.setInverted(InvertType.None);
+        rightWinchMotor.setInverted(InvertType.InvertMotorOutput);
         leftWinchMotor.setInverted(InvertType.None);
 
         rightWinchMotor.set(ControlMode.PercentOutput, 0);
