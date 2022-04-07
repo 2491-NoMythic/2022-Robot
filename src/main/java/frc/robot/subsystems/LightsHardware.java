@@ -72,7 +72,7 @@ public class LightsHardware extends SubsystemBase {
   public void climbinglights(int firstpixelvalue) {
     //each pixel
     for (var i = 0; i < onlyBuffer.getLength(); i++) {
-      final var value = 20 + (firstpixelvalue + ( i* 205 / onlyBuffer.getLength())) % 205;
+      final var value = 10 + (firstpixelvalue + ( i* 205 / onlyBuffer.getLength())) % 205;
       
       onlyBuffer.setHSV(i, 150, 200, value);
     }

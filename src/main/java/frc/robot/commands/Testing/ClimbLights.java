@@ -24,7 +24,7 @@ public class ClimbLights extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    lights.throbinglights(startingPixel);
+    lights.climbinglights(startingPixel);
     lights.dataSetter();
     startingPixel = (startingPixel + 4) % (1 << 20);
   }
