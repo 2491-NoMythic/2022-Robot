@@ -80,7 +80,7 @@ public class LightsHardware extends SubsystemBase {
     }
   }
 
-  public void fadechase(int firstpixelvalue) {
+  public void fadechase(double firstpixelvalue) {
     //each pixel
     int purple;
     for (var i = 0; i < onlyBuffer.getLength(); i++) {

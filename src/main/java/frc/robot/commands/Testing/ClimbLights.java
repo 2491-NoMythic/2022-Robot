@@ -10,7 +10,7 @@ import frc.robot.subsystems.LightsHardware;
 public class ClimbLights extends CommandBase {
   /** Creates a new ClimbLights. */
   LightsHardware lights;
-  int startingPixel;
+  double startingPixel;
   public ClimbLights(LightsHardware lights) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.lights = lights;
@@ -26,7 +26,7 @@ public class ClimbLights extends CommandBase {
   public void execute() {
     lights.fadechase(startingPixel);
     lights.dataSetter();
-    startingPixel = (startingPixel + 1) % (1 << 20); // mod stops the number from getting too big.
+    startingPixel = (startingPixel + .125) % (1 << 20); // mod stops the number from getting too big.
     //Loops the starting pixel past the last one
   }
 
