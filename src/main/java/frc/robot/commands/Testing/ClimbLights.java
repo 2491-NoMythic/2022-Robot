@@ -24,7 +24,7 @@ public class ClimbLights extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    lights.climbinglights(startingPixel);
+    lights.fadechase(startingPixel);
     lights.dataSetter();
     startingPixel = (startingPixel + 1) % (1 << 20); // mod stops the number from getting too big.
     //Loops the starting pixel past the last one
