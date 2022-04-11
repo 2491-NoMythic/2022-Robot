@@ -69,18 +69,7 @@ public class LightsHardware extends SubsystemBase {
     }
   }
 
-  public void climbinglights(int firstpixelvalue) {
-    // each pixel
-    for (var i = 0; i < onlyBuffer.getLength(); i++) {
-      // double sinpurple = Math.sin(i);
-      // int purple = Math.round((sinpurple + Math.PI)*(128/Math.PI));
-      int purple = Math.toIntExact(Math.round(127.0 * (Math.sin((Math.PI / 10.0) * i + firstpixelvalue) + 127.0)));
-      // int value = (firstpixelvalue + i % 30)*8;
-      onlyBuffer.setRGB(i, purple, 0, purple);
-    }
-  }
-
-  public void fadechase(double firstpixelvalue) {
+  public void climbinglights(double firstpixelvalue) {
     //each pixel
     int purple;
     for (var i = 0; i < onlyBuffer.getLength(); i++) {
@@ -94,11 +83,11 @@ public class LightsHardware extends SubsystemBase {
       onlyBuffer.setRGB(i, purple, 0, purple);
     }
   }
-  public void throbinglights(int firstpixelvalue){
+  public void rainbowlights(int firstpixelhue){
     for (var i = 0; i < onlyBuffer.getLength(); i++) {
+      final var hue = (firstpixelhue + (i * 180 / onlyBuffer.getLength())) % 180;
       
-      
-      onlyBuffer.setHSV(i, 150, 200, firstpixelvalue);
+      onlyBuffer.setHSV(i, hue, 255, 255);
     }
   }
 }

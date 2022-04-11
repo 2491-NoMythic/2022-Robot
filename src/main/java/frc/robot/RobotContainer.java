@@ -28,8 +28,9 @@ import frc.robot.commands.LightsSoftware;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
+import frc.robot.commands.Lights.ClimbLights;
+import frc.robot.commands.Lights.RainbowLights;
 import frc.robot.commands.Limelight.VisionModeEnable;
-import frc.robot.commands.Testing.ClimbLights;
 import frc.robot.commands.Limelight.DriveModeEnable;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.commands.drivetrain.Drive;
@@ -137,7 +138,8 @@ public class RobotContainer {
     SmartDashboard.putString("Things to remember",
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
     SmartDashboard.putData("climblights", new ClimbLights(lights));
-
+    SmartDashboard.putData("rainbowlights", new RainbowLights(lights));
+    
     SmartDashboard.putNumber("GyroKp",Gyro.kP);
     SmartDashboard.putNumber("GyroKI",Gyro.kI);
     SmartDashboard.putNumber("GyroKD",Gyro.kD);
