@@ -28,13 +28,13 @@ public class LightsHardware extends SubsystemBase {
   }
 
   public void prettyleftlights() {
-    for (var leftdecorlights = 0; leftdecorlights < onlyBuffer.getLength(); leftdecorlights++) {
+    for (var leftdecorlights = 0; leftdecorlights < 30; leftdecorlights++) { // Leds 0-29
       onlyBuffer.setRGB(leftdecorlights, 50, 0, 50);
     }
   }
 
   public void leftballindicator(CargoState ballColor) {
-    for (var leftsensorlights = 30; leftsensorlights < onlyBuffer.getLength(); leftsensorlights++) {
+    for (var leftsensorlights = 30; leftsensorlights < 60; leftsensorlights++) { // Leds 30-59
       if (ballColor == CargoState.Red) {
         onlyBuffer.setRGB(leftsensorlights, 255, 0, 0);
       } else if (ballColor == CargoState.Blue) {
@@ -46,7 +46,7 @@ public class LightsHardware extends SubsystemBase {
   }
 
   public void rightballindicator(CargoState ballColor) {
-    for (var rightsensorlights = 60; rightsensorlights < onlyBuffer.getLength(); rightsensorlights++) {
+    for (var rightsensorlights = 60; rightsensorlights < 90; rightsensorlights++) { // leds 60-89
       if (ballColor == CargoState.Red) {
         onlyBuffer.setRGB(rightsensorlights, 255, 0, 0);
       } else if (ballColor == CargoState.Blue) {
@@ -58,7 +58,7 @@ public class LightsHardware extends SubsystemBase {
   }
 
   public void prettyrightlights() {
-    for (var rightdecorlights = 90; rightdecorlights < onlyBuffer.getLength(); rightdecorlights++) {
+    for (var rightdecorlights = 90; rightdecorlights < onlyBuffer.getLength(); rightdecorlights++) { // Leds 90-129
       onlyBuffer.setRGB(rightdecorlights, 50, 0, 50);
     }
   }
