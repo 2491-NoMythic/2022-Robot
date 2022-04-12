@@ -17,6 +17,7 @@ public class Pixy2SubSystem extends SubsystemBase {
 	private static final int BLUE = 1;
 	private static final int RED = 2;
 	private static final int MIN_SIZE = 50;
+	private static final int MIN_HEIGHT = 70;
 
 	private Pixy2 pixy;
 	private Block blockLeft;
@@ -74,7 +75,9 @@ public class Pixy2SubSystem extends SubsystemBase {
 
 		for (Block block : blocks) {
 			if ((block.getSignature() == RED || block.getSignature() == BLUE)  && block.getWidth() > MIN_SIZE) {
-				if (largestBlock == null) {
+				if (block.getY() > MIN_HEIGHT) {
+					// do nothing
+				} else if (largestBlock == null) {
 					largestBlock = block;
 				} else if (block.getWidth() > largestBlock.getWidth()) {
 					secondLargestBlock = largestBlock;
