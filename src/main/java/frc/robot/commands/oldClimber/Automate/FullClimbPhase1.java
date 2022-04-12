@@ -27,12 +27,12 @@ public class FullClimbPhase1 extends SequentialCommandGroup {
    * 2. Tilts the arms forward.
    */
   public FullClimbPhase1(OldClimber climber, Intake intake, LightsHardware lights) {
-
+    
     addCommands(
-      new ClimbLights(lights),
       new MoveArm(intake, IntakeArmState.armDown),
       new TiltBackAndExtend(climber),
-      new ArmPneumaticTipping(climber, ArmTipState.UP)
+      new ArmPneumaticTipping(climber, ArmTipState.UP),
+      new ClimbLights(lights)
     );
   }
 }
