@@ -56,9 +56,9 @@ public final class Constants {
         // clarm means climber arm
         // this has the constants for both the new and old climbers together
 
-        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = 
-            (1/2048.0)*(1/23.73)*(1.25*Math.PI)*(1/24.0);
-        //nu> motor   >  spool  >    inches    > arm lengths
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = (1 / 2048.0) * (1 / 23.73) * (1.25 * Math.PI)
+                * (1 / 24.0);
+        // nu> motor > spool > inches > arm lengths
 
         public static final double ARM_LENGTHS_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_ARMS_LENGTH;
 
@@ -101,18 +101,37 @@ public final class Constants {
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
 
-        public static final double ENCODER_TICKS_TO_INCHES =
-            (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); //TODO: find effective diameter of the wheels.
-        //nu>  motor     >   wheel   >    inches
+        public static final double ENCODER_TICKS_TO_INCHES = (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); // TODO: find
+                                                                                                       // effective
+                                                                                                       // diameter of
+                                                                                                       // the wheels.
+        // nu> motor > wheel > inches
 
         public static final int GYRO_ID = 1;
 
         public static final double NORMAL_SPEED = 1;
         public static final double SLOW_SPEED = .5;
         public static final int SLOW_BUTTON_ID = 2;
-        //TODO check this with drivers
-            
-        
+        // TODO check this with drivers
+
+        // Distance PID gains
+        public static final int DIST_SLOT = 0;
+        public static final int DIST_KP = 0;
+        public static final int DIST_KI = 0;
+        public static final int DIST_KD = 0;
+        public static final int DIST_KF = 0;
+        public static final int DIST_IZ = 0;
+        public static final int DIST_ALLOWED_ERR_NATIVE_UNITS = 0;
+
+        // Turning PID gains
+        public static final int TURN_SLOT = 1;
+        public static final int TURN_KP = 0;
+        public static final int TURN_KI = 0;
+        public static final int TURN_KD = 0;
+        public static final int TURN_KF = 0;
+        public static final int TURN_IZ = 0;
+        public static final int TURN_ALLOWED_ERR_NATIVE_UNITS = 0;
+
     }
 
     /**
