@@ -35,6 +35,7 @@ import frc.robot.commands.Limelight.DriveModeEnable;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
+import frc.robot.commands.drivetrain.TurnInDegrees;
 import frc.robot.commands.intake.FilterCargo;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.newClimber.OneButtonClimb;
@@ -134,7 +135,7 @@ public class RobotContainer {
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new ArmPneumaticTipping(climber, ArmTipState.UP));
     SmartDashboard.putData("Calibrate Climber", new CalibrateArmEncoders(climber));
-    SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(climber));
+    SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(climber, intake));
     SmartDashboard.putString("Things to remember",
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
     SmartDashboard.putData("climblights", new ClimbLights(lights));
@@ -143,7 +144,7 @@ public class RobotContainer {
     SmartDashboard.putNumber("GyroKp",Gyro.kP);
     SmartDashboard.putNumber("GyroKI",Gyro.kI);
     SmartDashboard.putNumber("GyroKD",Gyro.kD);
-
+    SmartDashboard.putData("turn in degrees", new TurnInDegrees(drivetrain, 90));
     ShuffleboardLayout limelightLayout = Shuffleboard.getTab("SmartDashboard")
       .getLayout("Limelight", BuiltInLayouts.kList)
       .withSize(1, 2);
@@ -154,6 +155,7 @@ public class RobotContainer {
 
   public void initTelemetry() {
   }
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -177,7 +179,7 @@ public class RobotContainer {
     POVButton RetractButton = new POVButton(ps4, RETRACT_ARM_BUTTON_ID);
 
     Climb armRetract = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.IN);
-    FullClimbPhase1 phase1 = new FullClimbPhase1(climber);
+    FullClimbPhase1 phase1 = new FullClimbPhase1(climber, intake);
     Phase1Button.whenPressed(phase1);
     RetractButton.whileHeld(armRetract);
   }
@@ -185,11 +187,15 @@ public class RobotContainer {
   public void initDisable() {
     drivetrain.coastMode();
   }
-
+  
   public void initEnable() {
     drivetrain.brakeMode();
   }
-
+  
+  public void initTeleop() {
+    new LightsSoftware(lights, pixy);
+  }
+  
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -201,4 +207,5 @@ public class RobotContainer {
     return autoChooser.getSelected();
     // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
+
 }

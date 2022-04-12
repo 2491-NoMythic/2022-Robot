@@ -83,11 +83,37 @@ public class LightsHardware extends SubsystemBase {
       onlyBuffer.setRGB(i, purple, 0, purple);
     }
   }
+
   public void rainbowlights(int firstpixelhue){
     for (var i = 0; i < onlyBuffer.getLength(); i++) {
       final var hue = (firstpixelhue + (i * 180 / onlyBuffer.getLength())) % 180;
       
       onlyBuffer.setHSV(i, hue, 255, 255);
     }
+  }
+
+  public void setOneLight(int index, int R, int G, int B) {
+    if (index > onlyBuffer.getLength()) {
+      index = onlyBuffer.getLength();
+    }
+    onlyBuffer.setRGB(index, R, G, B);
+  }
+
+  public void setOneLight(int index, Color color) {
+    if (index > onlyBuffer.getLength()) {
+      index = onlyBuffer.getLength();
+    }
+    onlyBuffer.setLED(index, color);
+  }
+
+  public void setLightBuffer(AddressableLEDBuffer buffer) {
+    int max = onlyBuffer.getLength();
+    if (buffer.getLength() < onlyBuffer.getLength()) {
+      max = buffer.getLength();
+    }
+    for (int i=0; i < max; i++) {
+      onlyBuffer.setLED(i, buffer.getLED(i));
+    }
+    dataSetter();
   }
 }

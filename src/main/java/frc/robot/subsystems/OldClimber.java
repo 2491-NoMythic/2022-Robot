@@ -53,7 +53,7 @@ public class OldClimber extends SubsystemBase {
         rightWinchMotor.configFactoryDefault();
         leftWinchMotor.configFactoryDefault();
 
-        rightWinchMotor.setInverted(InvertType.None);
+        rightWinchMotor.setInverted(InvertType.InvertMotorOutput);
         leftWinchMotor.setInverted(InvertType.None);
 
         rightWinchMotor.set(ControlMode.PercentOutput, 0);
@@ -72,9 +72,15 @@ public class OldClimber extends SubsystemBase {
 
         resetEncoders();
         // is this an alternative to magnetic encoders?
-        // rightWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
-        // leftWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
-    }
+        rightWinchMotor.configReverseSoftLimitThreshold(0);
+        leftWinchMotor.configReverseSoftLimitThreshold(0);
+         rightWinchMotor.configForwardSoftLimitThreshold(FORWARD_LIMIT_THRESHOLD);
+         leftWinchMotor.configForwardSoftLimitThreshold(FORWARD_LIMIT_THRESHOLD);
+         rightWinchMotor.configForwardSoftLimitEnable(true);
+         leftWinchMotor.configForwardSoftLimitEnable(true);
+        //setBottomSoftLimit(true);
+
+        }
 
     public void setArmDown() {
         armSolenoid.set(Value.kForward);
@@ -212,4 +218,13 @@ public class OldClimber extends SubsystemBase {
         SmartDashboard.putNumber("Right Arm Position", getRightArmPos());
         // This method will be called once per scheduler run
     }
+
+
+
+        public void setBottomSoftLimit(boolean enabled)
+        {
+        
+        rightWinchMotor.configReverseSoftLimitEnable(enabled);
+        leftWinchMotor.configReverseSoftLimitEnable(enabled);
+        }
 }

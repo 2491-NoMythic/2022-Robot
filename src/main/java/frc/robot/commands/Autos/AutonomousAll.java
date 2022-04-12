@@ -12,6 +12,7 @@ import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.intake.Direction;
 import frc.robot.commands.intake.DoubleIntake;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
+import frc.robot.commands.oldClimber.CalibrateArmEncoders;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -27,7 +28,8 @@ public class AutonomousAll extends SequentialCommandGroup {
         new WaitCommand(2)
       ),
       new ForwardDistance(drivetrain, 2.3, -.25),
-      new ArmPneumaticTipping(climber, ArmTipState.DOWN)
+      new ArmPneumaticTipping(climber, ArmTipState.DOWN),
+      new CalibrateArmEncoders(climber)
       // new MoveArm(intake, IntakeArmState.armDown)
     );
   }

@@ -113,7 +113,7 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
      //   bbDriveSystem.feed();
         Variables.Drivetrain.ramp = SmartDashboard.getNumber("Ramp Rate", Variables.Drivetrain.ramp);
-        
+        SmartDashboard.putNumber("gyro", getYaw());
         leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
         rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
 

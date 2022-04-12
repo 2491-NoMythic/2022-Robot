@@ -17,13 +17,14 @@ public class CalibrateArmEncoders extends CommandBase {
   */
   public CalibrateArmEncoders(OldClimber climber) {
     this.climber = climber;
-    
     addRequirements(climber);
   }
-
+  
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  //climber.setBottomSoftLimit(false);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -39,6 +40,8 @@ public class CalibrateArmEncoders extends CommandBase {
     if (!interrupted) {
       climber.resetEncoders();
     }
+
+   // climber.setBottomSoftLimit(true);
   }
 
   // Returns true when the command should end.
