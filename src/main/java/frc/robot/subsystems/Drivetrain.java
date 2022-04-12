@@ -5,8 +5,6 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Variables;
@@ -20,8 +18,6 @@ public class Drivetrain extends SubsystemBase {
     private WPI_TalonFX rightLeadMotor;
     private WPI_TalonFX rightFollowMotor;
    // private DifferentialDrive bbDriveSystem;
-    private MotorControllerGroup leftMotors;
-    private MotorControllerGroup rightMotors;
     Pigeon2 gyroBirib;
     private double speedManager;
 
@@ -31,8 +27,6 @@ public class Drivetrain extends SubsystemBase {
         leftFollowMotor = new WPI_TalonFX(LEFT_FOLLOW_ID);
         rightLeadMotor = new WPI_TalonFX(RIGHT_LEAD_ID);
         rightFollowMotor = new WPI_TalonFX(RIGHT_FOLLOW_ID);
-        leftMotors = new MotorControllerGroup(leftLeadMotor, leftFollowMotor);
-        rightMotors = new MotorControllerGroup(rightLeadMotor, rightFollowMotor);
         leftFollowMotor.follow(leftLeadMotor);
         rightFollowMotor.follow(rightLeadMotor);
         
