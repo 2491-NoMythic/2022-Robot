@@ -79,14 +79,14 @@ public class Drivetrain extends SubsystemBase {
         rightLeadMotor.config_kD(DIST_SLOT, DIST_KD);
         rightLeadMotor.config_kF(DIST_SLOT, DIST_KF);
         rightLeadMotor.config_IntegralZone(DIST_SLOT, DIST_IZ);
-        rightLeadMotor.configAllowableClosedloopError(DIST_SLOT, DIST_ALLOWABLE_ERROR);
+        rightLeadMotor.configAllowableClosedloopError(DIST_SLOT, DIST_ALLOWED_ERR_NATIVE_UNITS);
 
         rightLeadMotor.config_kP(TURN_SLOT, TURN_KP);
         rightLeadMotor.config_kI(TURN_SLOT, TURN_KI);
         rightLeadMotor.config_kD(TURN_SLOT, TURN_KD);
         rightLeadMotor.config_kF(TURN_SLOT, TURN_KF);
         rightLeadMotor.config_IntegralZone(TURN_SLOT, TURN_IZ);
-        rightLeadMotor.configAllowableClosedloopError(TURN_SLOT, TURN_ALLOWABLE_ERROR);
+        rightLeadMotor.configAllowableClosedloopError(TURN_SLOT, TURN_ALLOWED_ERR_NATIVE_UNITS);
 
         int closedLoopTimeoutMS = 1;
         rightLeadMotor.configClosedLoopPeriod(DIST_SLOT, closedLoopTimeoutMS);
