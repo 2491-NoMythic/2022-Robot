@@ -135,7 +135,7 @@ public class RobotContainer {
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(climber, ArmTipState.DOWN));
     SmartDashboard.putData("ArmsTiltIn", new ArmPneumaticTipping(climber, ArmTipState.UP));
     SmartDashboard.putData("Calibrate Climber", new CalibrateArmEncoders(climber));
-    SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(climber, intake));
+    SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(climber, intake, lights));
     SmartDashboard.putString("Things to remember",
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
     SmartDashboard.putData("climblights", new ClimbLights(lights));
@@ -179,7 +179,7 @@ public class RobotContainer {
     POVButton RetractButton = new POVButton(ps4, RETRACT_ARM_BUTTON_ID);
 
     Climb armRetract = new Climb(climber, frc.robot.commands.oldClimber.Climb.ArmExtendState.IN);
-    FullClimbPhase1 phase1 = new FullClimbPhase1(climber, intake);
+    FullClimbPhase1 phase1 = new FullClimbPhase1(climber, intake, lights);
     Phase1Button.whenPressed(phase1);
     RetractButton.whileHeld(armRetract);
   }
