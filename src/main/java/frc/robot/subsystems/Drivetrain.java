@@ -54,7 +54,7 @@ public class Drivetrain extends SubsystemBase {
       //  bbDriveSystem.setDeadband(0.04);
       //  addChild("Diff Drive", bbDriveSystem);
 
-        //LeftSideLead();
+       
 
     }
 
@@ -113,7 +113,7 @@ public class Drivetrain extends SubsystemBase {
     public void periodic() {
      //   bbDriveSystem.feed();
         Variables.Drivetrain.ramp = SmartDashboard.getNumber("Ramp Rate", Variables.Drivetrain.ramp);
-        
+    
         leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
         rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
 

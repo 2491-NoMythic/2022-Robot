@@ -29,6 +29,7 @@ import frc.robot.commands.Autos.AutononomousDrive;
 import frc.robot.commands.drivetrain.BurnIn;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.ForwardDistance;
+import frc.robot.commands.drivetrain.TurnInDegrees;
 import frc.robot.commands.intake.FilterCargo;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.newClimber.OneButtonClimb;
@@ -135,6 +136,8 @@ public class RobotContainer {
         SmartDashboard.putNumber("GyroKp",Gyro.kP);
         SmartDashboard.putNumber("GyroKI",Gyro.kI);
         SmartDashboard.putNumber("GyroKD",Gyro.kD);
+
+        SmartDashboard.putData("Turn 90 Degrees", new TurnInDegrees(drivetrain, 90));
 
   }
 
