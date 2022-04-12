@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
@@ -99,6 +100,9 @@ public class Drivetrain extends SubsystemBase {
 
         gyroBirib.reset();
         resetEncoders();
+
+        leftFollowMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
+        leftLeadMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
         // bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
         // bbDriveSystem.setDeadband(0.04);
         // addChild("Diff Drive", bbDriveSystem);

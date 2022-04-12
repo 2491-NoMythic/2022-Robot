@@ -112,7 +112,7 @@ public class RobotContainer {
     runIntakeCommand = new RunIntake(intake, ps4);
     filterCargoCommand = new FilterCargo(intake, pixy);
     intake.setDefaultCommand(runIntakeCommand);
-    drivetrain.setDefaultCommand(defaultDriveCommand);
+    // drivetrain.setDefaultCommand(defaultDriveCommand);
 
     pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
     pcmCompressor.enableDigital();
@@ -140,22 +140,21 @@ public class RobotContainer {
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
     SmartDashboard.putData("climblights", new ClimbLights(lights));
     SmartDashboard.putData("rainbowlights", new RainbowLights(lights));
-    
-    SmartDashboard.putNumber("GyroKp",Gyro.kP);
-    SmartDashboard.putNumber("GyroKI",Gyro.kI);
-    SmartDashboard.putNumber("GyroKD",Gyro.kD);
+
+    SmartDashboard.putNumber("GyroKp", Gyro.kP);
+    SmartDashboard.putNumber("GyroKI", Gyro.kI);
+    SmartDashboard.putNumber("GyroKD", Gyro.kD);
     SmartDashboard.putData("turn in degrees", new TurnInDegrees(drivetrain, 90));
     ShuffleboardLayout limelightLayout = Shuffleboard.getTab("SmartDashboard")
-      .getLayout("Limelight", BuiltInLayouts.kList)
-      .withSize(1, 2);
+        .getLayout("Limelight", BuiltInLayouts.kList)
+        .withSize(1, 2);
     limelightLayout.add(new DriveModeEnable(vision));
     limelightLayout.add(new VisionModeEnable(vision));
- 
+
   }
 
   public void initTelemetry() {
   }
-
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -187,15 +186,15 @@ public class RobotContainer {
   public void initDisable() {
     drivetrain.coastMode();
   }
-  
+
   public void initEnable() {
     drivetrain.brakeMode();
   }
-  
+
   public void initTeleop() {
     new LightsSoftware(lights, pixy);
   }
-  
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
