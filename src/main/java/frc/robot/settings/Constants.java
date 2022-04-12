@@ -1,5 +1,7 @@
 package frc.robot.settings;
 
+import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+
 /**
  * <p>
  * Robot system constants. Solenoids have a CHANNEL, motor controllers have an
@@ -44,8 +46,8 @@ public final class Constants {
         public static final double TIME_FOR_TRAVERSE_ARM_TO_GO_UP = 2;
         public static final double TIME_FOR_ARM_TO_GO_UP = 2;
 
-        public static final double ARM_SPEED_OUT = .5;
-        public static final double ARM_SPEED_IN = .7;
+        public static final double ARM_SPEED_OUT = .8;
+        public static final double ARM_SPEED_IN = .8;
         public static final double MID_ARM_SPEED_IN = .5;
         public static final double MID_ARM_SPEED_OUT = .7;
         public static final double TRAVERSE_ARM_SPEED_IN = .5;
@@ -63,6 +65,7 @@ public final class Constants {
         public static final double CLIMBER_MOTOR_KP = 0.75;
         public static final double CLIMBER_MOTOR_KD = 0.05;
         public static final double CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
+        public static final double FORWARD_LIMIT_THRESHOLD = 285000;
     }
 
     public final class Ps4 {
@@ -80,9 +83,7 @@ public final class Constants {
         public static final int LEFT_IN_BUTTON_ID = 7;
         public static final int LEFT_OUT_BUTTON_ID = 5;
         public static final int SINGLE_BUTTON_CLIMB = 14;
-        public static final int OUT_ARM_BUTTON_ID = 270;
-        public static final int IN_ARM_BUTTON_ID = 90;
-        public static final int EXTEND_ARM_BUTTON_ID = 0;
+        public static final int PHASE_1_CLIMB_BUTTON_ID = 270;
         public static final int RETRACT_ARM_BUTTON_ID = 180;
 
     }
@@ -103,6 +104,15 @@ public final class Constants {
         public static final double ENCODER_TICKS_TO_INCHES =
             (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); //TODO: find effective diameter of the wheels.
         //nu>  motor     >   wheel   >    inches
+
+        public static final int GYRO_ID = 1;
+
+        public static final double NORMAL_SPEED = 1;
+        public static final double SLOW_SPEED = .5;
+        public static final int SLOW_BUTTON_ID = 2;
+        //TODO check this with drivers
+            
+        
     }
 
     /**

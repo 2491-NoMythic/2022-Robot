@@ -7,11 +7,13 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import static frc.robot.settings.Constants.Climber.*;
 
@@ -37,6 +39,8 @@ public class OldClimber extends SubsystemBase {
     private WPI_TalonFX leftWinchMotor;
     private WPI_TalonFX rightWinchMotor;
 
+    private double prevCurrentLimit = 0;
+
     /** Creates a new climber. */
     public OldClimber() {
 
@@ -46,6 +50,8 @@ public class OldClimber extends SubsystemBase {
         leftWinchMotor = new WPI_TalonFX(LEFT_WINCH_ID);
         rightWinchMotor = new WPI_TalonFX(RIGHT_WINCH_ID);
 
+        rightWinchMotor.configFactoryDefault();
+        leftWinchMotor.configFactoryDefault();
 
         rightWinchMotor.setInverted(InvertType.InvertMotorOutput);
         leftWinchMotor.setInverted(InvertType.None);
@@ -62,26 +68,37 @@ public class OldClimber extends SubsystemBase {
         leftWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
         leftWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
         leftWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
-        
+        SmartDashboard.putNumber("Climb Current Limit", 30);
+
         resetEncoders();
         // is this an alternative to magnetic encoders?
-        // rightWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
-        // leftWinchMotor.configForwardSoftLimitThreshold(ENCODER_TICKS_TO_ARMS_LENGTH_DIVIDED_BY_ONE);
-    }
+        rightWinchMotor.configReverseSoftLimitThreshold(0);
+        leftWinchMotor.configReverseSoftLimitThreshold(0);
+         rightWinchMotor.configForwardSoftLimitThreshold(FORWARD_LIMIT_THRESHOLD);
+         leftWinchMotor.configForwardSoftLimitThreshold(FORWARD_LIMIT_THRESHOLD);
+         rightWinchMotor.configForwardSoftLimitEnable(true);
+         leftWinchMotor.configForwardSoftLimitEnable(true);
+        //setBottomSoftLimit(true);
+
+        }
 
     public void setArmDown() {
         armSolenoid.set(Value.kForward);
 
     }
+    
+     public void setArmUp() {
+        armSolenoid.set(Value.kReverse);
 
+    }
+
+    /**
+     * @param armLength double 0-1.
+     * 0 is fully retracted, 1 is fully extended.
+     */
     public void setArmPostion (double armLength) {
         rightWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
         leftWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
-    }
-
-    public void setArmUp() {
-        armSolenoid.set(Value.kReverse);
-
     }
 
     public boolean isArmFullyDown() {
@@ -129,7 +146,7 @@ public class OldClimber extends SubsystemBase {
         return leftWinchMotor.isFwdLimitSwitchClosed() != 0 && rightWinchMotor.isFwdLimitSwitchClosed() != 0;
     }
     /**
-     * use motors to move the climber into extended position
+     * use motors to move the climber into retracted position
      * 
      * @param speed 0-1 speed
      * @return whether motors are still running or not
@@ -141,7 +158,7 @@ public class OldClimber extends SubsystemBase {
             return;
         }
 
-        double leftSpeed = -speed;
+        double leftSpeed = -speed; // negative speed in order to retract the arms.
         double rightSpeed = -speed;
 
         setMotorSpeed(leftSpeed, rightSpeed);
@@ -151,6 +168,9 @@ public class OldClimber extends SubsystemBase {
         return leftWinchMotor.isRevLimitSwitchClosed() != 0 && rightWinchMotor.isRevLimitSwitchClosed() != 0;
     }
 
+    /** 
+     * Stops the climber winch motors 
+     */
     public void stop() {
         setMotorSpeed(0, 0);
     }
@@ -169,14 +189,42 @@ public class OldClimber extends SubsystemBase {
         return rightWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
     }
 
-    // Sets the encoders to 0 no matter where the physical hardware is
+    /** 
+     * Sets the encoders to 0 no matter where the physical hardware is 
+     */ 
     public void resetEncoders(){
         leftWinchMotor.setSelectedSensorPosition(0);
         rightWinchMotor.setSelectedSensorPosition(0);
     }
 
+    public double[] getCurrent(){
+        return new double[] {
+            leftWinchMotor.getStatorCurrent(),
+            rightWinchMotor.getStatorCurrent()
+        };
+    }
+
     @Override
     public void periodic() {
+        double currentLimit = SmartDashboard.getNumber("Climb Current Limit", 30);
+        if (prevCurrentLimit != currentLimit) {
+            StatorCurrentLimitConfiguration cfg = new StatorCurrentLimitConfiguration(true, currentLimit, currentLimit, 0);
+            leftWinchMotor.configStatorCurrentLimit(cfg);
+            rightWinchMotor.configStatorCurrentLimit(cfg);
+            prevCurrentLimit = currentLimit;
+        }
+        SmartDashboard.putNumberArray("Climber Voltage Indicator", getCurrent());
+        SmartDashboard.putNumber("Left Arm Position", getLeftArmPos());
+        SmartDashboard.putNumber("Right Arm Position", getRightArmPos());
         // This method will be called once per scheduler run
     }
+
+
+
+        public void setBottomSoftLimit(boolean enabled)
+        {
+        
+        rightWinchMotor.configReverseSoftLimitEnable(enabled);
+        leftWinchMotor.configReverseSoftLimitEnable(enabled);
+        }
 }

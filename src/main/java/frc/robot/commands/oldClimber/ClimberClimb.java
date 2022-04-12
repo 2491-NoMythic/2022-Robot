@@ -9,8 +9,10 @@ public class ClimberClimb extends CommandBase {
   private OldClimber climber;
   private ArmExtendState state;
 
-  /**
-   * Moves arm up and down
+ /**
+   * Moves arms up and down.
+   * <p>
+   * NOTE: This command stops when the arms have finished moving. Use {@link Climb} instead.
    * 
    * @param climber subsystem
    * @param armState move climber arms UP or DOWN
@@ -26,10 +28,11 @@ public class ClimberClimb extends CommandBase {
 
     switch (state) {
       case UP:
-        climber.climberOut(ARM_SPEED_OUT);
+        climber.setArmPostion(1);
         break;
       case DOWN:
-        climber.climberIn(ARM_SPEED_IN);
+        // climber.climberIn(CLARM_SPEED_IN);
+        climber.setArmPostion(-.005);
         break;
     }
   }
