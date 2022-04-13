@@ -155,12 +155,30 @@ public class NewClimber extends SubsystemBase {
         setTraverseMotorSpeed(speed);
     }
 
-    public boolean isClimberFullyOut()
+    public boolean isMidClimberFullyOut()
     {
-        // if not open(closed)
-        //return midWinchMotor.isFwdLimitSwitchClosed() != 0 && traverseWinchMotor.isFwdLimitSwitchClosed() != 0;
-        return false;
+        if(getMidArmPos() >= 1)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
     }
+
+    public boolean isTraverseClimberFullyOut()
+    {
+        if(getTraverseArmPos() >= 1)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+    }
+
     /**
      * use motors to move the climber into extended position
      * 
@@ -186,8 +204,12 @@ public class NewClimber extends SubsystemBase {
         setTraverseMotorSpeed(speed);
     }
 
-    public boolean isClimberFullyIn(){
-        return midWinchMotor.isRevLimitSwitchClosed() != 0 && traverseWinchMotor.isRevLimitSwitchClosed() != 0;
+    public boolean isMidClimberFullyIn(){
+        return midWinchMotor.isRevLimitSwitchClosed() != 0;
+    }
+
+    public boolean isTraverseClimberFullyIn(){
+        return traverseWinchMotor.isRevLimitSwitchClosed() != 0;
     }
 
     public void stopMid() {

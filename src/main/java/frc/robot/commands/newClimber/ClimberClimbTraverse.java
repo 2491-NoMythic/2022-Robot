@@ -27,10 +27,10 @@ public class ClimberClimbTraverse extends CommandBase {
 
     switch (state) {
       case UP:
-        climber.midClimberArmDown(MID_ARM_SPEED_OUT);
+        climber.setTraverseArmPostion(1.0);
         break;
       case DOWN:
-        climber.midClimberArmUp(MID_ARM_SPEED_IN);
+        climber.setTraverseArmPostion(0.0);
         break;
     }
   }
@@ -40,9 +40,9 @@ public class ClimberClimbTraverse extends CommandBase {
       switch (state){
 
       case UP:
-        return climber.isClimberFullyOut();
+        return climber.isTraverseClimberFullyOut();
       case DOWN:
-        return climber.isClimberFullyIn();
+        return climber.isTraverseClimberFullyIn();
       }
       return false;
   }

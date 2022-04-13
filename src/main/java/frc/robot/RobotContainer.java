@@ -46,6 +46,8 @@ import frc.robot.commands.oldClimber.ClimberClimb;
 import frc.robot.commands.intake.RunIntakeLeft;
 import frc.robot.commands.intake.RunIntakeRight;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
+import frc.robot.commands.newClimber.ArmPneumaticTippingMid;
+import frc.robot.commands.newClimber.ArmPneumaticTippingTraverse;
 import frc.robot.commands.newClimber.ClimberClimbMid;
 import frc.robot.commands.newClimber.ClimberClimbTraverse;
 import frc.robot.settings.Variables;
@@ -217,6 +219,11 @@ public class RobotContainer {
     SmartDashboard.putData("MidArmRetract", new ClimberClimbMid(newClimber, ArmExtendState.DOWN));
     SmartDashboard.putData("TraverseArmExtend", new ClimberClimbTraverse(newClimber, ArmExtendState.UP));
     SmartDashboard.putData("TraverseArmRetract", new ClimberClimbTraverse(newClimber, ArmExtendState.DOWN));
+
+    SmartDashboard.putData("MidArmTiltIn", new ArmPneumaticTippingMid(newClimber, ArmTipState.IN));
+    SmartDashboard.putData("MidArmTiltOut", new ArmPneumaticTippingMid(newClimber, ArmTipState.OUT));
+    SmartDashboard.putData("TraverseArmTiltIn", new ArmPneumaticTippingTraverse(newClimber, ArmTipState.IN));
+    SmartDashboard.putData("TraverseArmTiltOut", new ArmPneumaticTippingTraverse(newClimber, ArmTipState.OUT));
   }
 
   public void oldClimberInit(){
