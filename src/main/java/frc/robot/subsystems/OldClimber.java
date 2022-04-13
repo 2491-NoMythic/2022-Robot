@@ -85,17 +85,7 @@ public class OldClimber extends SubsystemBase {
         leftWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
     }
 
-    public boolean isArmFullyDown() {
-        // TODO sensor things. return bool if sensors say
 
-        return false;
-    }
-
-    public boolean isArmFullyUp() {
-        // TODO sensor things. return bool if sensors say
-
-        return false;
-    }
 
     /**
      * negative percent output values bring climber in, positive bring it out.

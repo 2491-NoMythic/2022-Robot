@@ -85,25 +85,6 @@ public class NewClimber extends SubsystemBase {
         traverseWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
     }
 
-
-
-
-
-
-
-
-    public boolean isArmFullyDown() {
-        // TODO sensor things. return bool if sensors say
-
-        return false;
-    }
-
-    public boolean isArmFullyUp() {
-        // TODO sensor things. return bool if sensors say
-
-        return false;
-    }
-
     private void setTraverseMotorSpeed(double traverseSpeed) {
         traverseWinchMotor.set(ControlMode.PercentOutput, traverseSpeed);
     }
