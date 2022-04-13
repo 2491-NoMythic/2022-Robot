@@ -126,11 +126,11 @@ public final class Constants {
 
         // Turning PID gains
         public static final int TURN_SLOT = 1;
-        public static final int TURN_KP = 0;
-        public static final int TURN_KI = 0;
-        public static final int TURN_KD = 0;
-        public static final int TURN_KF = 0;
-        public static final int TURN_IZ = 0;
+        public static final double TURN_KP = 0.85;
+        public static final double TURN_KI = 0;
+        public static final double TURN_KD = 850;
+        public static final double TURN_KF = 0;
+        public static final double TURN_IZ = 0;
         public static final int TURN_ALLOWED_ERR_NATIVE_UNITS = 0;
 
     }
