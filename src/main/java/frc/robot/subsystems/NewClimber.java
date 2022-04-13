@@ -7,13 +7,15 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.settings.Constants.Climber.*;
+import static frc.robot.settings.Constants.NewClimber.*;
 
 public class NewClimber extends SubsystemBase {
 
@@ -21,6 +23,7 @@ public class NewClimber extends SubsystemBase {
     private DoubleSolenoid traverseArmSolenoid;
     private WPI_TalonFX midWinchMotor;
     private WPI_TalonFX traverseWinchMotor;
+    private double prevCurrentLimit;
 
     /** Creates a new climber. */
     public NewClimber() {
@@ -43,6 +46,15 @@ public class NewClimber extends SubsystemBase {
         midWinchMotor.setNeutralMode(NeutralMode.Brake);
         //negative percent output values bring climber in, positive bring it out.
 
+        
+        traverseWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
+        traverseWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
+        traverseWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
+        midWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
+        midWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
+        midWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
+        SmartDashboard.putNumber("Climb Current Limit", 30);
+
     }
 
     public void setMidArmIn() {
@@ -64,6 +76,21 @@ public class NewClimber extends SubsystemBase {
         traverseArmSolenoid.set(Value.kReverse);
 
     }
+
+    public void setMidArmPostion (double armLength) {
+        midWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
+    }
+
+    public void setTraverseArmPostion (double armLength) {
+        traverseWinchMotor.set(ControlMode.Position, armLength*ARM_LENGTHS_TO_ENCODER_TICKS);
+    }
+
+
+
+
+
+
+
 
     public boolean isArmFullyDown() {
         // TODO sensor things. return bool if sensors say
@@ -173,8 +200,34 @@ public class NewClimber extends SubsystemBase {
     
     }
 
+    public double[] getCurrent(){
+        return new double[] {
+            traverseWinchMotor.getStatorCurrent(),
+            midWinchMotor.getStatorCurrent()
+        };
+    }
+
+    public double getTraverseArmPos() {
+        return traverseWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
+    }
+    
+    public double getMidArmPos() {
+        return midWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_ARMS_LENGTH;
+    }
+
     @Override
     public void periodic() {
+        double currentLimit = SmartDashboard.getNumber("Climb Current Limit", 30);
+        if (prevCurrentLimit != currentLimit) {
+            StatorCurrentLimitConfiguration cfg = new StatorCurrentLimitConfiguration(true, currentLimit, currentLimit, 0);
+            traverseWinchMotor.configStatorCurrentLimit(cfg);
+            midWinchMotor.configStatorCurrentLimit(cfg);
+            prevCurrentLimit = currentLimit;
+        }
+        SmartDashboard.putNumberArray("Climber Current Indicator", getCurrent());
+        SmartDashboard.putNumber("Left Arm Position", getTraverseArmPos());
+        SmartDashboard.putNumber("Right Arm Position", getMidArmPos());
+        
         // This method will be called once per scheduler run
     }
 }

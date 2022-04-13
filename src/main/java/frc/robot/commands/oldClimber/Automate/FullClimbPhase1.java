@@ -5,11 +5,12 @@
 package frc.robot.commands.oldClimber.Automate;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.ArmTipState;
 import frc.robot.commands.intake.Direction;
 import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
-import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
+
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OldClimber;
 
@@ -29,7 +30,7 @@ public class FullClimbPhase1 extends SequentialCommandGroup {
     addCommands(
       new MoveArm(intake, IntakeArmState.armDown),
       new TiltBackAndExtend(climber),
-      new ArmPneumaticTipping(climber, ArmTipState.UP)
+      new ArmPneumaticTipping(climber, ArmTipState.IN)
     );
   }
 }

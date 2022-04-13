@@ -44,7 +44,7 @@ public class ArmPneumaticTippingTraverse extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return timer.get() >= Constants.Climber.TIME_FOR_TRAVERSE_ARM_TO_GO_UP;
+        return timer.get() >= Constants.NewClimber.TIME_FOR_TRAVERSE_ARM_TO_GO_UP;
     }
 
 }
