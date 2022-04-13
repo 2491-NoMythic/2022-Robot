@@ -19,22 +19,6 @@ import static frc.robot.settings.Constants.Climber.*;
 
 public class OldClimber extends SubsystemBase {
 
-    public enum RungLockState {
-        Unlocked(Value.kForward),
-        Locked(Value.kReverse);
-
-        Value solenoidDirection;
-
-        RungLockState(Value v) {
-            solenoidDirection = v;
-        }
-
-        Value getLockStateValue() {
-            return solenoidDirection;
-        }
-    }
-
-    //private DoubleSolenoid rungLockSolenoid;
     private DoubleSolenoid armSolenoid;
     private WPI_TalonFX leftWinchMotor;
     private WPI_TalonFX rightWinchMotor;
