@@ -46,13 +46,12 @@ public class NewClimber extends SubsystemBase {
         midWinchMotor.setNeutralMode(NeutralMode.Brake);
         //negative percent output values bring climber in, positive bring it out.
 
-        
-        traverseWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
-        traverseWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
-        traverseWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
-        midWinchMotor.config_kD(0, CLIMBER_MOTOR_KD);
-        midWinchMotor.config_kP(0, CLIMBER_MOTOR_KP);
-        midWinchMotor.configAllowableClosedloopError(0, CLIMBER_MOTOR_ALLOWABLE_ERROR);
+        traverseWinchMotor.config_kD(0, TRAVERSE_CLIMBER_MOTOR_KD);
+        traverseWinchMotor.config_kP(0, TRAVERSE_CLIMBER_MOTOR_KP);
+        traverseWinchMotor.configAllowableClosedloopError(0, TRAVERSE_CLIMBER_MOTOR_ALLOWABLE_ERROR);
+        midWinchMotor.config_kD(0, MID_CLIMBER_MOTOR_KD);
+        midWinchMotor.config_kP(0, MID_CLIMBER_MOTOR_KP);
+        midWinchMotor.configAllowableClosedloopError(0, MID_CLIMBER_MOTOR_ALLOWABLE_ERROR);
         SmartDashboard.putNumber("Climb Current Limit", 30);
 
     }

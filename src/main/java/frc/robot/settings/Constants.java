@@ -84,11 +84,13 @@ public final class Constants {
         public static final double TRAVERSE_ARM_SPEED_OUT = .7;
         public static final double ARM_SPEED_CALIBRATE = .3;
 
-        public static final double CLIMBER_MOTOR_KP = 0.75;
-        public static final double CLIMBER_MOTOR_KD = 0.05;
-        public static final double CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
+        public static final double MID_CLIMBER_MOTOR_KP = 0.75;
+        public static final double MID_CLIMBER_MOTOR_KD = 0.05;
+        public static final double MID_CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
 
-        
+        public static final double TRAVERSE_CLIMBER_MOTOR_KP = 0.75;
+        public static final double TRAVERSE_CLIMBER_MOTOR_KD = 0.05;
+        public static final double TRAVERSE_CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
     }
 
     public final class Ps4 {
