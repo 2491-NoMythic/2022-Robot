@@ -122,6 +122,7 @@ public final class Constants {
         public static final int DIST_KD = 0;
         public static final int DIST_KF = 0;
         public static final int DIST_IZ = 0;
+        public static final int DIST_CLOSED_LOOP_TIMEOUT = 1;
         public static final int DIST_ALLOWED_ERR_NATIVE_UNITS = 0;
 
         // Turning PID gains
@@ -131,6 +132,8 @@ public final class Constants {
         public static final double TURN_KD = 30;
         public static final double TURN_KF = 0;
         public static final double TURN_IZ = 40;
+        public static final double TURN_INT_ACCUM = 10000;
+        public static final int TURN_CLOSED_LOOP_TIMEOUT = 10;
         public static final int TURN_ALLOWED_ERR_NATIVE_UNITS = 13;
 
     }

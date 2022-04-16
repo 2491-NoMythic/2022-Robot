@@ -91,10 +91,10 @@ public class Drivetrain extends SubsystemBase {
         rightLeadMotor.config_kF(TURN_SLOT, TURN_KF);
         rightLeadMotor.config_IntegralZone(TURN_SLOT, TURN_IZ);
         rightLeadMotor.configAllowableClosedloopError(TURN_SLOT, TURN_ALLOWED_ERR_NATIVE_UNITS);
+        rightLeadMotor.configMaxIntegralAccumulator(TURN_SLOT, TURN_INT_ACCUM);
 
-        int closedLoopTimeoutMS = 1;
-        rightLeadMotor.configClosedLoopPeriod(DIST_SLOT, closedLoopTimeoutMS);
-        rightLeadMotor.configClosedLoopPeriod(TURN_SLOT, closedLoopTimeoutMS);
+        rightLeadMotor.configClosedLoopPeriod(DIST_SLOT, DIST_CLOSED_LOOP_TIMEOUT);
+        rightLeadMotor.configClosedLoopPeriod(TURN_SLOT, TURN_CLOSED_LOOP_TIMEOUT);
 
         rightLeadMotor.configAuxPIDPolarity(false);
 
@@ -109,6 +109,7 @@ public class Drivetrain extends SubsystemBase {
         // addChild("Diff Drive", bbDriveSystem);
 
         // LeftSideLead();
+        SmartDashboard.putData(gyroBirib);
 
     }
 
