@@ -112,7 +112,7 @@ public class RobotContainer {
     runIntakeCommand = new RunIntake(intake, ps4);
     filterCargoCommand = new FilterCargo(intake, pixy);
     intake.setDefaultCommand(runIntakeCommand);
-    // drivetrain.setDefaultCommand(defaultDriveCommand);
+    drivetrain.setDefaultCommand(defaultDriveCommand);
 
     pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
     pcmCompressor.enableDigital();

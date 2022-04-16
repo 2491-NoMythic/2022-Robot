@@ -9,13 +9,11 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.RemoteSensorSource;
 import com.ctre.phoenix.motorcontrol.SensorTerm;
 import com.ctre.phoenix.motorcontrol.StatusFrame;
-import com.ctre.phoenix.motorcontrol.TalonFXFeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.settings.Variables;
-import com.ctre.phoenix.sensors.Pigeon2;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import static frc.robot.settings.Constants.Drivetrain.*;
@@ -35,6 +33,11 @@ public class Drivetrain extends SubsystemBase {
         leftFollowMotor = new WPI_TalonFX(LEFT_FOLLOW_ID);
         rightLeadMotor = new WPI_TalonFX(RIGHT_LEAD_ID);
         rightFollowMotor = new WPI_TalonFX(RIGHT_FOLLOW_ID);
+
+        addChild("rightFollow", rightFollowMotor);
+        addChild("rightLead", rightLeadMotor);
+        addChild("leftFollow", leftFollowMotor);
+        addChild("leftLead", leftLeadMotor);
         leftLeadMotor.configFactoryDefault();
         leftFollowMotor.configFactoryDefault();
         rightLeadMotor.configFactoryDefault();
@@ -47,6 +50,8 @@ public class Drivetrain extends SubsystemBase {
         rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
 
         gyroBirib = new WPI_Pigeon2(GYRO_ID);
+
+        addChild("gyro", gyroBirib);
 
         SetNormalSpeedMode();
 
@@ -97,7 +102,7 @@ public class Drivetrain extends SubsystemBase {
         rightLeadMotor.configAuxPIDPolarity(false);
 
         rightLeadMotor.selectProfileSlot(DIST_SLOT, 0);
-        rightLeadMotor.selectProfileSlot(TURN_SLOT, 0);
+        rightLeadMotor.selectProfileSlot(TURN_SLOT, 1);
 
         gyroBirib.reset();
         resetEncoders();
@@ -161,11 +166,11 @@ public class Drivetrain extends SubsystemBase {
 
     }
 
-    public void stop(){
+    public void stop() {
         setDrive(0);
     }
 
-    public void turnToDegrees(double degrees){
+    public void turnToDegrees(double degrees) {
         turnToDegrees(degrees, true);
     }
 
@@ -173,13 +178,15 @@ public class Drivetrain extends SubsystemBase {
         leftFollowMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
         leftLeadMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
         double targetNatitveUnits = degrees * DEGREES_TO_GYRO_TICKS;
-        if (relative) targetNatitveUnits += gyroBirib.getYaw();
-        rightLeadMotor.set(ControlMode.Position, rightLeadMotor.getSelectedSensorPosition(), DemandType.AuxPID, targetNatitveUnits);
+        if (relative)
+            targetNatitveUnits += gyroBirib.getYaw() * DEGREES_TO_GYRO_TICKS;
+        rightLeadMotor.set(ControlMode.Position, rightLeadMotor.getSelectedSensorPosition(), DemandType.AuxPID,
+                targetNatitveUnits);
     }
 
-    public boolean isAtTurnTarget(){
-        double error = rightLeadMotor.getClosedLoopError();
-        return  (-TURN_ALLOWED_ERR_NATIVE_UNITS <= error ) || (error <= TURN_ALLOWED_ERR_NATIVE_UNITS);
+    public boolean isAtTurnTarget() {
+        double error = rightLeadMotor.getClosedLoopError(1);
+        return (-TURN_ALLOWED_ERR_NATIVE_UNITS <= error) && (error <= TURN_ALLOWED_ERR_NATIVE_UNITS);
     }
 
     public void curvatureDrive(double xSpeed, double zRotation, boolean allowTurnInPlace) {
@@ -232,13 +239,6 @@ public class Drivetrain extends SubsystemBase {
 
     public double getYaw() {
         return gyroBirib.getYaw();
-    }
-
-    public void LeftSideLead() {
-        // TODO CHECK THIS
-        rightLeadMotor.follow(leftLeadMotor);
-        rightLeadMotor.setInverted(InvertType.OpposeMaster);
-
     }
 
     public void SetSlowSpeedMode() {
