@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -140,7 +141,6 @@ public class RobotContainer {
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
     SmartDashboard.putData("climblights", new ClimbLights(lights));
     SmartDashboard.putData("rainbowlights", new RainbowLights(lights));
-    
     SmartDashboard.putNumber("GyroKp",Gyro.kP);
     SmartDashboard.putNumber("GyroKI",Gyro.kI);
     SmartDashboard.putNumber("GyroKD",Gyro.kD);
@@ -207,5 +207,7 @@ public class RobotContainer {
     return autoChooser.getSelected();
     // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
-
+  public void teleopPeriodic() {
+    SmartDashboard.putNumber("Match Timer", Timer.getMatchTime());
+  }
 }
