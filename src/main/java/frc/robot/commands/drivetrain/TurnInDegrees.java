@@ -1,14 +1,11 @@
 package frc.robot.commands.drivetrain;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
-import static frc.robot.settings.Variables.Drivetrain.Gyro.*;
 
-public class TurnInDegrees extends CommandBase{
-    private Drivetrain drivetrain;
+public class TurnInDegrees extends CommandBase {
+  private Drivetrain drivetrain;
   private double degrees;
-  private PIDController pid;
 
   /**
    * Creates a new Rotate command.
@@ -21,28 +18,21 @@ public class TurnInDegrees extends CommandBase{
 
   @Override
   public void initialize() {
-    pid = new PIDController(kP, kI, kD);
-    pid.setTolerance(1,10);
-    pid.setSetpoint(drivetrain.getYaw() + degrees);
+    drivetrain.turnToDegrees(degrees);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    double turnrate = pid.calculate(drivetrain.getYaw());
-    drivetrain.setDrive(turnrate*-1, turnrate);
-  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    drivetrain.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return pid.atSetpoint();
+    return drivetrain.isAtTurnTarget();
   }
 
-  
 }

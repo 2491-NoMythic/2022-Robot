@@ -108,7 +108,8 @@ public final class Constants {
         // nu> motor > wheel > inches
 
         public static final int GYRO_ID = 1;
-        public static final double GYRO_TICKS_TO_DEGREES = (8192.0 / 1) * (1 / 360.0);
+        public static final double DEGREES_TO_GYRO_TICKS = (8192.0 / 1) * (1 / 360.0);
+        public static final double GYRO_TICKS_TO_DEGREES = (1/DEGREES_TO_GYRO_TICKS);
 
         public static final double NORMAL_SPEED = 1;
         public static final double SLOW_SPEED = .5;

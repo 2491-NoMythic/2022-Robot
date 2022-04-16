@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.InvertType;
@@ -41,9 +42,6 @@ public class Drivetrain extends SubsystemBase {
 
         leftFollowMotor.follow(leftLeadMotor);
         rightFollowMotor.follow(rightLeadMotor);
-        
-        leftFollowMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
-        leftLeadMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
 
         leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
         rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
@@ -146,18 +144,42 @@ public class Drivetrain extends SubsystemBase {
         setDriveRight(mode, rightSpeed);
     }
 
-    public void setDriveLeft(ControlMode mode, double speed) {
+    private void setDriveLeft(ControlMode mode, double speed) {
+        leftFollowMotor.follow(leftLeadMotor);
         leftLeadMotor.set(mode, speed);
     }
 
-    public void setDriveRight(ControlMode mode, double speed) {
+    private void setDriveRight(ControlMode mode, double speed) {
+        rightFollowMotor.follow(rightLeadMotor);
         rightLeadMotor.set(mode, speed);
     }
 
     public void setDriveVoltage(double leftOutputVolts, double rightOutputVolts) {
+        leftFollowMotor.follow(leftLeadMotor);
         rightLeadMotor.setVoltage(leftOutputVolts);
         leftLeadMotor.setVoltage(rightOutputVolts);
 
+    }
+
+    public void stop(){
+        setDrive(0);
+    }
+
+    public void turnToDegrees(double degrees){
+        turnToDegrees(degrees, true);
+    }
+
+    public void turnToDegrees(double degrees, boolean relative) {
+        leftFollowMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
+        leftLeadMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
+        double targetNatitveUnits = degrees * DEGREES_TO_GYRO_TICKS;
+        if (relative) targetNatitveUnits += gyroBirib.getYaw();
+        rightLeadMotor.set(ControlMode.Position, rightLeadMotor.getSelectedSensorPosition(), DemandType.AuxPID, targetNatitveUnits);
+    }
+
+    public boolean isAtTurnTarget(){
+        double error = rightLeadMotor.getClosedLoopError();
+        return  (-TURN_ALLOWED_ERR_NATIVE_UNITS <= error ) || (error <= TURN_ALLOWED_ERR_NATIVE_UNITS);
     }
 
     public void curvatureDrive(double xSpeed, double zRotation, boolean allowTurnInPlace) {

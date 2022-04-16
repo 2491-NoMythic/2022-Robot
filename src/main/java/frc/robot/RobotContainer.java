@@ -144,7 +144,8 @@ public class RobotContainer {
     SmartDashboard.putNumber("GyroKp", Gyro.kP);
     SmartDashboard.putNumber("GyroKI", Gyro.kI);
     SmartDashboard.putNumber("GyroKD", Gyro.kD);
-    SmartDashboard.putData("turn in degrees", new TurnInDegrees(drivetrain, 90));
+    SmartDashboard.putData("turn 90 degrees", new TurnInDegrees(drivetrain, 90));
+    SmartDashboard.putData("turn 180 degrees", new TurnInDegrees(drivetrain, 180));
     ShuffleboardLayout limelightLayout = Shuffleboard.getTab("SmartDashboard")
         .getLayout("Limelight", BuiltInLayouts.kList)
         .withSize(1, 2);
