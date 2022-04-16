@@ -141,21 +141,22 @@ public class RobotContainer {
         "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
     SmartDashboard.putData("climblights", new ClimbLights(lights));
     SmartDashboard.putData("rainbowlights", new RainbowLights(lights));
-    SmartDashboard.putNumber("GyroKp",Gyro.kP);
-    SmartDashboard.putNumber("GyroKI",Gyro.kI);
-    SmartDashboard.putNumber("GyroKD",Gyro.kD);
-    SmartDashboard.putData("turn in degrees", new TurnInDegrees(drivetrain, 90));
+
+    SmartDashboard.putNumber("GyroKp", Gyro.kP);
+    SmartDashboard.putNumber("GyroKI", Gyro.kI);
+    SmartDashboard.putNumber("GyroKD", Gyro.kD);
+    SmartDashboard.putData("turn 90 degrees", new TurnInDegrees(drivetrain, 90));
+    SmartDashboard.putData("turn 180 degrees", new TurnInDegrees(drivetrain, 180));
     ShuffleboardLayout limelightLayout = Shuffleboard.getTab("SmartDashboard")
-      .getLayout("Limelight", BuiltInLayouts.kList)
-      .withSize(1, 2);
+        .getLayout("Limelight", BuiltInLayouts.kList)
+        .withSize(1, 2);
     limelightLayout.add(new DriveModeEnable(vision));
     limelightLayout.add(new VisionModeEnable(vision));
- 
+
   }
 
   public void initTelemetry() {
   }
-
 
   /**
    * Use this method to define your button->command mappings. Buttons can be
@@ -187,15 +188,15 @@ public class RobotContainer {
   public void initDisable() {
     drivetrain.coastMode();
   }
-  
+
   public void initEnable() {
     drivetrain.brakeMode();
   }
-  
+
   public void initTeleop() {
     new LightsSoftware(lights, pixy);
   }
-  
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -207,6 +208,7 @@ public class RobotContainer {
     return autoChooser.getSelected();
     // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
+
   public void teleopPeriodic() {
     SmartDashboard.putNumber("Match Timer", Timer.getMatchTime());
   }
