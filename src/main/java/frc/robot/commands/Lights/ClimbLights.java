@@ -2,45 +2,44 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.oldClimber.Automate;
+package frc.robot.commands.Lights;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.OldClimber;
+import frc.robot.subsystems.LightsHardware;
 
-public class TiltBackAndExtend extends CommandBase {
-  OldClimber climber;
-
-  /** 
-   * Tilts the arms back while simultaniously extending them. 
-   * 
-   * @return When the arms have extended fully.
-   */
-  public TiltBackAndExtend(OldClimber climber) {
+public class ClimbLights extends CommandBase {
+  /** Creates a new ClimbLights. */
+  LightsHardware lights;
+  double startingPixel;
+  public ClimbLights(LightsHardware lights) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.climber = climber;
-    addRequirements(climber);
+    this.lights = lights;
+    addRequirements(lights);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    climber.setArmDown();
-    climber.setArmPostion(1.0);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    lights.climbinglights(startingPixel);
+    lights.dataSetter();
+    startingPixel = (startingPixel + .125) % (1 << 20); // mod stops the number from getting too big.
+    //Loops the starting pixel past the last one
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.stop();
+    lights.lightsout();
+    lights.dataSetter();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.isClimberFullyOut();
+    return false;
   }
 }

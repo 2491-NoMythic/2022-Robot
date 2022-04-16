@@ -56,15 +56,16 @@ public final class Constants {
         // clarm means climber arm
         // this has the constants for both the new and old climbers together
 
-        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = 
-            (1/2048.0)*(1/23.73)*(1.25*Math.PI)*(1/24.0);
-        //nu> motor   >  spool  >    inches    > arm lengths
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = (1 / 2048.0) * (1 / 23.73) * (1.25 * Math.PI)
+                * (1 / 24.0);
+        // nu> motor > spool > inches > arm lengths
 
         public static final double ARM_LENGTHS_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_ARMS_LENGTH;
 
         public static final double CLIMBER_MOTOR_KP = 0.75;
         public static final double CLIMBER_MOTOR_KD = 0.05;
         public static final double CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
+        public static final double FORWARD_LIMIT_THRESHOLD = 285000;
     }
 
     public final class Ps4 {
@@ -83,8 +84,6 @@ public final class Constants {
         public static final int LEFT_OUT_BUTTON_ID = 5;
         public static final int SINGLE_BUTTON_CLIMB = 14;
         public static final int PHASE_1_CLIMB_BUTTON_ID = 270;
-        public static final int CALIBRATE_ARMS_BUTTON_ID = 90;
-        public static final int EXTEND_ARM_BUTTON_ID = 0;
         public static final int RETRACT_ARM_BUTTON_ID = 180;
 
     }
@@ -102,11 +101,42 @@ public final class Constants {
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
 
-        public static final double ENCODER_TICKS_TO_INCHES =
-            (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); //TODO: find effective diameter of the wheels.
-        //nu>  motor     >   wheel   >    inches
+        public static final double ENCODER_TICKS_TO_INCHES = (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); // TODO: find
+                                                                                                       // effective
+                                                                                                       // diameter of
+                                                                                                       // the wheels.
+        // nu> motor > wheel > inches
 
         public static final int GYRO_ID = 1;
+        public static final double DEGREES_TO_GYRO_TICKS = (8192.0 / 1) * (1 / 360.0);
+        public static final double GYRO_TICKS_TO_DEGREES = (1/DEGREES_TO_GYRO_TICKS);
+
+        public static final double NORMAL_SPEED = 1;
+        public static final double SLOW_SPEED = .5;
+        public static final int SLOW_BUTTON_ID = 2;
+        // TODO check this with drivers
+
+        // Distance PID gains
+        public static final int DIST_SLOT = 0;
+        public static final int DIST_KP = 0;
+        public static final int DIST_KI = 0;
+        public static final int DIST_KD = 0;
+        public static final int DIST_KF = 0;
+        public static final int DIST_IZ = 0;
+        public static final int DIST_CLOSED_LOOP_TIMEOUT = 1;
+        public static final int DIST_ALLOWED_ERR_NATIVE_UNITS = 0;
+
+        // Turning PID gains
+        public static final int TURN_SLOT = 1;
+        public static final double TURN_KP = 1.5;
+        public static final double TURN_KI = 0.1;
+        public static final double TURN_KD = 30;
+        public static final double TURN_KF = 0;
+        public static final double TURN_IZ = 40;
+        public static final double TURN_INT_ACCUM = 10000;
+        public static final int TURN_CLOSED_LOOP_TIMEOUT = 10;
+        public static final int TURN_ALLOWED_ERR_NATIVE_UNITS = 13;
+
     }
 
     /**
