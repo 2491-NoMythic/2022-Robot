@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.drivetrain.GoForwardInInches;
 import frc.robot.commands.drivetrain.TurnInDegrees;
 import frc.robot.commands.intake.Direction;
@@ -25,50 +24,44 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OldClimber;
 
-public class StartOnEdgeAuto extends SequentialCommandGroup {
-  /** Creates a new StartOnEdgeAuto. 
-  * Starts up against the edge.
-  * Grabs opponent ball
-  * Goes to the hub
-  * Spits the ball
-  * Gets the other opponenet's ball 
-  */
-  public StartOnEdgeAuto(Drivetrain drivetrain, OldClimber climber, Intake intake) {
+public class DirectHubAuto extends SequentialCommandGroup{
+  /** Creates an new DirectHubAuto
+   * Spits ball
+   * Turns around and grabs opponent's ball
+   * Turns and goes directly for other opponent ball
+   */
+  public DirectHubAuto(Drivetrain drivetrain, OldClimber climber, Intake intake) {
     addCommands(
       new InstantCommand(drivetrain::brakeMode, drivetrain),
       new ArmPneumaticTipping(climber, ArmTipState.DOWN),
-
-      new MoveArm(intake, IntakeArmState.armDown),
       new ParallelRaceGroup(
-        new GoForwardInInches(drivetrain, .5, 60),
-        new RunIntakeRight(intake, Direction.IN)
-      ),
-      new TurnInDegrees(drivetrain, 180),
-      new GoForwardInInches(drivetrain, 0.5, 132),
-
-      //should be up on hub
-
-      new ParallelRaceGroup(
-        new RunIntakeLeft(intake, Direction.OUT),
+        new DoubleIntake(intake, Direction.OUT, Direction.OUT),
         new WaitCommand(1)
       ),
+      
+    new ParallelCommandGroup(
+      new TurnInDegrees(drivetrain, 82),
+      new MoveArm(intake, IntakeArmState.armDown)
+    ),
 
-      new GoForwardInInches(drivetrain, .5, -35),
-      new TurnInDegrees(drivetrain, -90),
-      new GoForwardInInches(drivetrain, .5, 50),
-      new TurnInDegrees(drivetrain, 90),
-      new GoForwardInInches(drivetrain, .5, 35),
-      new TurnInDegrees(drivetrain, -90),
+    new ParallelRaceGroup(
+      new GoForwardInInches(drivetrain, .5, 125),
+      new RunIntakeLeft(intake, Direction.IN)
+    ),
+
+      new TurnInDegrees(drivetrain, 135),
+
       new ParallelRaceGroup(
-          new GoForwardInInches(drivetrain, .5, 50),
-          new DoubleIntake(intake, Direction.IN, Direction.IN)
+        new GoForwardInInches(drivetrain, .5, 170),
+        new RunIntakeRight(intake, Direction.IN)
       ),
       new ParallelCommandGroup(
-        new TurnInDegrees(drivetrain, 90),
-        new MoveArm(intake, IntakeArmState.armUp)
+      new TurnInDegrees(drivetrain, 45),
+      new MoveArm(intake, IntakeArmState.armUp)
       ),
-      new CalibrateArmEncoders(climber)
-      // new MoveArm(intake, IntakeArmState.armDown)
+
+   
+    new CalibrateArmEncoders(climber)
     );
   }
 }

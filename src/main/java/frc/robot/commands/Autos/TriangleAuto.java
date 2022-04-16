@@ -25,7 +25,17 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OldClimber;
 
 public class TriangleAuto extends SequentialCommandGroup{
-  /** Creates a new AutonomousAll. */
+  /** Creates a new TriangleAuto. 
+   * Starts up against the hub
+   * Spits the ball
+   * Grabs opponent ball
+   * Goes to the hub
+   * Gets the other opponenet's ball 
+  */
+
+
+
+
   public TriangleAuto(Drivetrain drivetrain, OldClimber climber, Intake intake) {
     addCommands(
       new InstantCommand(drivetrain::brakeMode, drivetrain),
