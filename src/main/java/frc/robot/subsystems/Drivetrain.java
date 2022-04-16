@@ -41,6 +41,9 @@ public class Drivetrain extends SubsystemBase {
 
         leftFollowMotor.follow(leftLeadMotor);
         rightFollowMotor.follow(rightLeadMotor);
+        
+        leftFollowMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
+        leftLeadMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
 
         leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
         rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
@@ -101,8 +104,6 @@ public class Drivetrain extends SubsystemBase {
         gyroBirib.reset();
         resetEncoders();
 
-        leftFollowMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
-        leftLeadMotor.follow(rightLeadMotor, FollowerType.AuxOutput1);
         // bbDriveSystem = new DifferentialDrive(leftMotors, rightMotors);
         // bbDriveSystem.setDeadband(0.04);
         // addChild("Diff Drive", bbDriveSystem);
