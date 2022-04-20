@@ -28,7 +28,7 @@ import io.github.pseudoresonance.pixy2api.Pixy2;
 
 public class TwoBallAutoWithTimeDrive extends SequentialCommandGroup {
   /** Creates a new AutonomousAll. */
-  public TwoBallAutoWithTimeDrive(Drivetrain drivetrain, OldClimber climber, Intake intake, Pixy2SubSystem pixy) {
+  public TwoBallAutoWithTimeDrive(Drivetrain drivetrain, OldClimber climber, Intake intake) {
     addCommands(
 
       new InstantCommand(drivetrain::brakeMode, drivetrain),

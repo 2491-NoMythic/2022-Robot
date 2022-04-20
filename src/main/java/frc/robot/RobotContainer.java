@@ -29,6 +29,7 @@ import frc.robot.commands.LightsSoftware;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
+import frc.robot.commands.Autos.TwoBallAutoWithTimeDrive;
 import frc.robot.commands.Lights.ClimbLights;
 import frc.robot.commands.Lights.RainbowLights;
 import frc.robot.commands.Limelight.VisionModeEnable;
@@ -103,6 +104,8 @@ public class RobotContainer {
     autoChooser = new SendableChooser<>();
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, climber, intake));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, climber, intake));
+    autoChooser.addOption("Two Ball TimeDrive", new TwoBallAutoWithTimeDrive(drivetrain, climber, intake));
+
 
     ps4 = new PS4Controller(CONTROLLER_ID);
     lights = new LightsHardware();
