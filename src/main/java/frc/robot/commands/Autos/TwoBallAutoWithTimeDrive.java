@@ -33,7 +33,7 @@ public class TwoBallAutoWithTimeDrive extends SequentialCommandGroup {
 
       new InstantCommand(drivetrain::brakeMode, drivetrain),
       new ArmPneumaticTipping(climber, ArmTipState.DOWN),
-
+      new WaitCommand(0.3),
 
       new ParallelRaceGroup(
         new DoubleIntake(intake, Direction.OUT, Direction.OUT),
@@ -43,6 +43,7 @@ public class TwoBallAutoWithTimeDrive extends SequentialCommandGroup {
         new ForwardDistance(drivetrain, .3, -.25),
       new TurnInDegrees(drivetrain, 180),
       new MoveArm(intake, IntakeArmState.armDown),
+      new WaitCommand(0.3),
 
       new ParallelRaceGroup(
         new ForwardDistance(drivetrain, 2, .25),
@@ -51,6 +52,7 @@ public class TwoBallAutoWithTimeDrive extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new TurnInDegrees(drivetrain, 180),
         new MoveArm(intake, IntakeArmState.armUp)
+        
       ),
       new ForwardDistance(drivetrain, 2.3, .25),
 

@@ -137,6 +137,8 @@ public final class Constants {
         public static final int TURN_CLOSED_LOOP_TIMEOUT = 10;
         public static final int TURN_ALLOWED_ERR_NATIVE_UNITS = 13;
 
+       // public static final double STOP_GYRO_TIME =
+
     }
 
     /**
