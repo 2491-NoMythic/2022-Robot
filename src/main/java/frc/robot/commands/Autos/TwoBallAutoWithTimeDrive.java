@@ -54,7 +54,7 @@ public class TwoBallAutoWithTimeDrive extends SequentialCommandGroup {
         new MoveArm(intake, IntakeArmState.armUp)
         
       ),
-      new ForwardDistance(drivetrain, 2.3, .25),
+      new ForwardDistance(drivetrain, 3, .25),
 
 
       new ParallelRaceGroup(
