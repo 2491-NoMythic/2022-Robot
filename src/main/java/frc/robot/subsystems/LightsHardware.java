@@ -96,6 +96,22 @@ public class LightsHardware extends SubsystemBase {
     }
   }
 
+  public void createBar(double percentOn, int R, int G, int B){
+    int numberOfLightsOn = (int)Math.round(percentOn*60);
+    for (int i = 0; i < 60; i++){
+      if (i < numberOfLightsOn){
+        setRGBMirrored(i, R, G, B);
+      }
+      else{
+        setRGBMirrored(i, 0, 0, 0);
+      }
+    } 
+  }
+
+  public void batteryLights(double batteryVoltage){
+    createBar(batteryVoltage/13.2, 50, 0, 50);
+  }
+
   public void setOneLight(int index, int R, int G, int B) {
     if (index > NUM_TOTAL_LIGHTS) {
       index = NUM_TOTAL_LIGHTS;

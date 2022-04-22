@@ -26,6 +26,7 @@ import frc.robot.commands.LightsSoftware;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
+import frc.robot.commands.Lights.BatteryLights;
 import frc.robot.commands.Lights.ClimbLights;
 import frc.robot.commands.Lights.RainbowLights;
 import frc.robot.commands.Limelight.DriveModeEnable;
@@ -138,6 +139,7 @@ public class RobotContainer {
     
     SmartDashboard.putData("climblights", new ClimbLights(lights));
     SmartDashboard.putData("rainbowlights", new RainbowLights(lights));
+    SmartDashboard.putData("Battery Lights", new BatteryLights(lights));
 
     SmartDashboard.putNumber("GyroKp", Gyro.kP);
     SmartDashboard.putNumber("GyroKI", Gyro.kI);
