@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
@@ -104,28 +105,16 @@ public class RobotContainer {
   private final Vision vision;
   private final Intake intake;
   private final Pixy2SubSystem pixy;
-  private final PointAtCargo pointAtCargo;
-  private AutomatedClimb automatedClimb;
   private final Drive defaultDriveCommand;
   private SendableChooser<Command> autoChooser;
-  // private final MoveArm intakeUpCommand;
-  // private final MoveArm intakeDownCommand;
   private final RunIntake runIntakeCommand;
-  private Climb runClimbCommand;
   private FilterCargo filterCargoCommand;
-  // private final RunIntakeLeft intakeLeftInCommand;
-  // private final RunIntakeLeft intakeLeftOutCommand;
-  // private final RunIntakeLeft intakeLeftStopCommand;
-  // private final RunIntakeRight intakeRightInCommand;
-  // private final RunIntakeRight intakeRightOutCommand;
-  // private final RunIntakeRight intakeRightStopCommand;
   private final PS4Controller ps4;
   private JoystickButton lightsToggle;
-  private JoystickButton onebClimber;
   private Compressor pcmCompressor;
 
   // Change this to switch climbers in use. Rebuild/deploy necessary until changed to use preferences.
-  private final ClimberType climberType = ClimberType.OLD;
+  private static final ClimberType climberType = ClimberType.OLD;
 
   public enum ClimberType {
     OLD,
@@ -148,8 +137,6 @@ public class RobotContainer {
     pixy = new Pixy2SubSystem();
 
     defaultDriveCommand = new Drive(drivetrain);
-    pointAtCargo = new PointAtCargo(drivetrain, vision);
-    //automatedClimb = new AutomatedClimb(climber);
     runIntakeCommand = new RunIntake(intake, ps4);
     filterCargoCommand = new FilterCargo(intake, pixy);
     intake.setDefaultCommand(runIntakeCommand);
@@ -158,8 +145,6 @@ public class RobotContainer {
     pcmCompressor = new Compressor(PneumaticsModuleType.CTREPCM);
     pcmCompressor.enableDigital();
     pcmCompressor.enabled();
-
-    configureSmartDashboard();
     
     switch (climberType) {
       case OLD:
@@ -171,50 +156,18 @@ public class RobotContainer {
     }
   }
 
-  private void configureSmartDashboard() {
-    SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
-    SmartDashboard.putData("filter cargo", new FilterCargo(intake, pixy));
-    SmartDashboard.putData("drivetrain", drivetrain);
-    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
-    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
-    SmartDashboard.putData("Choose Auto", autoChooser);
-    SmartDashboard.putNumber("Ramp Rate", Variables.Drivetrain.ramp);
-    SmartDashboard.putString("Things to remember",
-        "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
-    SmartDashboard.putData("climblights", new ClimbLights(lights));
-    SmartDashboard.putData("rainbowlights", new RainbowLights(lights));
-    SmartDashboard.putData("toggle lights", new LightsSoftware(lights, pixy));
-    
-    SmartDashboard.putNumber("GyroKp",Gyro.kP);
-    SmartDashboard.putNumber("GyroKI",Gyro.kI);
-    SmartDashboard.putNumber("GyroKD",Gyro.kD);
-    SmartDashboard.putData("turn in degrees", new TurnInDegrees(drivetrain, 90));
-    ShuffleboardLayout limelightLayout = Shuffleboard.getTab("SmartDashboard")
-      .getLayout("Limelight", BuiltInLayouts.kList)
-      .withSize(1, 2);
-    limelightLayout.add(new DriveModeEnable(vision));
-    limelightLayout.add(new VisionModeEnable(vision));
- 
-  }
-
-  public void initTelemetry() {
-  }
-
-  public void initDisable() {
-    drivetrain.coastMode();
-  }
-  
-  public void initEnable() {
-    drivetrain.brakeMode();
-  }
-
   public void newClimberInit() {
   
     newClimber = new NewClimber();
 
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, newClimber, intake));
-    autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, oldClimber, intake));
+    autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, newClimber, intake));
 
+    configNewClimberDashboard();
+    configNewClimberButtonBindings();
+  }
+
+  public void configNewClimberDashboard() {
     SmartDashboard.putData("MidArmExtend", new ClimberClimbMid(newClimber, ArmExtendState.UP));
     SmartDashboard.putData("MidArmRetract", new ClimberClimbMid(newClimber, ArmExtendState.DOWN));
     SmartDashboard.putData("TraverseArmExtend", new ClimberClimbTraverse(newClimber, ArmExtendState.UP));
@@ -226,51 +179,95 @@ public class RobotContainer {
     SmartDashboard.putData("TraverseArmTiltOut", new ArmPneumaticTippingTraverse(newClimber, ArmTipState.OUT));
   }
 
+  public void configNewClimberButtonBindings() {
+    lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
+    lightsToggle.toggleWhenPressed(new LightsSoftware(lights, pixy));
+
+    JoystickButton cargoFilterButton = new JoystickButton(ps4, INTAKEFILTER_BUTTON_ID);
+    cargoFilterButton.whenHeld(filterCargoCommand);
+
+    // NEED CLIMBER BUTTONS HERE
+  }
+
   public void oldClimberInit(){
 
-   oldClimber = new OldClimber();
+    oldClimber = new OldClimber();
 
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, oldClimber, intake));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, oldClimber, intake));
 
-    automatedClimb = new AutomatedClimb(oldClimber, drivetrain);
-//runClimbCommand = new Climb(oldClimber, );
-
-    //button bindings
-    JoystickButton cargoFilterButton = new JoystickButton(ps4, INTAKEFILTER_BUTTON_ID);
-    cargoFilterButton.whenHeld(filterCargoCommand);
-    POVButton Phase1Button = new POVButton(ps4, PHASE_1_CLIMB_BUTTON_ID);
-    POVButton RetractButton = new POVButton(ps4, RETRACT_ARM_BUTTON_ID);
-
-    Climb armRetract = new Climb(oldClimber, frc.robot.commands.oldClimber.Climb.ArmExtendState.IN);
-    FullClimbPhase1 phase1 = new FullClimbPhase1(oldClimber, intake);
-    Phase1Button.whenPressed(phase1);
-    RetractButton.whileHeld(armRetract);
-
+    configOldClimberDashboard();
+    configOldClimberButtonBindings();
+  }
+  
+  public void configOldClimberDashboard() {
+    SmartDashboard.putData("Test Vision", new PointAtCargo(drivetrain, vision));
+    SmartDashboard.putData("filter cargo", new FilterCargo(intake, pixy));
+    SmartDashboard.putData("drivetrain", drivetrain);
+    SmartDashboard.putData("Burn In", new BurnIn(drivetrain));
+    SmartDashboard.putData("forwardOneSecond", new ForwardDistance(drivetrain, 1, .25));
+    SmartDashboard.putData("Choose Auto", autoChooser);
+    SmartDashboard.putNumber("Ramp Rate", Variables.Drivetrain.ramp);
     SmartDashboard.putData("ArmsExtend", new ClimberClimb(oldClimber, ArmExtendState.UP));
     SmartDashboard.putData("ArmsRetract", new ClimberClimb(oldClimber, ArmExtendState.DOWN));
     SmartDashboard.putData("ArmsTiltOut", new ArmPneumaticTipping(oldClimber, ArmTipState.OUT));
     SmartDashboard.putData("ArmsTiltIn", new  ArmPneumaticTipping(oldClimber, ArmTipState.IN));
     SmartDashboard.putData("Calibrate Climber", new CalibrateArmEncoders(oldClimber));
-    SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(oldClimber, intake));
+    SmartDashboard.putData("Phase1Climb", new FullClimbPhase1(oldClimber, intake, lights));
+    SmartDashboard.putString("Things to remember",
+        "The robot climbs backwards, Put the robot with the intake facing at the lower hub.");
+    SmartDashboard.putData("climblights", new ClimbLights(lights));
+    SmartDashboard.putData("rainbowlights", new RainbowLights(lights));
+
+    SmartDashboard.putNumber("GyroKp", Gyro.kP);
+    SmartDashboard.putNumber("GyroKI", Gyro.kI);
+    SmartDashboard.putNumber("GyroKD", Gyro.kD);
+    SmartDashboard.putData("turn 90 degrees", new TurnInDegrees(drivetrain, 90));
+    SmartDashboard.putData("turn 180 degrees", new TurnInDegrees(drivetrain, 180));
+    ShuffleboardLayout limelightLayout = Shuffleboard.getTab("SmartDashboard")
+        .getLayout("Limelight", BuiltInLayouts.kList)
+        .withSize(1, 2);
+    limelightLayout.add(new DriveModeEnable(vision));
+    limelightLayout.add(new VisionModeEnable(vision));
   }
 
+  private void configOldClimberButtonBindings() {
+    lightsToggle = new JoystickButton(ps4, LIGHTS_BUTTON_ID);
+    lightsToggle.toggleWhenPressed(new LightsSoftware(lights, pixy));
 
-  
+    JoystickButton cargoFilterButton = new JoystickButton(ps4, INTAKEFILTER_BUTTON_ID);
+    cargoFilterButton.whenHeld(filterCargoCommand);
+    POVButton phase1Button = new POVButton(ps4, PHASE_1_CLIMB_BUTTON_ID);
+    POVButton retractButton = new POVButton(ps4, RETRACT_ARM_BUTTON_ID);
+
+    Climb armRetract = new Climb(oldClimber, frc.robot.commands.oldClimber.Climb.ArmExtendState.IN);
+    FullClimbPhase1 phase1 = new FullClimbPhase1(oldClimber, intake, lights);
+    phase1Button.whenPressed(phase1);
+    retractButton.whileHeld(armRetract);
+  }
+
+  public void initDisable() {
+    drivetrain.coastMode();
+  }
+
+  public void initEnable() {
+    drivetrain.brakeMode();
+  }
+
   public void initTeleop() {
     new LightsSoftware(lights, pixy);
   }
-  
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-
-    // moves us off tarmack
     return autoChooser.getSelected();
-    // return new ForwardDistance(drivetrain, 3.5, -.25);
   }
 
+  public void teleopPeriodic() {
+    SmartDashboard.putNumber("Match Timer", Timer.getMatchTime());
+  }
 }
