@@ -43,16 +43,17 @@ public class NewClimber extends SubsystemBase {
         addChild("Mid Winch Motor", midWinchMotor);
         addChild("Mid Winch Follower", midWinchFollowerMotor);
         addChild("Traverse Winch Motor", traverseWinchMotor);
+
+        midWinchMotor.configFactoryDefault();
+        midWinchFollowerMotor.configFactoryDefault();
+        traverseWinchMotor.configFactoryDefault();
+
         //TODO: configure motor inverts
         midWinchMotor.setInverted(InvertType.None);
         midWinchFollowerMotor.setInverted(InvertType.None);
         traverseWinchMotor.setInverted(InvertType.None);
 
         midWinchFollowerMotor.follow(midWinchMotor);
-
-        traverseWinchMotor.set(ControlMode.PercentOutput, 0);
-        midWinchMotor.set(ControlMode.PercentOutput, 0);
-        midWinchFollowerMotor.set(ControlMode.PercentOutput, 0);
 
         traverseWinchMotor.setNeutralMode(NeutralMode.Brake);
         midWinchMotor.setNeutralMode(NeutralMode.Brake);
@@ -66,7 +67,9 @@ public class NewClimber extends SubsystemBase {
         midWinchMotor.configAllowableClosedloopError(0, MID_CLIMBER_MOTOR_ALLOWABLE_ERROR);
         Shuffleboard.getTab("Config").add("Climb Current Limit", 30);
 
+        stop();
         resetEncoders();
+
         midWinchMotor.configReverseSoftLimitThreshold(0);
         traverseWinchMotor.configReverseSoftLimitThreshold(0);
         midWinchMotor.configForwardSoftLimitThreshold(MID_FORWARD_LIMIT_THRESHOLD);
@@ -198,6 +201,11 @@ public class NewClimber extends SubsystemBase {
 
     public void stopTraverse() {
         setTraverseMotorSpeed(0);
+    }
+
+    public void stop() {
+        stopMid();
+        stopTraverse();
     }
 
     public double[] getCurrent(){
