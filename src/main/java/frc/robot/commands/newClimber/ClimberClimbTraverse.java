@@ -2,55 +2,45 @@ package frc.robot.commands.newClimber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.NewClimber;
-import static frc.robot.settings.Constants.Climber.*;
+import frc.robot.ArmExtendState;
 
 public class ClimberClimbTraverse extends CommandBase {
-  NewClimber climber;
-  frc.robot.commands.newClimber.ClimberClimbMid.ArmExtendState state;
+  private NewClimber climber;
+  private ArmExtendState state;
   
-  public enum ArmExtendState {
-    IN,
-    OUT
-  }
-
   /**
    * 
    * Moves arm up and down
    * 
-   * @param ArmExtendState
-   *
+   * @param climber subsystem
+   * @param armExtendState choose moving arm up or down
    */
-  public ClimberClimbTraverse(NewClimber climber, frc.robot.commands.newClimber.ClimberClimbMid.ArmExtendState out) {
+  public ClimberClimbTraverse(NewClimber climber, ArmExtendState out) {
     this.climber = climber;
     addRequirements(climber);
     state = out;
   }
 
-
   @Override
   public void execute() {
 
     switch (state) {
-
-      case OUT:
-        climber.midClimberArmDown(MID_ARM_SPEED_OUT);
+      case UP:
+        climber.setTraverseArmPostion(1.0);
         break;
-      case IN:
-        climber.midClimberArmUp(MID_ARM_SPEED_IN);
+      case DOWN:
+        climber.setTraverseArmPostion(0.0);
         break;
     }
-
   }
-
 
   @Override
   public boolean isFinished() {
-      switch (state){
-
-      case OUT:
-        return climber.isClimberFullyOut();
-      case IN:
-        return climber.isClimberFullyIn();
+      switch (state) {
+        case UP:
+          return climber.isTraverseClimberFullyOut();
+        case DOWN:
+          return climber.isTraverseClimberFullyIn();
       }
       return false;
   }

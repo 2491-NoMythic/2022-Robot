@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.ArmTipState;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.drivetrain.GoForwardInInches;
 import frc.robot.commands.drivetrain.TurnInDegrees;
@@ -19,7 +20,6 @@ import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
 import frc.robot.commands.oldClimber.ArmPneumaticTipping;
 import frc.robot.commands.oldClimber.CalibrateArmEncoders;
-import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.OldClimber;
@@ -53,7 +53,7 @@ public class TwoBallAuto extends ParallelRaceGroup {
         new DoubleIntake(intake, Direction.OUT, Direction.OUT),
         new WaitCommand(2)
       ),
-      new ArmPneumaticTipping(climber, ArmTipState.DOWN),
+      new ArmPneumaticTipping(climber, ArmTipState.OUT),
       new ParallelCommandGroup(
         new GoForwardInInches(drivetrain, .5, -350),
         new MoveArm(intake, IntakeArmState.armUp),

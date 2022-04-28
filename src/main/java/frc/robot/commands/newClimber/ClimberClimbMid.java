@@ -2,17 +2,12 @@ package frc.robot.commands.newClimber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.NewClimber;
-import static frc.robot.settings.Constants.Climber.*;
+import frc.robot.ArmExtendState;
 
 public class ClimberClimbMid extends CommandBase {
-  NewClimber climber;
-  ArmExtendState state;
-  
-  public enum ArmExtendState {
-    IN,
-    OUT
-  }
-
+  private NewClimber climber;
+  private ArmExtendState state;
+ 
   /**
    * 
    * Moves arm up and down
@@ -26,32 +21,28 @@ public class ClimberClimbMid extends CommandBase {
     state = armState;
   }
 
-
   @Override
   public void execute() {
-
     switch (state) {
-
-      case OUT:
-        climber.midClimberArmDown(TRAVERSE_ARM_SPEED_OUT);
+      case DOWN:
+        climber.setMidArmPostion(1.0);
         break;
-      case IN:
-        climber.midClimberArmUp(TRAVERSE_ARM_SPEED_IN);
+      case UP:
+        climber.setMidArmPostion(0.0);
         break;
     }
-
   }
-
 
   @Override
   public boolean isFinished() {
       switch (state){
+        case UP:
 
-      case OUT:
-        return climber.isClimberFullyOut();
-      case IN:
-        return climber.isClimberFullyIn();
-      }
+         return climber.isMidClimberFullyOut();
+
+        case DOWN:
+          return climber.isMidClimberFullyIn();
+        }
       return false;
   }
 

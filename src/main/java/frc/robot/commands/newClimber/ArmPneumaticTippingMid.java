@@ -4,25 +4,21 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.NewClimber;
 import frc.robot.settings.Constants;
+import frc.robot.ArmTipState;
 
 public class ArmPneumaticTippingMid extends CommandBase {
 
-    NewClimber climber;
-    Timer timer;
-    MidArmTipState targetState;
-
-    public enum MidArmTipState {
-        OUT,
-        IN
-    }
-
+    private NewClimber climber;
+    private Timer timer;
+    private ArmTipState targetState;
+    
     /**
      * 
      * @param climber
      * @param midArmTipState
      */
 
-    public ArmPneumaticTippingMid(NewClimber climber, MidArmTipState midArmTipState) {
+    public ArmPneumaticTippingMid(NewClimber climber, ArmTipState midArmTipState) {
         this.climber = climber;
         timer = new Timer();
         addRequirements(climber);
@@ -48,7 +44,7 @@ public class ArmPneumaticTippingMid extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return timer.get() >= Constants.Climber.TIME_FOR_MID_ARM_TO_GO_UP;
+        return timer.get() >= Constants.NewClimberConstants.TIME_FOR_MID_ARM_TO_GO_UP;
     }
 
 }

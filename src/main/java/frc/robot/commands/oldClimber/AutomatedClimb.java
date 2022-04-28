@@ -5,9 +5,9 @@
 package frc.robot.commands.oldClimber;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.ArmExtendState;
+import frc.robot.ArmTipState;
 import frc.robot.commands.drivetrain.ForwardDistance;
-import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
-import frc.robot.commands.oldClimber.ClimberClimb.ArmExtendState;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.OldClimber;
 
@@ -20,13 +20,13 @@ public class AutomatedClimb extends SequentialCommandGroup {
   public AutomatedClimb(OldClimber climber, Drivetrain drivetrain) {
     // Add your commands in the addCommands() call, e.g.
     addCommands(
-    new ClimberClimb(climber, ArmExtendState.OUT),
-    new ForwardDistance(drivetrain, 3, 0.3),
-    new ClimberClimb(climber, ArmExtendState.IN), 
-    new ArmPneumaticTipping(climber, ArmTipState.DOWN),
-    new ClimberClimb(climber, ArmExtendState.OUT),
-    new ArmPneumaticTipping(climber, ArmTipState.UP),
-    new ClimberClimb(climber, ArmExtendState.IN)
+      new ClimberClimb(climber, ArmExtendState.UP),
+      new ForwardDistance(drivetrain, 3, 0.3),
+      new ClimberClimb(climber, ArmExtendState.DOWN), 
+      new ArmPneumaticTipping(climber, ArmTipState.OUT),
+      new ClimberClimb(climber, ArmExtendState.UP),
+      new ArmPneumaticTipping(climber, ArmTipState.IN),
+      new ClimberClimb(climber, ArmExtendState.DOWN)
     );
   }
 }

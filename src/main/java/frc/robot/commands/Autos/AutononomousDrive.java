@@ -5,14 +5,18 @@
 package frc.robot.commands.Autos;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.oldClimber.ArmPneumaticTipping;
+import frc.robot.ArmTipState;
 import frc.robot.commands.drivetrain.ForwardDistance;
 import frc.robot.commands.intake.MoveArm;
 import frc.robot.commands.intake.MoveArm.IntakeArmState;
-import frc.robot.commands.oldClimber.ArmPneumaticTipping;
-import frc.robot.commands.oldClimber.ArmPneumaticTipping.ArmTipState;
+import frc.robot.commands.newClimber.ArmPneumaticTippingMid;
+import frc.robot.commands.newClimber.ArmPneumaticTippingTraverse;
+import frc.robot.subsystems.OldClimber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.OldClimber;
+import frc.robot.subsystems.NewClimber;
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -24,11 +28,17 @@ public class AutononomousDrive extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ForwardDistance(drivetrain, 2.3, -.25),
-      new ArmPneumaticTipping(climber, ArmTipState.DOWN),
+      new ArmPneumaticTipping(climber, ArmTipState.OUT),
       new MoveArm(intake, IntakeArmState.armDown)
+    );
+  }
 
-
-
+  public AutononomousDrive(Drivetrain drivetrain, NewClimber climber, Intake intake) {
+    addCommands(
+      new ForwardDistance(drivetrain, 2.3, -.25),
+      new ArmPneumaticTippingTraverse(climber, ArmTipState.IN),
+      new ArmPneumaticTippingMid(climber, ArmTipState.IN),
+      new MoveArm(intake, IntakeArmState.armDown)
     );
   }
 }
