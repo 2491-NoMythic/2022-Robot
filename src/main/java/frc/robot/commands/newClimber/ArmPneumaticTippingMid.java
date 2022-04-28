@@ -44,7 +44,7 @@ public class ArmPneumaticTippingMid extends CommandBase {
 
     @Override
     public boolean isFinished() {
-        return timer.get() >= Constants.NewClimber.TIME_FOR_MID_ARM_TO_GO_UP;
+        return timer.get() >= Constants.NewClimberConstants.TIME_FOR_MID_ARM_TO_GO_UP;
     }
 
 }

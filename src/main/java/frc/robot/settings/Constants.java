@@ -43,12 +43,10 @@ public final class Constants {
         public static final double ARM_SPEED_IN = .8;
        
         public static final double ARM_SPEED_CALIBRATE = .3;
-        // clarm means climber arm
-        // this has the constants for both the new and old climbers together
 
-        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = (1 / 2048.0) * (1 / 23.73) * (1.25 * Math.PI)
-                * (1 / 24.0);
-        // nu> motor > spool > inches > arm lengths
+        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = 
+            (1 / 2048.0) * (1 / 23.73) * (1.25 * Math.PI) * (1 / 24.0);
+        //   nu> motor > spool > inches > arm lengths
 
         public static final double ARM_LENGTHS_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_ARMS_LENGTH;
 
@@ -58,14 +56,20 @@ public final class Constants {
         public static final double FORWARD_LIMIT_THRESHOLD = 285000;
     }
 
-    public final class NewClimber
+    public final class NewClimberConstants
     {
-        public static final double ENCODER_TICKS_TO_ARMS_LENGTH = 
+        //TODO: set real values
+        public static final double ENCODER_TICKS_TO_MID_ARMS_LENGTH = 
             (1/2048.0)*(9/64.0)*(18/64.0)*(1.8*Math.PI)*(1/32.375);
         //nu> motor   > Gear 1 >  spool  >    inches   > arm lengths
 
-        public static final double ARM_LENGTHS_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_ARMS_LENGTH;
+        //TODO: set real values
+        public static final double ENCODER_TICKS_TO_TRAVERSAL_ARMS_LENGTH = 
+            (1/2048.0)*(9/64.0)*(18/64.0)*(1.8*Math.PI)*(1/32.375);
+        //nu> motor   > Gear 1 >  spool  >    inches   > arm lengths
 
+        public static final double MID_ARM_LENGTH_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_MID_ARMS_LENGTH;
+        public static final double TRAVERSAL_ARM_LENGTH_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_TRAVERSAL_ARMS_LENGTH;
 
         public static final int MID_WINCH_ID = 5;
         public static final int TRAVERSE_WINCH_ID = 6;
@@ -91,6 +95,10 @@ public final class Constants {
         public static final double TRAVERSE_CLIMBER_MOTOR_KP = 0.75;
         public static final double TRAVERSE_CLIMBER_MOTOR_KD = 0.05;
         public static final double TRAVERSE_CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
+
+        //TODO need real values
+        public static final double MID_FORWARD_LIMIT_THRESHOLD = 0;
+        public static final double TRAVERSE_FORWARD_LIMIT_THRESHOLD = 0;
     }
 
     public final class Ps4 {

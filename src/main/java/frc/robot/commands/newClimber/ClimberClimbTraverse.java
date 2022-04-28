@@ -2,7 +2,6 @@ package frc.robot.commands.newClimber;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.NewClimber;
-import static frc.robot.settings.Constants.NewClimber.*;
 import frc.robot.ArmExtendState;
 
 public class ClimberClimbTraverse extends CommandBase {
@@ -37,12 +36,11 @@ public class ClimberClimbTraverse extends CommandBase {
 
   @Override
   public boolean isFinished() {
-      switch (state){
-
-      case UP:
-        return climber.isTraverseClimberFullyOut();
-      case DOWN:
-        return climber.isTraverseClimberFullyIn();
+      switch (state) {
+        case UP:
+          return climber.isTraverseClimberFullyOut();
+        case DOWN:
+          return climber.isTraverseClimberFullyIn();
       }
       return false;
   }

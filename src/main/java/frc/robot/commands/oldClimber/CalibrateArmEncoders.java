@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.OldClimber;
 import static frc.robot.settings.Constants.Climber.*;
 
-
 public class CalibrateArmEncoders extends CommandBase {
-  OldClimber climber;
+  private OldClimber climber;
 
   /**
    * Moves the climber arms down to the bottom hall-effect sensors, then zeroes out the encoders.
