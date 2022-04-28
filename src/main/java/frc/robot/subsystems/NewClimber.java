@@ -30,8 +30,10 @@ public class NewClimber extends SubsystemBase {
 
     /** Creates a new climber. */
     public NewClimber() {
-        midArmSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, MID_ARM_FORWARD_CHANNEL, MID_ARM_REVERSE_CHANNEL);
-        traverseArmSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, TRAVERSE_ARM_FORWARD_CHANNEL, TRAVERSE_ARM_REVERSE_CHANNEL);
+        midArmSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, MID_ARM_FORWARD_CHANNEL,
+                MID_ARM_REVERSE_CHANNEL);
+        traverseArmSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, TRAVERSE_ARM_FORWARD_CHANNEL,
+                TRAVERSE_ARM_REVERSE_CHANNEL);
 
         addChild("Mid Arm Solenoid", midArmSolenoid);
         addChild("Traverse Arm Solenoid", traverseArmSolenoid);
@@ -48,7 +50,7 @@ public class NewClimber extends SubsystemBase {
         midWinchFollowerMotor.configFactoryDefault();
         traverseWinchMotor.configFactoryDefault();
 
-        //TODO: configure motor inverts
+        // TODO: configure motor inverts
         midWinchMotor.setInverted(InvertType.None);
         midWinchFollowerMotor.setInverted(InvertType.None);
         traverseWinchMotor.setInverted(InvertType.None);
@@ -75,12 +77,14 @@ public class NewClimber extends SubsystemBase {
         midWinchMotor.configForwardSoftLimitThreshold(MID_FORWARD_LIMIT_THRESHOLD);
         traverseWinchMotor.configForwardSoftLimitThreshold(TRAVERSE_FORWARD_LIMIT_THRESHOLD);
 
+        setSoftlimitEnable(true);
+
     }
 
     public void setSoftlimitEnable(boolean enable) {
         midWinchMotor.configForwardSoftLimitEnable(enable);
         midWinchMotor.configReverseSoftLimitEnable(enable);
-        
+
         traverseWinchMotor.configForwardSoftLimitEnable(enable);
         traverseWinchMotor.configReverseSoftLimitEnable(enable);
     }
@@ -101,11 +105,11 @@ public class NewClimber extends SubsystemBase {
         traverseArmSolenoid.set(Value.kReverse);
     }
 
-    public void setMidArmPostion (double armLength) {
+    public void setMidArmPostion(double armLength) {
         midWinchMotor.set(ControlMode.Position, armLength * TRAVERSAL_ARM_LENGTH_TO_ENCODER_TICKS);
     }
 
-    public void setTraverseArmPostion (double armLength) {
+    public void setTraverseArmPostion(double armLength) {
         traverseWinchMotor.set(ControlMode.Position, armLength * MID_ARM_LENGTH_TO_ENCODER_TICKS);
     }
 
@@ -135,6 +139,7 @@ public class NewClimber extends SubsystemBase {
 
     /**
      * probably shouldn't be used - only set position to go up
+     * 
      * @param speed
      */
     public void traverseClimberArmUp(double speed) {
@@ -161,13 +166,11 @@ public class NewClimber extends SubsystemBase {
         setTraverseMotorSpeed(speed);
     }
 
-    public boolean isMidClimberFullyOut()
-    {
+    public boolean isMidClimberFullyOut() {
         return getMidArmPos() >= 1;
     }
 
-    public boolean isTraverseClimberFullyOut()
-    {
+    public boolean isTraverseClimberFullyOut() {
         return getTraverseArmPos() >= 1;
     }
 
@@ -194,11 +197,11 @@ public class NewClimber extends SubsystemBase {
         setTraverseMotorSpeed(speed);
     }
 
-    public boolean isMidClimberFullyIn(){
+    public boolean isMidClimberFullyIn() {
         return midWinchMotor.isRevLimitSwitchClosed() != 0;
     }
 
-    public boolean isTraverseClimberFullyIn(){
+    public boolean isTraverseClimberFullyIn() {
         return traverseWinchMotor.isRevLimitSwitchClosed() != 0;
     }
 
@@ -215,17 +218,17 @@ public class NewClimber extends SubsystemBase {
         stopTraverse();
     }
 
-    public double[] getCurrent(){
+    public double[] getCurrent() {
         return new double[] {
-            traverseWinchMotor.getStatorCurrent(),
-            midWinchMotor.getStatorCurrent()
+                traverseWinchMotor.getStatorCurrent(),
+                midWinchMotor.getStatorCurrent()
         };
     }
 
     public double getTraverseArmPos() {
         return traverseWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_TRAVERSAL_ARMS_LENGTH;
     }
-    
+
     public double getMidArmPos() {
         return midWinchMotor.getSelectedSensorPosition() * ENCODER_TICKS_TO_MID_ARMS_LENGTH;
     }
@@ -235,7 +238,8 @@ public class NewClimber extends SubsystemBase {
         // I don't think we want to limit the current - give it all she's got scottie
         double currentLimit = SmartDashboard.getNumber("Climb Current Limit", 30);
         if (prevCurrentLimit != currentLimit) {
-            StatorCurrentLimitConfiguration cfg = new StatorCurrentLimitConfiguration(true, currentLimit, currentLimit, 0);
+            StatorCurrentLimitConfiguration cfg = new StatorCurrentLimitConfiguration(true, currentLimit, currentLimit,
+                    0);
             traverseWinchMotor.configStatorCurrentLimit(cfg);
             midWinchMotor.configStatorCurrentLimit(cfg);
             prevCurrentLimit = currentLimit;
@@ -245,10 +249,10 @@ public class NewClimber extends SubsystemBase {
         SmartDashboard.putNumber("Mid Arm Position", getMidArmPos());
     }
 
-    /** 
-     * Sets the encoders to 0 no matter where the physical hardware is 
-     */ 
-    public void resetEncoders(){
+    /**
+     * Sets the encoders to 0 no matter where the physical hardware is
+     */
+    public void resetEncoders() {
         traverseWinchMotor.setSelectedSensorPosition(0);
         midWinchMotor.setSelectedSensorPosition(0);
         midWinchFollowerMotor.setSelectedSensorPosition(0);
