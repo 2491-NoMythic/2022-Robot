@@ -31,13 +31,21 @@ public class NewClimber extends SubsystemBase {
     public NewClimber() {
         midArmSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, MID_ARM_FORWARD_CHANNEL, MID_ARM_REVERSE_CHANNEL);
         traverseArmSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, TRAVERSE_ARM_FORWARD_CHANNEL, TRAVERSE_ARM_REVERSE_CHANNEL);
+
+        addChild("Mid Arm Solenoid", midArmSolenoid);
+        addChild("Traverse Arm Solenoid", traverseArmSolenoid);
+
         midWinchMotor = new WPI_TalonFX(MID_WINCH_ID);
         midWinchFollowerMotor = new WPI_TalonFX(MID_WINCH_FOLLOWER_ID);
         traverseWinchMotor = new WPI_TalonFX(TRAVERSE_WINCH_ID);
 
-        traverseWinchMotor.setInverted(InvertType.None);
+        addChild("Mid Winch Motor", midWinchMotor);
+        addChild("Mid Winch Follower", midWinchFollowerMotor);
+        addChild("Traverse Winch Motor", traverseWinchMotor);
+        //TODO: configure motor inverts
         midWinchMotor.setInverted(InvertType.None);
         midWinchFollowerMotor.setInverted(InvertType.None);
+        traverseWinchMotor.setInverted(InvertType.None);
 
         midWinchFollowerMotor.follow(midWinchMotor);
 
