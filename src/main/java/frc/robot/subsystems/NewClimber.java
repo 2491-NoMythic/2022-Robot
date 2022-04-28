@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -63,7 +64,7 @@ public class NewClimber extends SubsystemBase {
         midWinchMotor.config_kD(0, MID_CLIMBER_MOTOR_KD);
         midWinchMotor.config_kP(0, MID_CLIMBER_MOTOR_KP);
         midWinchMotor.configAllowableClosedloopError(0, MID_CLIMBER_MOTOR_ALLOWABLE_ERROR);
-        SmartDashboard.putNumber("Climb Current Limit", 30);
+        Shuffleboard.getTab("Config").add("Climb Current Limit", 30);
 
         resetEncoders();
         midWinchMotor.configReverseSoftLimitThreshold(0);
