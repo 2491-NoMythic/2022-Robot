@@ -74,8 +74,15 @@ public class NewClimber extends SubsystemBase {
         traverseWinchMotor.configReverseSoftLimitThreshold(0);
         midWinchMotor.configForwardSoftLimitThreshold(MID_FORWARD_LIMIT_THRESHOLD);
         traverseWinchMotor.configForwardSoftLimitThreshold(TRAVERSE_FORWARD_LIMIT_THRESHOLD);
-        midWinchMotor.configForwardSoftLimitEnable(true);
-        traverseWinchMotor.configForwardSoftLimitEnable(true);
+
+    }
+
+    public void setSoftlimitEnable(boolean enable) {
+        midWinchMotor.configForwardSoftLimitEnable(enable);
+        midWinchMotor.configReverseSoftLimitEnable(enable);
+        
+        traverseWinchMotor.configForwardSoftLimitEnable(enable);
+        traverseWinchMotor.configReverseSoftLimitEnable(enable);
     }
 
     public void setMidArmIn() {
