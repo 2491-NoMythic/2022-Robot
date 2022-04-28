@@ -163,7 +163,6 @@ public class Drivetrain extends SubsystemBase {
         leftFollowMotor.follow(leftLeadMotor);
         rightLeadMotor.setVoltage(leftOutputVolts);
         leftLeadMotor.setVoltage(rightOutputVolts);
-
     }
 
     public void stop() {
@@ -200,7 +199,6 @@ public class Drivetrain extends SubsystemBase {
         SmartDashboard.putNumber("gyro", getYaw());
         leftLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
         rightLeadMotor.configOpenloopRamp(Variables.Drivetrain.ramp);
-
     }
 
     private void setNeutralMode(NeutralMode mode) {

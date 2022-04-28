@@ -72,6 +72,7 @@ public final class Constants {
         public static final double TRAVERSAL_ARM_LENGTH_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_TRAVERSAL_ARMS_LENGTH;
 
         public static final int MID_WINCH_ID = 5;
+        public static final int MID_WINCH_FOLLOWER_ID = 9;
         public static final int TRAVERSE_WINCH_ID = 6;
 
         public static final double TIME_FOR_MID_ARM_TO_GO_UP = 2;

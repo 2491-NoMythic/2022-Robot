@@ -19,7 +19,6 @@ public class PointAtCargo extends CommandBase {
     this.vision = vision;
     addRequirements(drivetrain);
     addRequirements(vision);
-
   }
 
   // Called when the command is initially scheduled.
@@ -43,8 +42,6 @@ public class PointAtCargo extends CommandBase {
       drivetrain.setDrive(0);
     }
     SmartDashboard.putNumber("hAngle", hPos);
-
-
   }
 
   // Called once the command ends or is interrupted.

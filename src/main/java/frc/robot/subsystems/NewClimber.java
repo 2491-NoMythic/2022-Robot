@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.settings.Constants.NewClimberConstants.*;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -11,39 +13,41 @@ import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import static frc.robot.settings.Constants.NewClimberConstants.*;
 
 public class NewClimber extends SubsystemBase {
 
     private DoubleSolenoid midArmSolenoid;
     private DoubleSolenoid traverseArmSolenoid;
     private WPI_TalonFX midWinchMotor;
+    private WPI_TalonFX midWinchFollowerMotor;
     private WPI_TalonFX traverseWinchMotor;
     private double prevCurrentLimit;
 
     /** Creates a new climber. */
     public NewClimber() {
-
-        // rungLockSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, RUNG_LOCK_FORWARD_CHANNEL,
-                // RUNG_LOCK_REVERSE_CHANNEL);
         midArmSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, MID_ARM_FORWARD_CHANNEL, MID_ARM_REVERSE_CHANNEL);
         traverseArmSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, TRAVERSE_ARM_FORWARD_CHANNEL, TRAVERSE_ARM_REVERSE_CHANNEL);
         midWinchMotor = new WPI_TalonFX(MID_WINCH_ID);
+        midWinchFollowerMotor = new WPI_TalonFX(MID_WINCH_FOLLOWER_ID);
         traverseWinchMotor = new WPI_TalonFX(TRAVERSE_WINCH_ID);
 
         traverseWinchMotor.setInverted(InvertType.None);
         midWinchMotor.setInverted(InvertType.None);
+        midWinchFollowerMotor.setInverted(InvertType.None);
+
+        midWinchFollowerMotor.follow(midWinchMotor);
 
         traverseWinchMotor.set(ControlMode.PercentOutput, 0);
         midWinchMotor.set(ControlMode.PercentOutput, 0);
+        midWinchFollowerMotor.set(ControlMode.PercentOutput, 0);
 
         traverseWinchMotor.setNeutralMode(NeutralMode.Brake);
         midWinchMotor.setNeutralMode(NeutralMode.Brake);
-        //negative percent output values bring climber in, positive bring it out.
+        midWinchFollowerMotor.setNeutralMode(NeutralMode.Brake);
 
         traverseWinchMotor.config_kD(0, TRAVERSE_CLIMBER_MOTOR_KD);
         traverseWinchMotor.config_kP(0, TRAVERSE_CLIMBER_MOTOR_KP);
@@ -223,5 +227,6 @@ public class NewClimber extends SubsystemBase {
     public void resetEncoders(){
         traverseWinchMotor.setSelectedSensorPosition(0);
         midWinchMotor.setSelectedSensorPosition(0);
+        midWinchFollowerMotor.setSelectedSensorPosition(0);
     }
 }
