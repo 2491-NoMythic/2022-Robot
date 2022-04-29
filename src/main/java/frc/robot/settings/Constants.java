@@ -60,13 +60,13 @@ public final class Constants {
     {
         //TODO: set real values
         public static final double ENCODER_TICKS_TO_MID_ARMS_LENGTH = 
-            (1/2048.0)*(9/64.0)*(18/64.0)*(1.8*Math.PI)*(1/32.375);
+            (1/2048.0)*(9/64.0)*(18/64.0)*(1.5*Math.PI)*(1/32.375);
         //nu> motor   > Gear 1 >  spool  >    inches   > arm lengths
 
         //TODO: set real values
         public static final double ENCODER_TICKS_TO_TRAVERSAL_ARMS_LENGTH = 
-            (1/2048.0)*(9/64.0)*(18/64.0)*(1.8*Math.PI)*(1/32.375);
-        //nu> motor   > Gear 1 >  spool  >    inches   > arm lengths
+            (1/2048.0)*(9/64.0)*(18/64.0)*(1.75*Math.PI)*(1/32.375);
+        //nu> motor   > Gear 1 >  spool  >    inches    > arm lengths
 
         public static final double MID_ARM_LENGTH_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_MID_ARMS_LENGTH;
         public static final double TRAVERSAL_ARM_LENGTH_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_TRAVERSAL_ARMS_LENGTH;
