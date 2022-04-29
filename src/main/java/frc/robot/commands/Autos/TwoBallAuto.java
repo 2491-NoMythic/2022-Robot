@@ -34,20 +34,28 @@ public class TwoBallAuto extends ParallelRaceGroup {
 
       new InstantCommand(drivetrain::brakeMode, drivetrain),
 
+      new ParallelRaceGroup(
         new DoubleIntake(intake, Direction.OUT, Direction.OUT),
- 
+        new WaitCommand(1)
+      ),
+      new GoForwardInInches(drivetrain, .25, -10),
+
       new TurnInDegrees(drivetrain, 180),
-      new MoveArm(intake, IntakeArmState.armDown),
+      new ParallelRaceGroup(
+        new MoveArm(intake, IntakeArmState.armDown),
+        new WaitCommand(2)
+      ),
 
       new ParallelRaceGroup(
-        new GoForwardInInches(drivetrain, .5, 350),
+        new GoForwardInInches(drivetrain, .25, 40),
         new DoubleIntake(intake, Direction.IN, Direction.IN)
       ),
+
       new ParallelCommandGroup(
         new TurnInDegrees(drivetrain, 180),
         new MoveArm(intake, IntakeArmState.armUp)
       ),
-      new GoForwardInInches(drivetrain, .5, 180),
+      new GoForwardInInches(drivetrain, .25, 50),
 
       new ParallelRaceGroup(
         new DoubleIntake(intake, Direction.OUT, Direction.OUT),
@@ -55,7 +63,8 @@ public class TwoBallAuto extends ParallelRaceGroup {
       ),
       new ArmPneumaticTipping(climber, ArmTipState.OUT),
       new ParallelCommandGroup(
-        new GoForwardInInches(drivetrain, .5, -350),
+        new GoForwardInInches(drivetrain, .25, -50),
+
         new MoveArm(intake, IntakeArmState.armUp),
         new CalibrateArmEncoders(climber)
       )

@@ -26,6 +26,7 @@ import frc.robot.commands.LightsSoftware;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
+import frc.robot.commands.Autos.TwoBallAuto;
 import frc.robot.commands.Lights.ClimbLights;
 import frc.robot.commands.Lights.RainbowLights;
 import frc.robot.commands.Limelight.DriveModeEnable;
@@ -156,6 +157,7 @@ public class RobotContainer {
 
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, newClimber, intake));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, newClimber, intake));
+    autoChooser.addOption("2 Ball Score", new TwoBallAuto(drivetrain, oldClimber, intake, pixy));
 
     configNewClimberDashboard();
     configNewClimberButtonBindings();
@@ -189,6 +191,7 @@ public class RobotContainer {
     oldClimber = new OldClimber();
 
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, oldClimber, intake));
+    autoChooser.addOption("2 Ball Score", new TwoBallAuto(drivetrain, oldClimber, intake, pixy));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, oldClimber, intake));
 
     configOldClimberDashboard();
