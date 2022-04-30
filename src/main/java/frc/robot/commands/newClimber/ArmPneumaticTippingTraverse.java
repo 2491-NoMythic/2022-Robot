@@ -30,21 +30,17 @@ public class ArmPneumaticTippingTraverse extends CommandBase {
         timer.reset();
         timer.start();
         switch (targetState) {
-
             case OUT:
                 climber.setTraverseArmOut();
                 break;
-
             case IN:
                 climber.setTraverseArmIn();
                 break;
         }
-
     }
 
     @Override
     public boolean isFinished() {
-        return timer.get() >= Constants.NewClimberConstants.TIME_FOR_TRAVERSE_ARM_TO_GO_UP;
+        return timer.get() >= Constants.NewClimberConstants.TIME_FOR_TRAVERSE_ARM_TO_TIP;
     }
-
 }

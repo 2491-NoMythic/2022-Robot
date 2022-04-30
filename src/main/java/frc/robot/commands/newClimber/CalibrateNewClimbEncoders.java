@@ -23,13 +23,14 @@ public class CalibrateNewClimbEncoders extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        newClimber.setSoftlimitEnable(false);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        newClimber.traverseClimberArmDown(ARM_SPEED_CALIBRATE);
-        newClimber.midClimberArmDown(ARM_SPEED_CALIBRATE);
+        newClimber.setTraverseMotorSpeed(ARM_SPEED_CALIBRATE);
+        newClimber.setMidMotorSpeed(ARM_SPEED_CALIBRATE);
     }
 
     // Called once the command ends or is interrupted.
@@ -37,6 +38,7 @@ public class CalibrateNewClimbEncoders extends CommandBase {
     public void end(boolean interrupted) {
         newClimber.stopMid();
         newClimber.stopTraverse();
+        newClimber.setSoftlimitEnable(true);
         if (!interrupted) {
             newClimber.resetEncoders();
         }
@@ -45,6 +47,6 @@ public class CalibrateNewClimbEncoders extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return newClimber.isMidClimberFullyIn() && newClimber.isTraverseClimberFullyIn();
+        return newClimber.isMidClimberFullyDown() && newClimber.isTraverseClimberFullyDown();
     }
 }

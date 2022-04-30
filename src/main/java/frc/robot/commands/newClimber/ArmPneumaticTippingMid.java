@@ -30,21 +30,17 @@ public class ArmPneumaticTippingMid extends CommandBase {
         timer.reset();
         timer.start();
         switch (targetState) {
-
             case OUT:
                 climber.setMidArmOut();
                 break;
-
             case IN:
                 climber.setMidArmIn();
                 break;
         }
-
     }
 
     @Override
     public boolean isFinished() {
-        return timer.get() >= Constants.NewClimberConstants.TIME_FOR_MID_ARM_TO_GO_UP;
+        return timer.get() >= Constants.NewClimberConstants.TIME_FOR_MID_ARM_TO_TIP;
     }
-
 }

@@ -38,16 +38,16 @@ public class ClimberClimbTraverse extends CommandBase {
   public boolean isFinished() {
       switch (state) {
         case UP:
-          return climber.isTraverseClimberFullyOut();
+          return climber.isTraverseClimberFullyUp();
         case DOWN:
-          return climber.isTraverseClimberFullyIn();
+          return climber.isTraverseClimberFullyDown();
       }
       return false;
   }
 
   @Override
   public void end(boolean interrupted) {
-    climber.stopMid();
+    climber.stopTraverse();
   }
 
 }

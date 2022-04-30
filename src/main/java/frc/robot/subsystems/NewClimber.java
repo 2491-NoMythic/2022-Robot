@@ -50,10 +50,9 @@ public class NewClimber extends SubsystemBase {
         midWinchFollowerMotor.configFactoryDefault();
         traverseWinchMotor.configFactoryDefault();
 
-        // TODO: configure motor inverts
-        midWinchMotor.setInverted(InvertType.None);
-        midWinchFollowerMotor.setInverted(InvertType.None);
-        traverseWinchMotor.setInverted(InvertType.None);
+        midWinchMotor.setInverted(InvertType.InvertMotorOutput);
+        midWinchFollowerMotor.setInverted(InvertType.InvertMotorOutput);
+        traverseWinchMotor.setInverted(InvertType.InvertMotorOutput);
 
         midWinchFollowerMotor.follow(midWinchMotor);
 
@@ -78,7 +77,6 @@ public class NewClimber extends SubsystemBase {
         traverseWinchMotor.configForwardSoftLimitThreshold(TRAVERSE_FORWARD_LIMIT_THRESHOLD);
 
         setSoftlimitEnable(true);
-
     }
 
     public void setSoftlimitEnable(boolean enable) {
@@ -90,118 +88,50 @@ public class NewClimber extends SubsystemBase {
     }
 
     public void setMidArmIn() {
-        midArmSolenoid.set(Value.kForward);
-    }
-
-    public void setTraverseArmIn() {
-        traverseArmSolenoid.set(Value.kForward);
-    }
-
-    public void setMidArmOut() {
         midArmSolenoid.set(Value.kReverse);
     }
 
-    public void setTraverseArmOut() {
+    public void setTraverseArmIn() {
         traverseArmSolenoid.set(Value.kReverse);
     }
 
+    public void setMidArmOut() {
+        midArmSolenoid.set(Value.kForward);
+    }
+
+    public void setTraverseArmOut() {
+        traverseArmSolenoid.set(Value.kForward);
+    }
+
     public void setMidArmPostion(double armLength) {
-        midWinchMotor.set(ControlMode.Position, armLength * TRAVERSAL_ARM_LENGTH_TO_ENCODER_TICKS);
+        midWinchMotor.set(ControlMode.Position, armLength * MID_ARM_LENGTH_TO_ENCODER_TICKS);
     }
 
     public void setTraverseArmPostion(double armLength) {
-        traverseWinchMotor.set(ControlMode.Position, armLength * MID_ARM_LENGTH_TO_ENCODER_TICKS);
+        traverseWinchMotor.set(ControlMode.Position, armLength * TRAVERSAL_ARM_LENGTH_TO_ENCODER_TICKS);
     }
 
-    private void setTraverseMotorSpeed(double traverseSpeed) {
+    public void setTraverseMotorSpeed(double traverseSpeed) {
         traverseWinchMotor.set(ControlMode.PercentOutput, traverseSpeed);
     }
 
-    private void setMidMotorSpeed(double midSpeed) {
+    public void setMidMotorSpeed(double midSpeed) {
         midWinchMotor.set(ControlMode.PercentOutput, midSpeed);
     }
 
-    /**
-     * use motors to move the climber into extended position
-     * probably shouldn't be used - only set position to go up
-     * 
-     * @param speed 0-1 speed
-     * @return whether motors are still running or not
-     * @note method must be called repeatedly so robot can accuratley check sensors
-     */
-    public void midClimberArmUp(double speed) {
-        if (speed < 0) {
-            setMidMotorSpeed(0);
-            return;
-        }
-        setMidMotorSpeed(speed);
-    }
-
-    /**
-     * probably shouldn't be used - only set position to go up
-     * 
-     * @param speed
-     */
-    public void traverseClimberArmUp(double speed) {
-        if (speed < 0) {
-            setTraverseMotorSpeed(0);
-            return;
-        }
-        setTraverseMotorSpeed(speed);
-    }
-
-    public void midClimberArmDown(double speed) {
-        if (speed > 0) {
-            setMidMotorSpeed(0);
-            return;
-        }
-        setMidMotorSpeed(speed);
-    }
-
-    public void traverseClimberArmDown(double speed) {
-        if (speed > 0) {
-            setTraverseMotorSpeed(0);
-            return;
-        }
-        setTraverseMotorSpeed(speed);
-    }
-
-    public boolean isMidClimberFullyOut() {
+    public boolean isMidClimberFullyUp() {
         return getMidArmPos() >= 1;
     }
 
-    public boolean isTraverseClimberFullyOut() {
+    public boolean isTraverseClimberFullyUp() {
         return getTraverseArmPos() >= 1;
     }
 
-    /**
-     * use motors to move the climber into extended position
-     * 
-     * @param speed 0-1 speed
-     * @return whether motors are still running or not
-     * @note method must be called repeatedly so robot can accuratley check sensors
-     */
-    public void midclimberIn(double speed) {
-        if (speed < 0) {
-            setMidMotorSpeed(0);
-            return;
-        }
-        setMidMotorSpeed(speed);
-    }
-
-    public void traverseclimberIn(double speed) {
-        if (speed < 0) {
-            setTraverseMotorSpeed(0);
-            return;
-        }
-        setTraverseMotorSpeed(speed);
-    }
-
-    public boolean isMidClimberFullyIn() {
+    public boolean isMidClimberFullyDown() {
         return midWinchMotor.isRevLimitSwitchClosed() != 0;
     }
 
-    public boolean isTraverseClimberFullyIn() {
+    public boolean isTraverseClimberFullyDown() {
         return traverseWinchMotor.isRevLimitSwitchClosed() != 0;
     }
 

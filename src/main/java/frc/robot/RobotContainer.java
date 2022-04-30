@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -87,7 +88,7 @@ public class RobotContainer {
   }
 
   // Change this to switch climbers in use. Rebuild/deploy necessary until changed to use preferences.
-  private static final ClimberType climberType = ClimberType.OLD;
+  private static final ClimberType climberType = ClimberType.NEW;
 
    /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -149,6 +150,19 @@ public class RobotContainer {
         .withSize(1, 2);
     limelightLayout.add(new DriveModeEnable(vision));
     limelightLayout.add(new VisionModeEnable(vision));
+    
+    ShuffleboardTab climberTab = Shuffleboard.getTab("Climber");
+    climberTab.add("Mid Tilt Out", new ArmPneumaticTippingMid(newClimber, ArmTipState.OUT));
+    climberTab.add("Mid Tilt In", new ArmPneumaticTippingMid(newClimber, ArmTipState.IN));
+    climberTab.add("Traverse Tilt Out", new ArmPneumaticTippingTraverse(newClimber, ArmTipState.OUT));
+    climberTab.add("Traverse Tilt In", new ArmPneumaticTippingTraverse(newClimber, ArmTipState.IN));
+
+    climberTab.add("Mid Arm Up", new ClimberClimbMid(newClimber, ArmExtendState.UP));
+    climberTab.add("Mid Arm Down", new ClimberClimbMid(newClimber, ArmExtendState.DOWN));
+    climberTab.add("Traverse Arm Up", new ClimberClimbTraverse(newClimber, ArmExtendState.UP));
+    climberTab.add("Traverse Arm Down", new ClimberClimbTraverse(newClimber, ArmExtendState.DOWN));
+
+    climberTab.add("Calibrate NewClimber", new CalibrateNewClimbEncoders(newClimber));
   }
 
   private void newClimberInit() {

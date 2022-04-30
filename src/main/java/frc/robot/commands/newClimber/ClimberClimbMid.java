@@ -22,12 +22,12 @@ public class ClimberClimbMid extends CommandBase {
   }
 
   @Override
-  public void execute() {
+  public void initialize() {
     switch (state) {
-      case DOWN:
+      case UP:
         climber.setMidArmPostion(1.0);
         break;
-      case UP:
+      case DOWN:
         climber.setMidArmPostion(0.0);
         break;
     }
@@ -37,11 +37,9 @@ public class ClimberClimbMid extends CommandBase {
   public boolean isFinished() {
       switch (state){
         case UP:
-
-         return climber.isMidClimberFullyOut();
-
+         return climber.isMidClimberFullyUp();
         case DOWN:
-          return climber.isMidClimberFullyIn();
+          return climber.isMidClimberFullyDown();
         }
       return false;
   }
@@ -50,5 +48,4 @@ public class ClimberClimbMid extends CommandBase {
   public void end(boolean interrupted) {
     climber.stopMid();
   }
-
 }

@@ -60,23 +60,25 @@ public final class Constants {
     {
         //TODO: set real values
         public static final double ENCODER_TICKS_TO_MID_ARMS_LENGTH = 
-            (1/2048.0)*(9/64.0)*(18/64.0)*(1.8*Math.PI)*(1/32.375);
+            (1/2048.0)*(9/64.0)*(18/64.0)*(1.5*Math.PI)*(1/32.9);
         //nu> motor   > Gear 1 >  spool  >    inches   > arm lengths
 
         //TODO: set real values
         public static final double ENCODER_TICKS_TO_TRAVERSAL_ARMS_LENGTH = 
-            (1/2048.0)*(9/64.0)*(18/64.0)*(1.8*Math.PI)*(1/32.375);
+            (1/2048.0)*(9/64.0)*(18/64.0)*(1.75*Math.PI)*(1/32.0);
         //nu> motor   > Gear 1 >  spool  >    inches   > arm lengths
 
         public static final double MID_ARM_LENGTH_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_MID_ARMS_LENGTH;
         public static final double TRAVERSAL_ARM_LENGTH_TO_ENCODER_TICKS = 1.0 / ENCODER_TICKS_TO_TRAVERSAL_ARMS_LENGTH;
+        public static final double MID_FORWARD_LIMIT_THRESHOLD = TRAVERSAL_ARM_LENGTH_TO_ENCODER_TICKS + 5000;
+        public static final double TRAVERSE_FORWARD_LIMIT_THRESHOLD = MID_ARM_LENGTH_TO_ENCODER_TICKS + 3000;
 
-        public static final int MID_WINCH_ID = 5;
-        public static final int MID_WINCH_FOLLOWER_ID = 9;
-        public static final int TRAVERSE_WINCH_ID = 6;
+        public static final int MID_WINCH_ID = 6;
+        public static final int MID_WINCH_FOLLOWER_ID = 5;
+        public static final int TRAVERSE_WINCH_ID = 9;
 
-        public static final double TIME_FOR_MID_ARM_TO_GO_UP = 2;
-        public static final double TIME_FOR_TRAVERSE_ARM_TO_GO_UP = 2;
+        public static final double TIME_FOR_MID_ARM_TO_TIP = 0.5;
+        public static final double TIME_FOR_TRAVERSE_ARM_TO_TIP = 0.5;
 
         public static final int MID_ARM_FORWARD_CHANNEL = 2;
         public static final int MID_ARM_REVERSE_CHANNEL = 3;
@@ -87,19 +89,18 @@ public final class Constants {
         public static final double MID_ARM_SPEED_OUT = .7;
         public static final double TRAVERSE_ARM_SPEED_IN = .5;
         public static final double TRAVERSE_ARM_SPEED_OUT = .7;
-        public static final double ARM_SPEED_CALIBRATE = .3;
+        public static final double ARM_SPEED_CALIBRATE = -0.3;
 
-        public static final double MID_CLIMBER_MOTOR_KP = 0.75;
-        public static final double MID_CLIMBER_MOTOR_KD = 0.05;
-        public static final double MID_CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
+        public static final double MID_CLIMBER_MOTOR_KP = 0.1;
+        public static final double MID_CLIMBER_MOTOR_KD = 17.0;
+        public static final double MID_CLIMBER_MOTOR_ALLOWABLE_ERROR = 400;
 
-        public static final double TRAVERSE_CLIMBER_MOTOR_KP = 0.75;
-        public static final double TRAVERSE_CLIMBER_MOTOR_KD = 0.05;
-        public static final double TRAVERSE_CLIMBER_MOTOR_ALLOWABLE_ERROR = 300;
+        public static final double TRAVERSE_CLIMBER_MOTOR_KP = 0.1;
+        public static final double TRAVERSE_CLIMBER_MOTOR_KD = 0.0;
+        public static final double TRAVERSE_CLIMBER_MOTOR_ALLOWABLE_ERROR = 400;
 
         //TODO need real values
-        public static final double MID_FORWARD_LIMIT_THRESHOLD = 0;
-        public static final double TRAVERSE_FORWARD_LIMIT_THRESHOLD = 0;
+
     }
 
     public final class Ps4 {
