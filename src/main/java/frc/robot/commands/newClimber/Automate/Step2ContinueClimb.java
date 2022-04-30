@@ -22,10 +22,8 @@ public class Step2ContinueClimb extends SequentialCommandGroup {
     
         addCommands(
         
-        new ParallelCommandGroup(
-          new ArmPneumaticTippingMid(climber, ArmTipState.OUT),
-          new ClimberClimbMid(climber, ArmExtendState.UP)
-        ),
+          new ClimberClimbMid(climber, ArmExtendState.DOWN),
+
 
         new ArmPneumaticTippingTraverse(climber, ArmTipState.IN),
         
