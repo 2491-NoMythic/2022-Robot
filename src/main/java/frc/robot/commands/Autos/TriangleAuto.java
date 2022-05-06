@@ -78,11 +78,24 @@ public class TriangleAuto extends SequentialCommandGroup{
     //new WaitCommand(45),
 
     new ParallelRaceGroup(
-      new GoForwardInInches(drivetrain, .4, 115),
+      new GoForwardInInches(drivetrain, .4, 100),
       new DoubleIntake(intake, Direction.IN, Direction.IN)
     ),
 
-    new WaitCommand(.2),
+    
+    new ParallelRaceGroup(
+      new GoForwardInInches(drivetrain, .2, 15),
+      new DoubleIntake(intake, Direction.IN, Direction.IN)
+    ),
+    
+
+    new ParallelRaceGroup(
+      new WaitCommand(.2),
+      new DoubleIntake(intake, Direction.IN, Direction.IN)
+    ),
+
+    new GoForwardInInches(drivetrain, .25, -6),
+
 
     new MoveArm(intake, IntakeArmState.armUp),
     
