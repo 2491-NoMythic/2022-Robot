@@ -135,11 +135,11 @@ public final class Constants {
         public static final int RIGHT_LEAD_ID = 2;
         public static final int RIGHT_FOLLOW_ID = 4;
 
-        public static final double ENCODER_TICKS_TO_INCHES = (1.0 / 2048) * (1.0 / 8) * (4 * Math.PI); // TODO: find
-                                                                                                       // effective
-                                                                                                       // diameter of
-                                                                                                       // the wheels.
-        // nu> motor > wheel > inches
+        public static final double ENCODER_TICKS_TO_INCHES =
+            (1.0/2048)*(1.0/8)*(4*Math.PI); // TODO: find effective diameter of the wheels.
+        //nu>  motor  > wheel >   inches
+        public static final double INCHES_TO_ENCODER_TICKS = 1 / ENCODER_TICKS_TO_INCHES;
+
 
         public static final int GYRO_ID = 1;
         public static final double DEGREES_TO_GYRO_TICKS = (8192.0 / 1) * (1 / 360.0);
