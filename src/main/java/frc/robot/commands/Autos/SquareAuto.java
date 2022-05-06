@@ -48,17 +48,37 @@ public class SquareAuto extends SequentialCommandGroup {
 
 
     new ParallelRaceGroup(
-      new GoForwardInInches(drivetrain, .5, 50),
+      new GoForwardInInches(drivetrain, .5, 45),
       new DoubleIntake(intake, Direction.IN, Direction.IN)
     ),
 
     
     new ParallelCommandGroup(
-      new TurnInDegrees(drivetrain, 10),
+      new TurnInDegrees(drivetrain, -102.5),
       new MoveArm(intake, IntakeArmState.armUp)
-    )
+    ),
 
-   // new 
+
+    new GoForwardInInches(drivetrain, .5, 125),
+
+    
+    new ParallelCommandGroup(
+      new TurnInDegrees(drivetrain, -90),
+      new MoveArm(intake, IntakeArmState.armDown)
+    ),
+
+    new ParallelRaceGroup(
+      new GoForwardInInches(drivetrain, .5, 62),
+      new DoubleIntake(intake, Direction.IN, Direction.IN)
+    ),
+
+    new MoveArm(intake, IntakeArmState.armUp),
+    new ParallelRaceGroup(
+      new WaitCommand(.4),
+      new DoubleIntake(intake, Direction.IN, Direction.IN)
+  ),
+  new CalibrateArmEncoders(climber)
+
     );
 
 

@@ -26,6 +26,7 @@ import frc.robot.commands.LightsSoftware;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
+import frc.robot.commands.Autos.SquareAuto;
 import frc.robot.commands.Autos.StartOnEdgeAuto;
 import frc.robot.commands.Autos.TriangleAuto;
 import frc.robot.commands.Lights.BatteryLights;
@@ -196,6 +197,8 @@ public class RobotContainer {
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, oldClimber, intake));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, oldClimber, intake));
     autoChooser.addOption("triangle", new TriangleAuto(drivetrain, oldClimber, intake));
+    autoChooser.addOption("Square", new SquareAuto(drivetrain, oldClimber, intake));
+
 
     configOldClimberDashboard();
     configOldClimberButtonBindings();
