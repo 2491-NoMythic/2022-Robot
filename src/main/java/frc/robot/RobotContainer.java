@@ -26,6 +26,7 @@ import frc.robot.commands.LightsSoftware;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
+import frc.robot.commands.Autos.OpponentCargo;
 import frc.robot.commands.Autos.SquareAuto;
 import frc.robot.commands.Autos.StartOnEdgeAuto;
 import frc.robot.commands.Autos.TriangleAuto;
@@ -58,6 +59,7 @@ import frc.robot.subsystems.NewClimber;
 import frc.robot.subsystems.OldClimber;
 import frc.robot.subsystems.Pixy2SubSystem;
 import frc.robot.subsystems.Vision;
+import frc.robot.commands.Autos.TwoBallAutoWithTimeDrive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -196,8 +198,10 @@ public class RobotContainer {
 
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, oldClimber, intake));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, oldClimber, intake));
-    autoChooser.addOption("triangle", new TriangleAuto(drivetrain, oldClimber, intake));
-    autoChooser.addOption("Square", new SquareAuto(drivetrain, oldClimber, intake));
+    autoChooser.addOption("triangle 2 oponent balls", new TriangleAuto(drivetrain, oldClimber, intake));
+    autoChooser.addOption("Square 2 oponent balls", new SquareAuto(drivetrain, oldClimber, intake));
+    autoChooser.addOption("Two ball", new TwoBallAutoWithTimeDrive(drivetrain, oldClimber, intake));
+    autoChooser.addOption("one oponent ball", new OpponentCargo(drivetrain, oldClimber, intake));
 
 
     configOldClimberDashboard();
@@ -236,7 +240,6 @@ public class RobotContainer {
     lights.createBar(1.0, 50, 30, 50);
     lights.dataSetter();
     
-    drivetrain.coastMode();
   }
 
   public void initEnable() {
