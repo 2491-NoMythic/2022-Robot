@@ -229,11 +229,19 @@ public class RobotContainer {
   }
 
   public void initDisable() {
-    //drivetrain.coastMode();
+
+    drivetrain.coastMode();
+    Command currentCommand = lights.getCurrentCommand();
+    if (currentCommand != null) { currentCommand.cancel(); }
+    lights.createBar(1.0, 50, 30, 50);
+    lights.dataSetter();
+    
+    drivetrain.coastMode();
   }
 
   public void initEnable() {
     drivetrain.brakeMode();
+    new BatteryLights(lights).schedule();
   }
 
   public void initTeleop() {
