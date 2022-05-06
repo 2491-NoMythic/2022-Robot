@@ -26,6 +26,9 @@ import frc.robot.commands.LightsSoftware;
 import frc.robot.commands.PointAtCargo;
 import frc.robot.commands.Autos.AutonomousAll;
 import frc.robot.commands.Autos.AutononomousDrive;
+import frc.robot.commands.Autos.SquareAuto;
+import frc.robot.commands.Autos.StartOnEdgeAuto;
+import frc.robot.commands.Autos.TriangleAuto;
 import frc.robot.commands.Lights.BatteryLights;
 import frc.robot.commands.Lights.ClimbLights;
 import frc.robot.commands.Lights.RainbowLights;
@@ -159,6 +162,7 @@ public class RobotContainer {
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, newClimber, intake));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, newClimber, intake));
 
+
     configNewClimberDashboard();
     configNewClimberButtonBindings();
   }
@@ -192,6 +196,9 @@ public class RobotContainer {
 
     autoChooser.addOption("Taxi", new AutononomousDrive(drivetrain, oldClimber, intake));
     autoChooser.setDefaultOption("Taxi And Ball", new AutonomousAll(drivetrain, oldClimber, intake));
+    autoChooser.addOption("triangle", new TriangleAuto(drivetrain, oldClimber, intake));
+    autoChooser.addOption("Square", new SquareAuto(drivetrain, oldClimber, intake));
+
 
     configOldClimberDashboard();
     configOldClimberButtonBindings();
@@ -222,11 +229,19 @@ public class RobotContainer {
   }
 
   public void initDisable() {
+
+    drivetrain.coastMode();
+    Command currentCommand = lights.getCurrentCommand();
+    if (currentCommand != null) { currentCommand.cancel(); }
+    lights.createBar(1.0, 50, 30, 50);
+    lights.dataSetter();
+    
     drivetrain.coastMode();
   }
 
   public void initEnable() {
     drivetrain.brakeMode();
+    new BatteryLights(lights).schedule();
   }
 
   public void initTeleop() {

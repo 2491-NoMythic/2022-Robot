@@ -232,6 +232,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double convertInchesToTicks(double inches) {
+      
         return inches * INCHES_TO_ENCODER_TICKS;
     }
 

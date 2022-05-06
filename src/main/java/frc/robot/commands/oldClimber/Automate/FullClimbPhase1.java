@@ -4,6 +4,7 @@
 
 package frc.robot.commands.oldClimber.Automate;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.ArmTipState;
 import frc.robot.commands.Lights.ClimbLights;
@@ -27,12 +28,12 @@ public class FullClimbPhase1 extends SequentialCommandGroup {
    * 2. Tilts the arms forward.
    */
   public FullClimbPhase1(OldClimber climber, Intake intake, LightsHardware lights) {
-    
+    ClimbLights climbLights = new ClimbLights(lights);
     addCommands(
+      new InstantCommand(() -> { climbLights.schedule(); }),
       new MoveArm(intake, IntakeArmState.armDown),
       new TiltBackAndExtend(climber),
-      new ArmPneumaticTipping(climber, ArmTipState.IN),
-      new ClimbLights(lights)
+      new ArmPneumaticTipping(climber, ArmTipState.IN)
     );
   }
 }
