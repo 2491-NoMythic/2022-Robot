@@ -40,11 +40,12 @@ public class TriangleAuto extends SequentialCommandGroup{
   public TriangleAuto(Drivetrain drivetrain, OldClimber climber, Intake intake) {
     addCommands(
       new InstantCommand(drivetrain::brakeMode, drivetrain),
-      new ArmPneumaticTipping(climber, ArmTipState.OUT),
+      new InstantCommand(climber::setArmDown, climber),
+      new WaitCommand(.1),
 
       new ParallelRaceGroup(
         new DoubleIntake(intake, Direction.OUT, Direction.OUT),
-        new WaitCommand(2)
+        new WaitCommand(.5)
       ),
       
     new GoForwardInInches(drivetrain, .25, -25),
@@ -56,20 +57,20 @@ public class TriangleAuto extends SequentialCommandGroup{
 
 
     new ParallelRaceGroup(
-      new GoForwardInInches(drivetrain, .5, 50),
+      new GoForwardInInches(drivetrain, .5, 45),
       new DoubleIntake(intake, Direction.IN, Direction.IN)
     ),
 
     new WaitCommand(.2),
 
     new ParallelCommandGroup(
-      new GoForwardInInches(drivetrain, .25, -50),
+      new GoForwardInInches(drivetrain, .5, -57),
       new MoveArm(intake, IntakeArmState.armUp)
     ),
     new MoveArm(intake, IntakeArmState.armDown),
 
     new ParallelRaceGroup(
-      new TurnInDegrees(drivetrain, -112),
+      new TurnInDegrees(drivetrain, -100),
       new DoubleIntake(intake, Direction.IN, Direction.IN)
     ),
 
@@ -77,9 +78,11 @@ public class TriangleAuto extends SequentialCommandGroup{
     //new WaitCommand(45),
 
     new ParallelRaceGroup(
-      new GoForwardInInches(drivetrain, .5, 115),
+      new GoForwardInInches(drivetrain, .4, 115),
       new DoubleIntake(intake, Direction.IN, Direction.IN)
     ),
+
+    new WaitCommand(.2),
 
     new MoveArm(intake, IntakeArmState.armUp),
     
@@ -89,5 +92,8 @@ public class TriangleAuto extends SequentialCommandGroup{
     ),
     new CalibrateArmEncoders(climber)
     );
+
+    //150
+    //turn 130
   }
 }

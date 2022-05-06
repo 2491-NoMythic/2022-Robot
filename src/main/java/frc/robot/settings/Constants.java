@@ -185,7 +185,7 @@ public final class Constants {
         public static final int ARM_REVERSE_CHANNEL = 1;
         public static final int LEFT_MOTOR_ID = 7;
         public static final int RIGHT_MOTOR_ID = 8;
-        public static final double IN_SPEED = .5;
+        public static final double IN_SPEED = 1;
         public static final double OUT_SPEED = -1;
     }
 
